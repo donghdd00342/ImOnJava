@@ -86,29 +86,48 @@ package itest;
 //        s2.display();
 //    }
 //}
-class Student6 { // Copy Constructor
+//class Student6 { // Copy Constructor
+//
+//    int id;
+//    String name;
+//
+//    Student6(int i, String n) {
+//        id = i;
+//        name = n;
+//    }
+//
+//    Student6(Student6 s) {
+//        id = s.id;
+//        name = s.name;
+//    }
+//
+//    void display() {
+//        System.out.println(id + " " + name);
+//    }
+//
+//    public static void main(String args[]) {
+//        Student6 s1 = new Student6(111, "Hoang");
+//        Student6 s2 = new Student6(s1);
+//        s1.display();
+//        s2.display();
+//    }
+//}
+class FreshJuice {
 
-    int id;
-    String name;
-
-    Student6(int i, String n) {
-        id = i;
-        name = n;
+    enum FreshJuiceSize {
+//        Enums được giới thiệu bởi Java 5.0
+//        Enums giới hạn số lượng các biến bởi cách định nghĩa trước.
+//        Các biến trong danh sách được liệt kê gọi là enums.
+        SMALL, MEDIUM, LARGE
     }
+    FreshJuiceSize size;
+}
 
-    Student6(Student6 s) {
-        id = s.id;
-        name = s.name;
-    }
-
-    void display() {
-        System.out.println(id + " " + name);
-    }
+class FreshJuiceTest { // mặc đinh modifier là private
 
     public static void main(String args[]) {
-        Student6 s1 = new Student6(111, "Hoang");
-        Student6 s2 = new Student6(s1);
-        s1.display();
-        s2.display();
+        FreshJuice juice = new FreshJuice();
+        juice.size = FreshJuice.FreshJuiceSize.MEDIUM;
+        System.out.println("Size: " + juice.size);
     }
 }
