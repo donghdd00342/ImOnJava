@@ -63,7 +63,7 @@ public class Lap2 {
           if (square % 4 == 0) System.out.println();
         } 
         System.out.println("All done!"); */
-        
+
         // khởi tạo > kiểm tra điều kiện > thực thi > tăng biến đếm > kiểm tra điều kiện > thực thi...
         /* iloop: for (int i=1; i < 3; i++) {
             for (int j=1; j < 4; j++) {
@@ -71,7 +71,7 @@ public class Lap2 {
               System.out.println(i + ", " + j);
             }
         }*/
-        /*
+ /*
         int[] arrInt = new int[6];
         
         arrInt[0] = 1;
@@ -98,8 +98,9 @@ public class Lap2 {
             System.out.println("squares["+i+"] = "+squares[i]);            
         }
         ///////////////////////////////////*/
-        int arr1[] = { 0, 1, 2, 3, 4, 5 };
-        int arr2[] = { 5, 10, 20, 30, 40, 50 };
+ /*
+        int arr1[] = {0, 1, 2, 3, 4, 5};
+        int arr2[] = {5, 10, 20, 30, 40, 50};
         // copy 2 số từ mảng 1 bắt đầu từ vị trí 0 vào mảng 2
         System.arraycopy(arr1, 0, arr2, 3, 2);
         System.out.print("array2 = "); // In không xuống dòng
@@ -109,24 +110,33 @@ public class Lap2 {
         System.out.print(arr2[3] + " ");
         System.out.print(arr2[4] + " ");
         System.out.print(arr2[5] + " ");
-        ///////////////////////////////////////
-        
+        ///////////////////////////////
+
         // Ma trận với đường chéo = 1.0        
-        double[][] id = new double[4][4];        
+        double[][] id = new double[4][4];
         System.out.println();
-        for (int row=0; row < 4; row++) {
-          for (int col=0; col < 4; col++) {
-            if (row != col) {
-              id[row][col]=0.0;
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                if (row != col) {
+                    id[row][col] = 0.0;
+                } else {
+                    id[row][col] = 1.0;
+                }
+                System.out.print(id[row][col] + " ");
             }
-            else {
-              id[row][col] = 1.0;
-            }
-            System.out.print(id[row][col] + " ");
-          }
             System.out.println();
         }
-        
+         */
+//        StringBuilder sb = new StringBuilder("Hello ");
+//        sb.append("Java");//bay gio chuoi ban dau bi thay doi  
+//        System.out.println(sb);//in ra ket qua la Hello Java
+//        StringBuilder sb = new StringBuilder("Hello ");
+//        sb.insert(1, "Java");//bay gio chuoi ban dau bi thay doi  
+//        System.out.println(sb);//in ra ket qua la HJavaello
+
+        StringBuilder sb = new StringBuilder("Hello");
+        sb.deleteCharAt(0);
+        System.out.println(sb);//in ra ket qua la Hlo
     } // END - main
-    
+
 } // END - class
