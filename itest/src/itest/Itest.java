@@ -112,22 +112,44 @@ package itest;
 //        s2.display();
 //    }
 //}
-class FreshJuice {
-
-    enum FreshJuiceSize {
+// 1111111111111111
+//class FreshJuice {
+//
+//    enum FreshJuiceSize {
+////        Enums được giới thiệu bởi Java 5.0
+////        Enums giới hạn số lượng các biến bởi cách định nghĩa trước.
+////        Các biến trong danh sách được liệt kê gọi là enums.
+//        SMALL, MEDIUM, LARGE
+//    }
+//    FreshJuiceSize size;
+//}
+//
+//class FreshJuiceTest { // mặc đinh modifier là private
+//
+//    public static void main(String args[]) {
+//        FreshJuice juice = new FreshJuice();
+//        juice.size = FreshJuice.FreshJuiceSize.MEDIUM;
+//        System.out.println("Size: " + juice.size);
+//    }
+//}
+// 22222222222
+enum FreshJuiceSize {
 //        Enums được giới thiệu bởi Java 5.0
 //        Enums giới hạn số lượng các biến bởi cách định nghĩa trước.
 //        Các biến trong danh sách được liệt kê gọi là enums.
         SMALL, MEDIUM, LARGE
     }
-    FreshJuiceSize size;
+//    FreshJuiceSize size;
+class FreshJuice {
+
+    
 }
 
 class FreshJuiceTest { // mặc đinh modifier là private
 
     public static void main(String args[]) {
-        FreshJuice juice = new FreshJuice();
-        juice.size = FreshJuice.FreshJuiceSize.MEDIUM;
-        System.out.println("Size: " + juice.size);
+//        FreshJuice juice = new FreshJuice();
+        FreshJuiceSize juice = FreshJuiceSize.LARGE;
+        System.out.println("Size: " + juice);
     }
 }
