@@ -153,36 +153,37 @@ package itest;
 //        System.out.println("Size: " + juice);
 //    }
 //}
-class Memory { // bỏ public vì khác tên file
-
-    public static void main(String[] args) { // 1. Khởi tạo Thread và gọi main, một khối bộ nhớ được tạo trong Stack cho hàm main().
-        int i=1; // 2. biến local lưu trong stack của hàm main
-        Object obj = new Object(); // 3. Đối tượng Object() khởi tạo sẽ lưu trong Heap và biến obj tham chiếu sẽ lưu trong Stack của main()
-        Memory mem = new Memory(); // 4. Đối tượng Memory() khởi tạo lưu trong Heap và biến mem tham chiếu lưu trong Stack của main()
-        mem.foo(obj); // 5. Hàm foo() được gọi và một khối bộ nhớ trong Stack khác sẽ được cấp cho foo()
-    }
-
-    private void foo(Object param) { // 6. hàm foo() có param tham chiếu đến Object() được lưu trong Stack của foo()
-        String str = param.toString(); // 7. biến local str lưu trong Stack của foo() và tham chiếu đến đối tượng StringPool trong Heap
-        System.out.println(str);
-    } // hàm foo() kết thúc sẽ trả lại vùng nhớ Stack cho JVM
-}  // Chương trình thực hiện xong hàm main() kết thúc và trả lại vùng nhớ cho JVM và trương trình kết thúc
-
-// String pool
-//public class StringConcatenationExample {
+// Heap & Stack Memory
+//class Memory { // bỏ public vì khác tên file
 //
-//    public static void main(String[]args){
-//
-//        String str1 = "Cat";
-//
-//        String str2 = "Cat";
-//
-//        String str3 = new String("Cat");
-//
-//        System.out.println(str1 == str2); // true
-//
-//        System.out.println(str1 == str3); // false
-//
+//    public static void main(String[] args) { // 1. Khởi tạo Thread và gọi main, một khối bộ nhớ được tạo trong Stack cho hàm main().
+//        int i=1; // 2. biến local lưu trong stack của hàm main
+//        Object obj = new Object(); // 3. Đối tượng Object() khởi tạo sẽ lưu trong Heap và biến obj tham chiếu sẽ lưu trong Stack của main()
+//        Memory mem = new Memory(); // 4. Đối tượng Memory() khởi tạo lưu trong Heap và biến mem tham chiếu lưu trong Stack của main()
+//        mem.foo(obj); // 5. Hàm foo() được gọi và một khối bộ nhớ trong Stack khác sẽ được cấp cho foo()
 //    }
 //
-//}
+//    private void foo(Object param) { // 6. hàm foo() có param tham chiếu đến Object() được lưu trong Stack của foo()
+//        String str = param.toString(); // 7. biến local str lưu trong Stack của foo() và tham chiếu đến đối tượng StringPool trong Heap
+//        System.out.println(str);
+//    } // hàm foo() kết thúc sẽ trả lại vùng nhớ Stack cho JVM
+//}  // Chương trình thực hiện xong hàm main() kết thúc và trả lại vùng nhớ cho JVM và trương trình kết thúc
+
+// String pool
+class StringConcatenationExample {
+
+    public static void main(String[]args){
+
+        String str1 = "Cat"; // Tạo đối tượng trong StringPool: str1 lưu trong stack của main() tham thiếu đến đối tượng StringPool("Cat")
+
+        String str2 = "Cat"; // Tạo đối tượng trong StringPool: str2 lưu trong stack của main() tham thiếu đến đối tượng StringPool("Cat") là cùng một đối tượng giống với str1 (không tạo mới)
+
+        String str3 = new String("Cat"); // str3 lưu ở stack của main() và tham chiếu đến một đối tượng string được tạo mới khác nằm ở Heap (không phải StringPool) khác với StringPool("Cat")
+
+        System.out.println(str1 == str2); // true vì cùng tham chiếu đến StringPool("Cat")
+
+        System.out.println(str1 == str3); // false vì tham chiếu đến 2 đối tượng khác nhau (là StringPool("Cat") và String("Cat"))
+
+    } // StringPool vẫn là bất biến immutable vì cùng trỏ đến StringPool("Cat"), nếu thay đổi str1 sẽ làm thay đổi str2
+
+} // StringBuilder (SE7) được sử dụng để tạo chuỗi có thể thay đổi (chuỗi dạng mutable)
