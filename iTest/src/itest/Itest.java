@@ -133,23 +133,56 @@ package itest;
 //    }
 //}
 // 22222222222
-enum FreshJuiceSize {
-//        Enums được giới thiệu bởi Java 5.0
-//        Enums giới hạn số lượng các biến bởi cách định nghĩa trước.
-//        Các biến trong danh sách được liệt kê gọi là enums.
-        SMALL, MEDIUM, LARGE
+//enum FreshJuiceSize {
+////        Enums được giới thiệu bởi Java 5.0
+////        Enums giới hạn số lượng các biến bởi cách định nghĩa trước.
+////        Các biến trong danh sách được liệt kê gọi là enums.
+//        SMALL, MEDIUM, LARGE
+//    }
+////    FreshJuiceSize size;
+//class FreshJuice {
+//
+//    
+//}
+//
+//class FreshJuiceTest { // mặc đinh modifier là private
+//
+//    public static void main(String args[]) {
+////        FreshJuice juice = new FreshJuice();
+//        FreshJuiceSize juice = FreshJuiceSize.LARGE;
+//        System.out.println("Size: " + juice);
+//    }
+//}
+class Memory { // bỏ public vì khác tên file
+
+    public static void main(String[] args) { // 1. Khởi tạo Thread và gọi main, một khối bộ nhớ được tạo trong Stack cho hàm main().
+        int i=1; // 2. biến local lưu trong stack của hàm main
+        Object obj = new Object(); // 3. Đối tượng Object() khởi tạo sẽ lưu trong Heap và biến obj tham chiếu sẽ lưu trong Stack của main()
+        Memory mem = new Memory(); // 4. Đối tượng Memory() khởi tạo lưu trong Heap và biến mem tham chiếu lưu trong Stack của main()
+        mem.foo(obj); // 5. Hàm foo() được gọi và một khối bộ nhớ trong Stack khác sẽ được cấp cho foo()
     }
-//    FreshJuiceSize size;
-class FreshJuice {
 
-    
-}
+    private void foo(Object param) { // 6. hàm foo() có param tham chiếu đến Object() được lưu trong Stack của foo()
+        String str = param.toString(); // 7. biến local str lưu trong Stack của foo() và tham chiếu đến đối tượng StringPool trong Heap
+        System.out.println(str);
+    } // hàm foo() kết thúc sẽ trả lại vùng nhớ Stack cho JVM
+}  // Chương trình thực hiện xong hàm main() kết thúc và trả lại vùng nhớ cho JVM và trương trình kết thúc
 
-class FreshJuiceTest { // mặc đinh modifier là private
-
-    public static void main(String args[]) {
-//        FreshJuice juice = new FreshJuice();
-        FreshJuiceSize juice = FreshJuiceSize.LARGE;
-        System.out.println("Size: " + juice);
-    }
-}
+// String pool
+//public class StringConcatenationExample {
+//
+//    public static void main(String[]args){
+//
+//        String str1 = "Cat";
+//
+//        String str2 = "Cat";
+//
+//        String str3 = new String("Cat");
+//
+//        System.out.println(str1 == str2); // true
+//
+//        System.out.println(str1 == str3); // false
+//
+//    }
+//
+//}
