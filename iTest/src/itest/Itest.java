@@ -187,32 +187,50 @@ package itest;
 //
 //} // StringBuilder (SE7) được sử dụng để tạo chuỗi có thể thay đổi (chuỗi dạng mutable)
 // Static method
-class Student {
+//class Student {
+//
+//    int rollno; // mỗi sinh viên có rollno và tên khác nhau, chỉ có tên trường giống nhau -> sử dụng static để tiết kiệm bộ nhớ
+//    String name;
+//    static String college = "BKHN"; // college chỉ được gọi 1 lần khi nạp class Student (static college thuộc object của class Student
+//
+//    static void change() { // chỉ static method mới có thể thay đổi biến static
+//        college = "APTECH"; // thuộc tính static được chia sẻ tới tất cả đối tượng
+//    }
+//
+//    Student(int r, String n) { // contructor
+//        rollno = r;
+//        name = n;
+//    }
+//
+//    void display() {
+//        System.out.println(rollno + " " + name + " " + college);
+//    }
+//
+//    public static void main(String args[]) {
+//        Student.change(); // gọi hàm thay đổi theo tên Class mà không cần tạo đối tượng (vì được chia sẻ)
+//        Student s1 = new Student(111, "Nguyen Van A");
+//        Student s2 = new Student(222, "Nguyen Van B");
+//        Student s3 = new Student(333, "Nguyen Van C");
+//        s1.display();
+//        s2.display();
+//        s3.display();
+//    }
+//}
+class Counter {
 
-    int rollno; // mỗi sinh viên có rollno và tên khác nhau, chỉ có tên trường giống nhau -> sử dụng static để tiết kiệm bộ nhớ
-    String name;
-    static String college = "BKHN"; // college chỉ được gọi 1 lần khi nạp class Student (static college thuộc object của class Student
+    int count = 0; // sẽ bắt đầu lấy bộ nhớ khi khởi tạo instance (và nằm trong instance luôn vì nó là biến instance
 
-    static void change() { // chỉ static method mới có thể thay đổi biến static
-        college = "APTECH"; // thuộc tính static được chia sẻ tới tất cả đối tượng
-    }
-
-    Student(int r, String n) { // contructor
-        rollno = r;
-        name = n;
-    }
-
-    void display() {
-        System.out.println(rollno + " " + name + " " + college);
+    Counter() { // contractor: nhiệm vụ là tăng biến count (instance variable) lên một đơn vị.
+        count++; // tăng count lên một đơn vị
+        System.out.println(count); // in ra màn hình giá trị biến count
     }
 
     public static void main(String args[]) {
-        Student.change(); // gọi hàm thay đổi theo tên Class mà không cần tạo đối tượng (vì được chia sẻ)
-        Student s1 = new Student(111, "Nguyen Van A");
-        Student s2 = new Student(222, "Nguyen Van B");
-        Student s3 = new Student(333, "Nguyen Van C");
-        s1.display();
-        s2.display();
-        s3.display();
+
+        Counter c1 = new Counter(); // khởi tạo instance c1 từ protype Counter ...
+        Counter c2 = new Counter(); // ...đối tượng Counter() của c1 được lưu ở Heap và c1 tham chiếu đên nó được lưu ở Stack của main()
+        Counter c3 = new Counter(); // ...sau khi khởi tạo (cấp phát bộ nhớ) xong thì contructor sẽ chạy và tăng biến count (thuộc c1 trong Stack) lên một đơn vị
+        // vì Object Counter() lưu trong Heap chỉ là "bản mẫu" và instance varible lưu trong Stack nên sẽ in ra: 1,1,1 / mỗi dòng
+
     }
 }
