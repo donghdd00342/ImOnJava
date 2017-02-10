@@ -298,3 +298,5 @@ class ForLoopPerformanceTest
         System.out.println("Dùng [int j = list.size()-1; j >=0 ; j--] :: " + (endTime - startTime) + " ms");
     }
 } // 44ms - 4ms (??!!!)- 5ms - 4ms: túm lại là nên xử lý theo cách 3
+//------- 10/2/2017
+// supper() được gọi ngầm trong contractor con - Bất cứ một class nào đều extand từ class tổ tiên Object
