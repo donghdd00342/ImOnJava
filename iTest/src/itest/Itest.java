@@ -216,23 +216,85 @@ package itest;
 //        s3.display();
 //    }
 //}
-class Counter {
+// Static Variable
+//class Counter {
+//
+//    static int count = 0; // 2. static int sẽ lưu trong Heap cùng Objet Counter() khi được khởi tạo (thành phần thuộc Object Class Counter()) do vậy chỉ cấp phát bộ nhớ một lần
+//    // 1. sẽ bắt đầu lấy bộ nhớ khi khởi tạo instance (và nằm trong instance luôn vì nó là biến instance
+//
+//    Counter() { // contractor: nhiệm vụ là tăng biến count (instance variable) lên một đơn vị.
+//        count++; // tăng count lên một đơn vị
+//        System.out.println(count); // in ra màn hình giá trị biến count
+//    }
+//
+//    public static void main(String args[]) {
+//
+//        Counter c1 = new Counter(); // khởi tạo instance c1 từ protype Counter ...
+//        Counter c2 = new Counter(); // ...đối tượng Counter() của c1 được lưu ở Heap và c1 tham chiếu đên nó được lưu ở Stack của main()
+//        Counter c3 = new Counter(); // ...sau khi khởi tạo (cấp phát bộ nhớ) xong thì contructor sẽ chạy và tăng biến count (thuộc c1 trong Stack) lên một đơn vị
+//        // 1. vì Object Counter() lưu trong Heap chỉ là "bản mẫu" và instance varible lưu trong Stack nên sẽ in ra: 1,1,1 / mỗi dòng
+//        // 2. Vì được lưu trong Heap cùng Class Counter()(là thành phần của Object class) nên chỉ cấp bộ nhớ một lần khi gọi class -> do vậy kết quả in ra là: 1,2,3 / mỗi dòng
+//
+//    }
+//}
+////// Kiểm tra hiệu suât của For
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
-    static int count = 0; // 2. static int sẽ lưu trong Heap cùng Objet Counter() khi được khởi tạo (thành phần thuộc Object Class Counter()) do vậy chỉ cấp phát bộ nhớ một lần
-    // 1. sẽ bắt đầu lấy bộ nhớ khi khởi tạo instance (và nằm trong instance luôn vì nó là biến instance
-
-    Counter() { // contractor: nhiệm vụ là tăng biến count (instance variable) lên một đơn vị.
-        count++; // tăng count lên một đơn vị
-        System.out.println(count); // in ra màn hình giá trị biến count
+class ForLoopPerformanceTest
+{
+    private static List<Integer> list = new ArrayList<>();
+    private static long startTime;
+    private static long endTime;
+    static
+    {
+        for(int i=0; i < 10000000; i++)
+        {
+            list.add(i);
+        }
     }
+    @SuppressWarnings("unused")
+			
+			
+			
+    public static void main(String[] args)
+    {
+        //Loại 1: hiệu suất thấp nhất vì mỗi vòng lặp đều tạo ra một iterator và gọi phương thức iterator.get(), xử lý này chiếm tài nguyên và thời gian thực hiện 
+        startTime = Calendar.getInstance().getTimeInMillis();
+        for(Integer i : list)
+        {
+            //
+        }
+        endTime = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Vòng lặp for :: " + (endTime - startTime) + " ms");
 
-    public static void main(String args[]) {
+        //Loại 2: phương thức size() được gọi mỗi lần lặp vì thế hiệu suất sẽ giảm đi. Mặc dù JVM đã tối ưu lời gọi phương thức này như lời gọi nội tuyến(inline), nó ý nghĩa như phương thức getter thông thường
+        startTime = Calendar.getInstance().getTimeInMillis();
+        for(int j = 0; j < list.size() ; j++)
+        {
+            //
+        }
+        endTime = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Dùng collection.size() :: " + (endTime - startTime) + " ms");
 
-        Counter c1 = new Counter(); // khởi tạo instance c1 từ protype Counter ...
-        Counter c2 = new Counter(); // ...đối tượng Counter() của c1 được lưu ở Heap và c1 tham chiếu đên nó được lưu ở Stack của main()
-        Counter c3 = new Counter(); // ...sau khi khởi tạo (cấp phát bộ nhớ) xong thì contructor sẽ chạy và tăng biến count (thuộc c1 trong Stack) lên một đơn vị
-        // 1. vì Object Counter() lưu trong Heap chỉ là "bản mẫu" và instance varible lưu trong Stack nên sẽ in ra: 1,1,1 / mỗi dòng
-        // 2. Vì được lưu trong Heap cùng Class Counter()(là thành phần của Object class) nên chỉ cấp bộ nhớ một lần khi gọi class -> do vậy kết quả in ra là: 1,2,3 / mỗi dòng
+        //Loại 3: khởi tạo nhanh, kiểm tr điều kiện nhanh, nếu không tăng j++ thì còn nhanh nữa :D
+        startTime = Calendar.getInstance().getTimeInMillis();
+        int size = list.size();
+        for(int j = 0; j < size ; j++)
+        {
+            //System.out.println(j);
+        }
+        endTime = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Dùng [int size = list.size(); int j = 0; j < size ; j++] :: " + (endTime - startTime) + " ms");
 
+        //Loại 4: tuy có gọi size() trong lúc khởi tạo nhưng chỉ gọi 1 lần nên tốc độ không ảnh hưởng nhiều
+        startTime = Calendar.getInstance().getTimeInMillis();
+        for(int j = list.size()-1; j >=0 ; j--)
+        {
+            //System.out.println(j);
+        }
+        endTime = Calendar.getInstance().getTimeInMillis();
+        System.out.println("Dùng [int j = list.size()-1; j >=0 ; j--] :: " + (endTime - startTime) + " ms");
     }
-}
+} // 44ms - 4ms (??!!!)- 5ms - 4ms: túm lại là nên xử lý theo cách 3
