@@ -218,7 +218,8 @@ package itest;
 //}
 class Counter {
 
-    int count = 0; // sẽ bắt đầu lấy bộ nhớ khi khởi tạo instance (và nằm trong instance luôn vì nó là biến instance
+    static int count = 0; // 2. static int sẽ lưu trong Heap cùng Objet Counter() khi được khởi tạo (thành phần thuộc Object Class Counter()) do vậy chỉ cấp phát bộ nhớ một lần
+    // 1. sẽ bắt đầu lấy bộ nhớ khi khởi tạo instance (và nằm trong instance luôn vì nó là biến instance
 
     Counter() { // contractor: nhiệm vụ là tăng biến count (instance variable) lên một đơn vị.
         count++; // tăng count lên một đơn vị
@@ -230,7 +231,8 @@ class Counter {
         Counter c1 = new Counter(); // khởi tạo instance c1 từ protype Counter ...
         Counter c2 = new Counter(); // ...đối tượng Counter() của c1 được lưu ở Heap và c1 tham chiếu đên nó được lưu ở Stack của main()
         Counter c3 = new Counter(); // ...sau khi khởi tạo (cấp phát bộ nhớ) xong thì contructor sẽ chạy và tăng biến count (thuộc c1 trong Stack) lên một đơn vị
-        // vì Object Counter() lưu trong Heap chỉ là "bản mẫu" và instance varible lưu trong Stack nên sẽ in ra: 1,1,1 / mỗi dòng
+        // 1. vì Object Counter() lưu trong Heap chỉ là "bản mẫu" và instance varible lưu trong Stack nên sẽ in ra: 1,1,1 / mỗi dòng
+        // 2. Vì được lưu trong Heap cùng Class Counter()(là thành phần của Object class) nên chỉ cấp bộ nhớ một lần khi gọi class -> do vậy kết quả in ra là: 1,2,3 / mỗi dòng
 
     }
 }
