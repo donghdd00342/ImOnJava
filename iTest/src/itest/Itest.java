@@ -168,22 +168,51 @@ package itest;
 //        System.out.println(str);
 //    } // hàm foo() kết thúc sẽ trả lại vùng nhớ Stack cho JVM
 //}  // Chương trình thực hiện xong hàm main() kết thúc và trả lại vùng nhớ cho JVM và trương trình kết thúc
-
 // String pool
-class StringConcatenationExample {
+//class StringConcatenationExample {
+//
+//    public static void main(String[]args){
+//
+//        String str1 = "Cat"; // Tạo đối tượng trong StringPool: str1 lưu trong stack của main() tham thiếu đến đối tượng StringPool("Cat")
+//
+//        String str2 = "Cat"; // Tạo đối tượng trong StringPool: str2 lưu trong stack của main() tham thiếu đến đối tượng StringPool("Cat") là cùng một đối tượng giống với str1 (không tạo mới)
+//
+//        String str3 = new String("Cat"); // str3 lưu ở stack của main() và tham chiếu đến một đối tượng string được tạo mới khác nằm ở Heap (không phải StringPool) khác với StringPool("Cat")
+//
+//        System.out.println(str1 == str2); // true vì cùng tham chiếu đến StringPool("Cat")
+//
+//        System.out.println(str1 == str3); // false vì tham chiếu đến 2 đối tượng khác nhau (là StringPool("Cat") và String("Cat"))
+//
+//    } // StringPool vẫn là bất biến immutable vì cùng trỏ đến StringPool("Cat"), nếu thay đổi str1 sẽ làm thay đổi str2
+//
+//} // StringBuilder (SE7) được sử dụng để tạo chuỗi có thể thay đổi (chuỗi dạng mutable)
+// Static method
+class Student {
 
-    public static void main(String[]args){
+    int rollno;
+    String name;
+    static String college = "BKHN";
 
-        String str1 = "Cat"; // Tạo đối tượng trong StringPool: str1 lưu trong stack của main() tham thiếu đến đối tượng StringPool("Cat")
+    static void change() { // static method có thể thay đổi biến static
+        college = "APTECH";
+    }
 
-        String str2 = "Cat"; // Tạo đối tượng trong StringPool: str2 lưu trong stack của main() tham thiếu đến đối tượng StringPool("Cat") là cùng một đối tượng giống với str1 (không tạo mới)
+    Student(int r, String n) { // contructor
+        rollno = r;
+        name = n;
+    }
 
-        String str3 = new String("Cat"); // str3 lưu ở stack của main() và tham chiếu đến một đối tượng string được tạo mới khác nằm ở Heap (không phải StringPool) khác với StringPool("Cat")
+    void display() {
+        System.out.println(rollno + " " + name + " " + college);
+    }
 
-        System.out.println(str1 == str2); // true vì cùng tham chiếu đến StringPool("Cat")
-
-        System.out.println(str1 == str3); // false vì tham chiếu đến 2 đối tượng khác nhau (là StringPool("Cat") và String("Cat"))
-
-    } // StringPool vẫn là bất biến immutable vì cùng trỏ đến StringPool("Cat"), nếu thay đổi str1 sẽ làm thay đổi str2
-
-} // StringBuilder (SE7) được sử dụng để tạo chuỗi có thể thay đổi (chuỗi dạng mutable)
+    public static void main(String args[]) {
+        Student.change(); // gọi hàm thay đổi theo tên Class mà không cần tạo đối tượng
+        Student s1 = new Student(111, "Nguyen Van A");
+        Student s2 = new Student(222, "Nguyen Van B");
+        Student s3 = new Student(333, "Nguyen Van C");
+        s1.display();
+        s2.display();
+        s3.display();
+    }
+}
