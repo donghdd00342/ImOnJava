@@ -189,12 +189,12 @@ package itest;
 // Static method
 class Student {
 
-    int rollno;
+    int rollno; // mỗi sinh viên có rollno và tên khác nhau, chỉ có tên trường giống nhau -> sử dụng static để tiết kiệm bộ nhớ
     String name;
-    static String college = "BKHN";
+    static String college = "BKHN"; // college chỉ được gọi 1 lần khi nạp class Student (static college thuộc object của class Student
 
-    static void change() { // static method có thể thay đổi biến static
-        college = "APTECH";
+    static void change() { // chỉ static method mới có thể thay đổi biến static
+        college = "APTECH"; // thuộc tính static được chia sẻ tới tất cả đối tượng
     }
 
     Student(int r, String n) { // contructor
@@ -207,7 +207,7 @@ class Student {
     }
 
     public static void main(String args[]) {
-        Student.change(); // gọi hàm thay đổi theo tên Class mà không cần tạo đối tượng
+        Student.change(); // gọi hàm thay đổi theo tên Class mà không cần tạo đối tượng (vì được chia sẻ)
         Student s1 = new Student(111, "Nguyen Van A");
         Student s2 = new Student(222, "Nguyen Van B");
         Student s3 = new Student(333, "Nguyen Van C");
