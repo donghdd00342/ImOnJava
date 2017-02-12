@@ -126,6 +126,7 @@ public class MyDemo {
 
         // III. Khởi tạo một string để query
         String sql;
+        int index = 0;
 
         // III.3 Xem kết quả trả về (dữ liệu) với đối tượng ResultSet.
         sql = "SELECT * FROM students";
@@ -136,11 +137,16 @@ public class MyDemo {
             String rollNo = rs.getString("rollno");
             String name = rs.getString("name");
             String phoneNumber = rs.getString("phonenumber");
-            System.out.println("--------------------");
+            ++index;
+            System.out.println("---------- STT: "+index+" ----------");
             System.out.println("Số hiệu:" + rollNo);
             System.out.println("Họ Tên:" + name);
             System.out.println("Số điện thoại:" + phoneNumber);
         }
+        if (index == 0) {
+            System.out.println("KHÔNG CÓ DỮ LIỆU...");
+        }
+
         // Đóng kết nối
         connection.close();
 
