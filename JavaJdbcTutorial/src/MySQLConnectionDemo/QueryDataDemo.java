@@ -26,16 +26,16 @@ public class QueryDataDemo {
         Statement statement = connection.createStatement();
 
         // III. Khởi tạo một string để query
-        // III.1. Ví dụ tạo bảng
         String sql;
+        // III.1. Ví dụ tạo bảng
         sql = "create table STUDENTS ("
             + "   ID integer not null,"
             + "   NAME varchar(255) not null,"
             + "   PHONENUMBER varchar(20) not null);";
         // Thực thi câu lệnh.
         // executeUpdate(String) sử dụng cho các loại lệnh Create,Insert,Update,Delete...
-        int row = statement.executeUpdate(sql);
-        System.err.println("Tạo bảng thành công");
+        statement.executeUpdate(sql);
+        System.out.println("Tạo bảng thành công");
         // III.2 Ví dụ Insert dữ liệu
     }
 
