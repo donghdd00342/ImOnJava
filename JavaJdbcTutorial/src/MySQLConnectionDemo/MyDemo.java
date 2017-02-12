@@ -64,29 +64,55 @@ public class MyDemo {
     public static void addStudent() throws ClassNotFoundException,
             SQLException {
         System.out.println("--- 1. addStudent");
-        MyDemo.continued();
+        // I. Lấy ra đối tượng Connection kết nối vào DB.
+        Connection connection = MySQLConnUtils.getMySQLConnection();
 
+        // II. Tạo đối tượng Statement.
+        Statement statement = connection.createStatement();
+
+        // III. Khởi tạo một string để query
+        String sql;
+        char tt = 'y';
+
+        while (tt == 'y') {
+            System.out.print("- Nhập MÃ SINH VIÊN: ");
+            String rollNo = new Scanner(System.in).nextLine();
+            System.out.print("- Nhập HỌ TÊN: ");
+            String name = new Scanner(System.in).nextLine();
+            System.out.print("- Nhập SỐ ĐIỆN THOẠI: ");
+            String phonenumber = new Scanner(System.in).nextLine();
+            sql = "INSERT INTO students (rollno,name,phonenumber)"
+                    + "VALUES ('" + rollNo + "', '" + name + "', '" + phonenumber + "');";
+            // Thực thi câu lệnh.        
+            statement.executeUpdate(sql);
+            System.out.println("***** Thêm dữ liệu thành công *****");
+
+            System.out.println("--- Bạn có muốn thêm tiếp không? y/n: ");
+            tt = new Scanner(System.in).nextLine().toCharArray()[0];
+        }
+
+        MyDemo.continued();
     }
 
     public static void editStudent() throws ClassNotFoundException,
             SQLException {
         System.out.println("--- 2. editStudent");
-        MyDemo.continued();
 
+        MyDemo.continued();
     }
 
     public static void deleteStudent() throws ClassNotFoundException,
             SQLException {
         System.out.println("--- 3. deleteStudent");
-        MyDemo.continued();
 
+        MyDemo.continued();
     }
 
     public static void searchStudent() throws ClassNotFoundException,
             SQLException {
         System.out.println("--- 4. searchStudent");
-        MyDemo.continued();
 
+        MyDemo.continued();
     }
 
     public static void listStudent() throws ClassNotFoundException,
