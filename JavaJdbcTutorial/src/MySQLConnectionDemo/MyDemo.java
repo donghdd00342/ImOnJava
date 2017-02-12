@@ -122,29 +122,29 @@ public class MyDemo {
                 break;
             }
         }
-        // nếu tìm thấy thì updateString(int chi_muc_cot, String x)
+        // nếu tìm thấy thì hỏi nhập thông tin mới và xử lý
         if (found == 1) {
             // Nhập thông tin mới
             System.out.print("- Nhập MÃ SINH VIÊN mới: ");
             String newRollNo = new Scanner(System.in).nextLine();
             if (!"".equals(newRollNo)) {
                 // Thực thi câu lệnh.        
-                statement.executeUpdate("UPDATE students SET rollno='"+newRollNo+"' WHERE rollno='"+rollNo+"';");
-                System.out.println("- Đã thay MÃ SINH VIÊN mới: "+newRollNo);
+                statement.executeUpdate("UPDATE students SET rollno='" + newRollNo + "' WHERE rollno='" + rollNo + "';");
+                System.out.println("- Đã thay MÃ SINH VIÊN mới: " + newRollNo);
             }
             System.out.print("- Nhập HỌ TÊN MỚI mới: ");
             String newName = new Scanner(System.in).nextLine();
             if (!"".equals(newName)) {
                 // Thực thi câu lệnh.        
-                statement.executeUpdate("UPDATE students SET name='"+newName+"' WHERE rollno='"+rollNo+"';");
-                System.out.println("- Đã thay HỌ TÊN mới: "+newName);
+                statement.executeUpdate("UPDATE students SET name='" + newName + "' WHERE rollno='" + rollNo + "';");
+                System.out.println("- Đã thay HỌ TÊN mới: " + newName);
             }
             System.out.print("- Nhập SỐ ĐIỆN THOẠI mới: ");
             String newPhoneNumber = new Scanner(System.in).nextLine();
             if (!"".equals(newPhoneNumber)) {
                 // Thực thi câu lệnh.        
-                statement.executeUpdate("UPDATE students SET phonenumber='"+newPhoneNumber+"' WHERE rollno='"+rollNo+"';");
-                System.out.println("- Đã thay SỐ ĐIỆN THOẠI mới: "+newPhoneNumber);
+                statement.executeUpdate("UPDATE students SET phonenumber='" + newPhoneNumber + "' WHERE rollno='" + rollNo + "';");
+                System.out.println("- Đã thay SỐ ĐIỆN THOẠI mới: " + newPhoneNumber);
             }
         } else {
             // không tìm thấy thì thông báo cho người dùng biết
@@ -159,7 +159,59 @@ public class MyDemo {
 
     public static void deleteStudent() throws ClassNotFoundException,
             SQLException {
-        System.out.println("--- 3. deleteStudent");
+        // I. Lấy ra đối tượng Connection kết nối vào DB.
+        Connection connection = MySQLConnUtils.getMySQLConnection();
+
+        // II. Tạo đối tượng Statement.
+        Statement statement = connection.createStatement();
+
+        // III. Khởi tạo một string để query
+        String sql;
+        int found = 0;
+        String name = "";
+        String phoneNumber = "";
+
+        // Nhập mã sinh viên để tìm sửa
+        System.out.print("- Nhập MÃ SINH VIÊN cần xóa: ");
+        String rollNo = new Scanner(System.in).nextLine();
+        System.out.print("");
+
+        // III.3 Xem kết quả trả về (dữ liệu) với đối tượng ResultSet.
+        sql = "SELECT * FROM students";
+        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
+        ResultSet rs = statement.executeQuery(sql);
+        // Duyệt trên kết quả trả về.
+        // Tìm trong cơ sở dữ liệu nếu tìm thấy thì dưng while
+        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
+            String rollNoWhile = rs.getString("rollno");
+            if (rollNo.equals(rollNoWhile)) {
+                found = 1;
+                name = rs.getString("name");
+                phoneNumber = rs.getString("phonenumber");
+                break;
+            }
+        }
+        // nếu tìm thấy hiển thị và hỏi xóa
+        if (found == 1) {
+            // Xác nhận xóa
+            System.out.println("----- ĐÃ TÌM THẤY SINH VIÊN ----- ");
+            System.out.println("- Mã SV: " + rollNo);
+            System.out.println("- Họ Tên SV: " + name);
+            System.out.println("- Số ĐT SV: " + phoneNumber);
+            System.out.println("----- Bạn có chắc là muốn xóa? y/n ");
+            char del = new Scanner(System.in).nextLine().toCharArray()[0];
+            if (del == 'y') {
+                // Thực thi câu lệnh.
+                statement.executeUpdate("DELETE FROM students WHERE rollno=" + rollNo + ";");
+                System.out.println("- Đã xóa SINH VIÊN! " + rollNo);
+            }
+        } else {
+            // không tìm thấy thì thông báo cho người dùng biết
+            System.out.println("Không tìm thấy sinh viên có mã số vừa nhập!");
+        }
+
+        // Đóng kết nối
+        connection.close();
 
         MyDemo.continued();
     }
