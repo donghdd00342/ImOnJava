@@ -6,16 +6,21 @@
 package MySQLConnectionDemo;
 
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
  * @author DongHo
  */
 public class MyDemo {
-    
+
     static int choice = 1;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException,
+            SQLException {
         while (choice != 6) {
             System.out.println("--------- CHƯƠNG TRÌNH QUẢN LÝ SINH VIÊN --------");
             System.out.println("1. Thêm mới Sinh Viên");
@@ -56,36 +61,66 @@ public class MyDemo {
         System.out.println("--------- Xin chào tạm biệt --------");
     }
 
-    public static void addStudent() {
+    public static void addStudent() throws ClassNotFoundException,
+            SQLException {
         System.out.println("--- 1. addStudent");
         MyDemo.continued();
 
     }
 
-    public static void editStudent() {
+    public static void editStudent() throws ClassNotFoundException,
+            SQLException {
         System.out.println("--- 2. editStudent");
         MyDemo.continued();
 
     }
 
-    public static void deleteStudent() {
+    public static void deleteStudent() throws ClassNotFoundException,
+            SQLException {
         System.out.println("--- 3. deleteStudent");
         MyDemo.continued();
 
     }
 
-    public static void searchStudent() {
+    public static void searchStudent() throws ClassNotFoundException,
+            SQLException {
         System.out.println("--- 4. searchStudent");
         MyDemo.continued();
 
     }
 
-    public static void listStudent() {
+    public static void listStudent() throws ClassNotFoundException,
+            SQLException {
         System.out.println("--- 5. listStudent");
-        MyDemo.continued();
+        // I. Lấy ra đối tượng Connection kết nối vào DB.
+        Connection connection = MySQLConnUtils.getMySQLConnection();
 
+        // II. Tạo đối tượng Statement.
+        Statement statement = connection.createStatement();
+
+        // III. Khởi tạo một string để query
+        String sql;
+
+        // III.3 Xem kết quả trả về (dữ liệu) với đối tượng ResultSet.
+        sql = "SELECT * FROM students";
+        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
+        ResultSet rs = statement.executeQuery(sql);
+        // Duyệt trên kết quả trả về.
+        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
+            String rollNo = rs.getString("rollno");
+            String name = rs.getString("name");
+            String phoneNumber = rs.getString("phonenumber");
+            System.out.println("--------------------");
+            System.out.println("Số hiệu:" + rollNo);
+            System.out.println("Họ Tên:" + name);
+            System.out.println("Số điện thoại:" + phoneNumber);
+        }
+        // Đóng kết nối
+        connection.close();
+
+        MyDemo.continued();
     }
-    
+
     public static void continued() {
         System.out.println("--- Chọn [0] để quay về menu, chọn [6] để thoát: ");
         choice = new Scanner(System.in).nextInt();
