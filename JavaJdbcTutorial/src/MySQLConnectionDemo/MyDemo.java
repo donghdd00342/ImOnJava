@@ -218,7 +218,62 @@ public class MyDemo {
 
     public static void searchStudent() throws ClassNotFoundException,
             SQLException {
-        System.out.println("--- 4. searchStudent");
+        // I. Lấy ra đối tượng Connection kết nối vào DB.
+        Connection connection = MySQLConnUtils.getMySQLConnection();
+
+        // II. Tạo đối tượng Statement.
+        Statement statement = connection.createStatement();
+
+        // III. Khởi tạo một string để query
+        String sql;
+        int found = 0;
+        String name = "";
+        String phoneNumber = "";
+
+        // Nhập mã sinh viên để tìm
+        System.out.print("- Nhập MÃ SINH VIÊN cần tìm: ");
+        String rollNo = new Scanner(System.in).nextLine();
+        System.out.print("");
+
+        // III.3 Xem kết quả trả về (dữ liệu) với đối tượng ResultSet.
+        sql = "SELECT * FROM students";
+        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
+        ResultSet rs = statement.executeQuery(sql);
+        // Duyệt trên kết quả trả về.
+        // Tìm trong cơ sở dữ liệu nếu tìm thấy thì dưng while
+        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
+            String rollNoWhile = rs.getString("rollno");
+            if (rollNo.equals(rollNoWhile)) {
+                found = 1;
+                name = rs.getString("name");
+                phoneNumber = rs.getString("phonenumber");
+                System.out.println("----- ĐÃ TÌM THẤY SINH VIÊN ----- ");
+                System.out.println("- Mã SV: " + rollNo);
+                System.out.println("- Họ Tên SV: " + name);
+                System.out.println("- Số ĐT SV: " + phoneNumber);
+                System.out.println("----- Bạn có muốn tìm tiếp không? y/n ");
+                char search = new Scanner(System.in).nextLine().toCharArray()[0];
+                if (search == 'y') {
+                    // reset found
+                    found = 0;
+                    // Nhập Mã SV khác để tìm
+                    System.out.println("- Nhập MÃ SINH VIÊN khác cần tìm: ");
+                    rollNo = new Scanner(System.in).nextLine();
+                    // Nhảy về đâu
+                    rs.first();
+                } else {
+                    break;
+                }
+            }
+        }
+        // nếu tìm thấy hiển thị và hỏi xóa
+        if (found == 0) {
+            // không tìm thấy thì thông báo cho người dùng biết
+            System.out.println("Không tìm thấy sinh viên có mã số vừa nhập!");
+        }
+
+        // Đóng kết nối
+        connection.close();
 
         MyDemo.continued();
     }
