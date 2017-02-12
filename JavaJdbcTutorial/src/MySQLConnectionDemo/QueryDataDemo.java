@@ -28,15 +28,18 @@ public class QueryDataDemo {
         // III. Khởi tạo một string để query
         String sql;
         // III.1. Ví dụ tạo bảng
-        sql = "create table STUDENTS ("
-            + "   ID integer not null,"
-            + "   NAME varchar(255) not null,"
-            + "   PHONENUMBER varchar(20) not null);";
+        sql = "CREATE TABLE students ("
+            + "rollno INTEGER NOT NULL,"
+            + "name VARCHAR(255) NOT NULL,"
+            + "phonenumber VARCHAR(20));";
         // Thực thi câu lệnh.
         // executeUpdate(String) sử dụng cho các loại lệnh Create,Insert,Update,Delete...
         statement.executeUpdate(sql);
         System.out.println("Tạo bảng thành công");
-        // III.2 Ví dụ Insert dữ liệu
+        // III.2 Ví dụ Insert dữ liệu^
+//        sql = "INSERT INTO table_name (column1,column2,column3,...)\n"
+//            + "VALUES (value1,value2,value3,...);";
+
     }
 
 }
