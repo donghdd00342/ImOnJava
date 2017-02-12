@@ -63,7 +63,6 @@ public class MyDemo {
 
     public static void addStudent() throws ClassNotFoundException,
             SQLException {
-        System.out.println("--- 1. addStudent");
         // I. Lấy ra đối tượng Connection kết nối vào DB.
         Connection connection = MySQLConnUtils.getMySQLConnection();
 
@@ -96,7 +95,64 @@ public class MyDemo {
 
     public static void editStudent() throws ClassNotFoundException,
             SQLException {
-        System.out.println("--- 2. editStudent");
+        // I. Lấy ra đối tượng Connection kết nối vào DB.
+        Connection connection = MySQLConnUtils.getMySQLConnection();
+
+        // II. Tạo đối tượng Statement.
+        Statement statement = connection.createStatement();
+
+        // III. Khởi tạo một string để query
+        String sql;
+        int found = 0;
+
+        // Nhập mã sinh viên để tìm sửa
+        System.out.print("- Nhập MÃ SINH VIÊN để tìm sửa: ");
+        String rollNo = new Scanner(System.in).nextLine();
+
+        // III.3 Xem kết quả trả về (dữ liệu) với đối tượng ResultSet.
+        sql = "SELECT * FROM students";
+        // Thực thi câu lệnh SQL trả về đối tượng ResultSet.
+        ResultSet rs = statement.executeQuery(sql);
+        // Duyệt trên kết quả trả về.
+        // Tìm trong cơ sở dữ liệu nếu tìm thấy thì dưng while
+        while (rs.next()) {// Di chuyển con trỏ xuống bản ghi kế tiếp.
+            String rollNoWhile = rs.getString("rollno");
+            if (rollNo.equals(rollNoWhile)) {
+                found = 1;
+                break;
+            }
+        }
+        // nếu tìm thấy thì updateString(int chi_muc_cot, String x)
+        if (found == 1) {
+            // Nhập thông tin mới
+            System.out.print("- Nhập MÃ SINH VIÊN mới: ");
+            String newRollNo = new Scanner(System.in).nextLine();
+            if (!"".equals(newRollNo)) {
+                // Thực thi câu lệnh.        
+                statement.executeUpdate("UPDATE students SET rollno='"+newRollNo+"' WHERE rollno='"+rollNo+"';");
+                System.out.println("- Đã thay MÃ SINH VIÊN mới: "+newRollNo);
+            }
+            System.out.print("- Nhập HỌ TÊN MỚI mới: ");
+            String newName = new Scanner(System.in).nextLine();
+            if (!"".equals(newName)) {
+                // Thực thi câu lệnh.        
+                statement.executeUpdate("UPDATE students SET name='"+newName+"' WHERE rollno='"+rollNo+"';");
+                System.out.println("- Đã thay HỌ TÊN mới: "+newName);
+            }
+            System.out.print("- Nhập SỐ ĐIỆN THOẠI mới: ");
+            String newPhoneNumber = new Scanner(System.in).nextLine();
+            if (!"".equals(newPhoneNumber)) {
+                // Thực thi câu lệnh.        
+                statement.executeUpdate("UPDATE students SET phonenumber='"+newPhoneNumber+"' WHERE rollno='"+rollNo+"';");
+                System.out.println("- Đã thay SỐ ĐIỆN THOẠI mới: "+newPhoneNumber);
+            }
+        } else {
+            // không tìm thấy thì thông báo cho người dùng biết
+            System.out.println("Không tìm thấy sinh viên có mã số vừa nhập!");
+        }
+
+        // Đóng kết nối
+        connection.close();
 
         MyDemo.continued();
     }
@@ -117,7 +173,6 @@ public class MyDemo {
 
     public static void listStudent() throws ClassNotFoundException,
             SQLException {
-        System.out.println("--- 5. listStudent");
         // I. Lấy ra đối tượng Connection kết nối vào DB.
         Connection connection = MySQLConnUtils.getMySQLConnection();
 
@@ -138,7 +193,7 @@ public class MyDemo {
             String name = rs.getString("name");
             String phoneNumber = rs.getString("phonenumber");
             ++index;
-            System.out.println("---------- STT: "+index+" ----------");
+            System.out.println("---------- STT: " + index + " ----------");
             System.out.println("Số hiệu:" + rollNo);
             System.out.println("Họ Tên:" + name);
             System.out.println("Số điện thoại:" + phoneNumber);
