@@ -606,29 +606,62 @@ package itest;
 //}  
 /////////
 //Chuong trinh vi du loi goi this() constructor (constructor chaining)  
-class Student13 {
+//class Student13 {
+//
+//    int id;
+//    String name;
+//
+//    Student13() {
+//        System.out.println("Constructor mac dinh duoc goi");
+//    }
+//
+//    Student13(int id, String name) {
+//        this(); //no duoc su dung de goi constructor cua lop hien tai. và phải là dòng lệnh dầu tiên trong 
+//        this.id = id;
+//        this.name = name;
+//    }
+//
+//    void display() {
+//        System.out.println(id + " " + name);
+//    }
+//
+//    public static void main(String args[]) {
+//        Student13 e1 = new Student13(111, "Hoang");
+//        Student13 e2 = new Student13(222, "Thanh");
+//        e1.display();
+//        e2.display();
+//    }
+//}
+//////////// truyền tham số this trong contructor (HẠI NÃO...)
+class B {
 
-    int id;
-    String name;
+    A4 obj;
 
-    Student13() {
-        System.out.println("Constructor mac dinh duoc goi");
-    }
-
-    Student13(int id, String name) {
-        this(); //no duoc su dung de goi constructor cua lop hien tai.  
-        this.id = id;
-        this.name = name;
+    B(A4 obj) {
+        System.out.println("ĐÂY LÀ CONTRUCTOR CỦA B");
+        System.out.println("TRONG instance B có 1 biến obj là instance A4 và nó sẽ được gán = tham số truyền vào contructor B (tức là obj = a)");
+        this.obj = obj;
     }
 
     void display() {
-        System.out.println(id + " " + name);
+        System.out.println("Đây là câu lệnh trong hàm display()");
+        System.out.println("Vì obj = a cùng thuộc A4 nên obj.data = a.data = "+obj.data); //su dung thanh vien du lieu cua lop A4  
+    }
+}
+
+class A4 {
+
+    int data = 10;
+
+    A4() {
+        System.out.println("1.biến a thuộc A4 được khởi tạo và a.data = "+ this.data);
+        System.out.println("2.khởi tạo biến b thuộc B trong contructor A4");
+        B b = new B(this);
+        System.out.println("3.gọi hàm display() của b vừa tạo.");
+        b.display();
     }
 
     public static void main(String args[]) {
-        Student13 e1 = new Student13(111, "Hoang");
-        Student13 e2 = new Student13(222, "Thanh");
-        e1.display();
-        e2.display();
+        A4 a = new A4();
     }
 }
