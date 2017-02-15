@@ -342,33 +342,72 @@ package itest;
 //    }
 //}
 // vi du de trao doi gia tri cua hai so
-class Test {
+//class Test {
+//
+//    public static void main(String[] args) {
+//        int a = 30;
+//        int b = 45;
+//
+//        System.out.println("Truoc khi trao doi, gia tri cua a = "
+//                + a + " va b = " + b);
+//
+//        // Trieu hoi phuong thuc hamTraoDoi
+//        hamTraoDoi(a, b);
+//        System.out.println("\n**Bay gio, Truoc va Sau khi trao doi, cac gia tri se giong nhu nhau o day**:");
+//        System.out.println("Sau khi trao doi, a = "
+//                + a + " va b = " + b);
+//        System.out.println("Kết luận là: truyền tham số kiểu tham trị thì giá trị biến truyền không bị ảnh hưởng");
+//    }
+//
+//    public static void hamTraoDoi(int a, int b) {
+//
+//        System.out.println("Truoc khi trao doi (ben trong phuong thuc) , a = " + a
+//                + " va b = " + b);
+//        // trao doi gia tri cua hai so
+//        int c = a;
+//        a = b;
+//        b = c;
+//
+//        System.out.println("Sau khi trao doi (ben trong phuong thuc), a = " + a
+//                + " va b = " + b);
+//    }
+//}
+////////// Ví dụ Overloading
+class ExampleOverloading {
 
     public static void main(String[] args) {
-        int a = 30;
-        int b = 45;
-
-        System.out.println("Truoc khi trao doi, gia tri cua a = "
-                + a + " va b = " + b);
-
-        // Trieu hoi phuong thuc hamTraoDoi
-        hamTraoDoi(a, b);
-        System.out.println("\n**Bay gio, Truoc va Sau khi trao doi, cac gia tri se giong nhu nhau o day**:");
-        System.out.println("Sau khi trao doi, a = "
-                + a + " va b = " + b);
-        System.out.println("Kết luận là: truyền tham số kiểu tham trị thì giá trị biến truyền không bị ảnh hưởng");
+        int a = 11;
+        int b = 6;
+        double c = 7.3;
+        double d = 9.4;
+        int result1 = minFunction(a, b);
+        // cung ten ham voi tham so khac nhau
+        double result2 = minFunction(c, d);
+        System.out.println("Gia tri nho nhat = " + result1);
+        System.out.println("Gia tri nho nhat = " + result2);
     }
 
-    public static void hamTraoDoi(int a, int b) {
+    // cho integer
+    public static int minFunction(int n1, int n2) {
+        int min;
+        if (n1 > n2) {
+            min = n2;
+        } else {
+            min = n1;
+        }
 
-        System.out.println("Truoc khi trao doi (ben trong phuong thuc) , a = " + a
-                + " va b = " + b);
-        // trao doi gia tri cua hai so
-        int c = a;
-        a = b;
-        b = c;
+        return min;
+    }
+    // cho double
 
-        System.out.println("Sau khi trao doi (ben trong phuong thuc), a = " + a
-                + " va b = " + b);
+    public static double minFunction(double n1, double n2) {
+        double min;
+        if (n1 > n2) {
+            min = n2;
+        } else {
+            min = n1;
+        }
+
+        return min;
     }
 }
