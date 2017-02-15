@@ -538,14 +538,32 @@ package itest;
 //    }
 //}
 /////////////// Overloading main()without static
-class Overloading1 {
+//class Overloading1 {
+//
+//    public void main(int a) {
+//        System.out.println(a);
+//    }
+//
+//    public static void main(String args[]) {
+//        System.out.println("Phuong thuc main() duoc trieu hoi");
+//        new Overloading1().main(10);
+//    }
+//}
+//////////// TypePromotion : byte-short-int-long-float-double (kiểu nhỏ bị kiểu lớn ăn)
+class OverloadingCalculation1 {
 
-    public void main(int a) {
-        System.out.println(a);
+    void sum(int a, long b) {
+        System.out.println(a + b);
+    }
+
+    void sum(int a, int b, int c) {
+        System.out.println(a + b + c);
     }
 
     public static void main(String args[]) {
-        System.out.println("Phuong thuc main() duoc trieu hoi");
-        new Overloading1().main(10);
+        OverloadingCalculation1 obj = new OverloadingCalculation1();
+        obj.sum(20, 20); //Bay gio int literal thu hai se duoc promote thanh long  
+        obj.sum(20, 20, 20);
+
     }
 }
