@@ -447,7 +447,7 @@ package itest;
 //        System.out.println("Gia tri max la " + result);
 //    }
 //}
-//////// Overloading để in danh sách mảng các loại dữ liệu
+//////// Overloading để in danh sách mảng các loại dữ liệu // truyền tham số khác kiểu, thiếu tham số ....
 class MainClass {
    public static void printArray(Integer[] inputArray) {
       for (Integer element : inputArray){
