@@ -549,21 +549,40 @@ package itest;
 //        new Overloading1().main(10);
 //    }
 //}
-//////////// TypePromotion : byte-short-int-long-float-double (kiểu nhỏ bị kiểu lớn ăn)
-class OverloadingCalculation1 {
+//////////// Type Promotion : byte-short-int-long-float-double (kiểu nhỏ bị kiểu lớn ăn)
+///////// MƠ HỒ VÌ KIỂU NGUYÊN THỦY KHÔNG PHẢI LÀ OBJECT ĐỂ KIỂM TRA THỰC TẾ???
+//class OverloadingCalculation1 {
+//
+//    void sum(int a, long b) {
+//        Object b1 = new Object();
+//        b1 = b;
+//        System.out.println(b1.getClass().getName());
+//    }
+//
+//    void sum(int a, int b, int c) {
+//        System.out.println("int b = " + b);
+//    }
+//
+//    public static void main(String args[]) {
+//        OverloadingCalculation1 obj = new OverloadingCalculation1();
+//        obj.sum(20, 20); //Bây giờ int literal thu hai se đươc promote thành long  
+//        obj.sum(20, 20, 20);
+//
+//    }
+//}
+////////////////
+class OverloadingCalculation2 {
 
-    void sum(int a, long b) {
-        System.out.println(a + b);
+    void sum(int a, int b) {
+        System.out.println("phuong thuc int arg duoc trieu hoi");
     }
 
-    void sum(int a, int b, int c) {
-        System.out.println(a + b + c);
+    void sum(long a, long b) {
+        System.out.println("phuong thuc long arg duoc trieu hoi");
     }
 
     public static void main(String args[]) {
-        OverloadingCalculation1 obj = new OverloadingCalculation1();
-        obj.sum(20, 20); //Bay gio int literal thu hai se duoc promote thanh long  
-        obj.sum(20, 20, 20);
-
+        OverloadingCalculation2 obj = new OverloadingCalculation2();
+        obj.sum(20, 20); //Bay gio phuong thuc int arg sum() duoc trieu hoi  
     }
 }
