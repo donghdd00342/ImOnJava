@@ -412,12 +412,38 @@ package itest;
 //    }
 //}
 ////////// Thử commend-line
-public class Itest {
+//public class Itest {
+//
+//    public static void main(String args[]) {
+//        for (int i = 0; i < args.length; i++) {
+//            System.out.println("args[" + i + "]: "
+//                    + args[i]);
+//        }
+//    }
+//}
+////////////// truyền số lượng tham số tùy chọn với var-args
+class VarargsDemo {
 
     public static void main(String args[]) {
-        for (int i = 0; i < args.length; i++) {
-            System.out.println("args[" + i + "]: "
-                    + args[i]);
+        // Goi phuong thuc voi bien args  
+        printMax(34, 3, 3, 2, 56.5);
+        System.out.println("----------------");
+        printMax(new double[]{1, 2, 3});
+    }
+
+    public static void printMax(double... numbers) {
+        if (numbers.length == 0) {
+            System.out.println("Khong co tham so nao duoc truyen");
+            return;
         }
+
+        double result = numbers[0];
+
+        for (int i = 1; i < numbers.length; i++) {
+            if (numbers[i] > result) {
+                result = numbers[i];
+            }
+        }
+        System.out.println("Gia tri max la " + result);
     }
 }
