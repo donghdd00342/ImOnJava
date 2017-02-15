@@ -571,18 +571,36 @@ package itest;
 //    }
 //}
 ////////////////
-class OverloadingCalculation2 {
-
-    void sum(int a, int b) {
-        System.out.println("phuong thuc int arg duoc trieu hoi");
-    }
-
-    void sum(long a, long b) {
-        System.out.println("phuong thuc long arg duoc trieu hoi");
-    }
-
-    public static void main(String args[]) {
-        OverloadingCalculation2 obj = new OverloadingCalculation2();
-        obj.sum(20, 20); //Bay gio phuong thuc int arg sum() duoc trieu hoi  
-    }
-}
+//class OverloadingCalculation2 {
+//
+//    void sum(int a, int b) {
+//        System.out.println("phuong thuc int arg duoc trieu hoi");
+//    }
+//
+//    void sum(long a, long b) {
+//        System.out.println("phuong thuc long arg duoc trieu hoi");
+//    }
+//
+//    public static void main(String args[]) {
+//        OverloadingCalculation2 obj = new OverloadingCalculation2();
+//        obj.sum(20, 20); //Bay gio phuong thuc int arg sum() duoc trieu hoi  
+//    }
+//}
+// Từ khóa this có thể được sử dụng để tham chiếu biến instance của lớp hiện tại (lưỡng nghĩa giữa biến instance và tham số)
+//Vi du ve tu khoa this trong Java  
+class Student11{  
+    int id;  
+    String name;  
+      
+    Student11(int id,String name){  
+    this.id = id;  // biến instance giống tham số nên sẽ bị hiểu là biến local
+    this.name = name;  
+    }  
+    void display(){System.out.println(id+" "+name);}  
+    public static void main(String args[]){  
+    Student11 s1 = new Student11(111,"Hoang");  
+    Student11 s2 = new Student11(222,"Thanh");  
+    s1.display();  
+    s2.display();  
+}  
+}  
