@@ -448,35 +448,56 @@ package itest;
 //    }
 //}
 //////// Overloading để in danh sách mảng các loại dữ liệu // truyền tham số khác kiểu, thiếu tham số ....
+//class MainClass {
+//   public static void printArray(Integer[] inputArray) {
+//      for (Integer element : inputArray){
+//         System.out.printf("%s ", element);
+//         System.out.println();
+//      }
+//   }
+//   public static void printArray(Double[] inputArray) {
+//      for (Double element : inputArray){
+//         System.out.printf("%s ", element);
+//         System.out.println();
+//      }
+//   }
+//   public static void printArray(Character[] inputArray) {
+//      for (Character element : inputArray){
+//         System.out.printf("%s ", element);
+//         System.out.println();
+//      }
+//   }
+//   public static void main(String args[]) {
+//      Integer[] integerArray = { 1, 2, 3, 4, 5, 6 };
+//      Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4,
+//      5.5, 6.6, 7.7 };
+//      Character[] characterArray = { 'H', 'E', 'L', 'L', 'O' };
+//      System.out.println("Array integerArray contains:");
+//      printArray(integerArray); // không chèn trưc tiếp giá trị mảng vào đươc
+//      System.out.println("\nArray doubleArray contains:");
+//      printArray(doubleArray);
+//      System.out.println("\nArray characterArray contains:");
+//      printArray(characterArray);
+//   }
+//}
+/////////////// Tháp hà nội ĐỆ QUY với Java
 class MainClass {
-   public static void printArray(Integer[] inputArray) {
-      for (Integer element : inputArray){
-         System.out.printf("%s ", element);
-         System.out.println();
-      }
-   }
-   public static void printArray(Double[] inputArray) {
-      for (Double element : inputArray){
-         System.out.printf("%s ", element);
-         System.out.println();
-      }
-   }
-   public static void printArray(Character[] inputArray) {
-      for (Character element : inputArray){
-         System.out.printf("%s ", element);
-         System.out.println();
-      }
-   }
-   public static void main(String args[]) {
-      Integer[] integerArray = { 1, 2, 3, 4, 5, 6 };
-      Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4,
-      5.5, 6.6, 7.7 };
-      Character[] characterArray = { 'H', 'E', 'L', 'L', 'O' };
-      System.out.println("Array integerArray contains:");
-      printArray(integerArray); // không chèn trưc tiếp giá trị mảng vào đươc
-      System.out.println("\nArray doubleArray contains:");
-      printArray(doubleArray);
-      System.out.println("\nArray characterArray contains:");
-      printArray(characterArray);
-   }
+
+    public static void main(String[] args) {
+        int nDisks = 5;
+        doTowers(nDisks, 'A', 'B', 'C');
+    }
+
+    public static void doTowers(int topN, char from,
+            char inter, char to) {
+        if (topN == 1) {
+            System.out.println("Disk 1 from "
+                    + from + " to " + to);
+        } else {
+            doTowers(topN - 1, from, to, inter);
+            System.out.println("Disk "
+                    + topN + " from " + from + " to " + to);
+            doTowers(topN - 1, inter, from, to);
+        }
+    }
 }
