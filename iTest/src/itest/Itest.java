@@ -238,65 +238,91 @@ package itest;
 //    }
 //}
 ////// Kiểm tra hiệu suât của For
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.Calendar;
+//import java.util.List;
+//
+//class ForLoopPerformanceTest
+//{
+//    private static List<Integer> list = new ArrayList<>();
+//    private static long startTime;
+//    private static long endTime;
+//    static
+//    {
+//        for(int i=0; i < 10000000; i++)
+//        {
+//            list.add(i);
+//        }
+//    }
+//    @SuppressWarnings("unused")
+//			
+//			
+//			
+//    public static void main(String[] args)
+//    {
+//        //Loại 1: hiệu suất thấp nhất vì mỗi vòng lặp đều tạo ra một iterator và gọi phương thức iterator.get(), xử lý này chiếm tài nguyên và thời gian thực hiện 
+//        startTime = Calendar.getInstance().getTimeInMillis();
+//        for(Integer i : list)
+//        {
+//            //
+//        }
+//        endTime = Calendar.getInstance().getTimeInMillis();
+//        System.out.println("Vòng lặp for :: " + (endTime - startTime) + " ms");
+//
+//        //Loại 2: phương thức size() được gọi mỗi lần lặp vì thế hiệu suất sẽ giảm đi. Mặc dù JVM đã tối ưu lời gọi phương thức này như lời gọi nội tuyến(inline), nó ý nghĩa như phương thức getter thông thường
+//        startTime = Calendar.getInstance().getTimeInMillis();
+//        for(int j = 0; j < list.size() ; j++)
+//        {
+//            //
+//        }
+//        endTime = Calendar.getInstance().getTimeInMillis();
+//        System.out.println("Dùng collection.size() :: " + (endTime - startTime) + " ms");
+//
+//        //Loại 3: khởi tạo nhanh, kiểm tr điều kiện nhanh, nếu không tăng j++ thì còn nhanh nữa :D
+//        startTime = Calendar.getInstance().getTimeInMillis();
+//        int size = list.size();
+//        for(int j = 0; j < size ; j++)
+//        {
+//            //System.out.println(j);
+//        }
+//        endTime = Calendar.getInstance().getTimeInMillis();
+//        System.out.println("Dùng [int size = list.size(); int j = 0; j < size ; j++] :: " + (endTime - startTime) + " ms");
+//
+//        //Loại 4: tuy có gọi size() trong lúc khởi tạo nhưng chỉ gọi 1 lần nên tốc độ không ảnh hưởng nhiều
+//        startTime = Calendar.getInstance().getTimeInMillis();
+//        for(int j = list.size()-1; j >=0 ; j--)
+//        {
+//            //System.out.println(j);
+//        }
+//        endTime = Calendar.getInstance().getTimeInMillis();
+//        System.out.println("Dùng [int j = list.size()-1; j >=0 ; j--] :: " + (endTime - startTime) + " ms");
+//    }
 
-class ForLoopPerformanceTest
-{
-    private static List<Integer> list = new ArrayList<>();
-    private static long startTime;
-    private static long endTime;
-    static
-    {
-        for(int i=0; i < 10000000; i++)
-        {
-            list.add(i);
-        }
-    }
-    @SuppressWarnings("unused")
-			
-			
-			
-    public static void main(String[] args)
-    {
-        //Loại 1: hiệu suất thấp nhất vì mỗi vòng lặp đều tạo ra một iterator và gọi phương thức iterator.get(), xử lý này chiếm tài nguyên và thời gian thực hiện 
-        startTime = Calendar.getInstance().getTimeInMillis();
-        for(Integer i : list)
-        {
-            //
-        }
-        endTime = Calendar.getInstance().getTimeInMillis();
-        System.out.println("Vòng lặp for :: " + (endTime - startTime) + " ms");
 
-        //Loại 2: phương thức size() được gọi mỗi lần lặp vì thế hiệu suất sẽ giảm đi. Mặc dù JVM đã tối ưu lời gọi phương thức này như lời gọi nội tuyến(inline), nó ý nghĩa như phương thức getter thông thường
-        startTime = Calendar.getInstance().getTimeInMillis();
-        for(int j = 0; j < list.size() ; j++)
-        {
-            //
-        }
-        endTime = Calendar.getInstance().getTimeInMillis();
-        System.out.println("Dùng collection.size() :: " + (endTime - startTime) + " ms");
-
-        //Loại 3: khởi tạo nhanh, kiểm tr điều kiện nhanh, nếu không tăng j++ thì còn nhanh nữa :D
-        startTime = Calendar.getInstance().getTimeInMillis();
-        int size = list.size();
-        for(int j = 0; j < size ; j++)
-        {
-            //System.out.println(j);
-        }
-        endTime = Calendar.getInstance().getTimeInMillis();
-        System.out.println("Dùng [int size = list.size(); int j = 0; j < size ; j++] :: " + (endTime - startTime) + " ms");
-
-        //Loại 4: tuy có gọi size() trong lúc khởi tạo nhưng chỉ gọi 1 lần nên tốc độ không ảnh hưởng nhiều
-        startTime = Calendar.getInstance().getTimeInMillis();
-        for(int j = list.size()-1; j >=0 ; j--)
-        {
-            //System.out.println(j);
-        }
-        endTime = Calendar.getInstance().getTimeInMillis();
-        System.out.println("Dùng [int j = list.size()-1; j >=0 ; j--] :: " + (endTime - startTime) + " ms");
-    }
-} // 44ms - 4ms (??!!!)- 5ms - 4ms: túm lại là nên xử lý theo cách 3
+//} // 44ms - 4ms (??!!!)- 5ms - 4ms: túm lại là nên xử lý theo cách 3
 //------- 10/2/2017
 // supper() được gọi ngầm trong contractor con - Bất cứ một class nào đều extand từ class tổ tiên Object
+///// gọi phương thức có return
+class ExampleMinNumber {
+
+    public static void main(String[] args) {
+        int a = 11;
+        int b = 6;
+        int c = minFunction(a, b);
+        System.out.println("Gia tri nho nhat = " + c);
+    }
+
+    /**
+     * Tra ve gia tri nho nhat cua hai so
+     */
+    public static int minFunction(int n1, int n2) {
+        int min;
+        if (n1 > n2) {
+            min = n2;
+        } else {
+            min = n1;
+        }
+
+        return min;
+    }
+}
