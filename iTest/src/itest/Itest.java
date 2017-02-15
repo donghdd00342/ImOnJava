@@ -587,20 +587,48 @@ package itest;
 //    }
 //}
 // Từ khóa this có thể được sử dụng để tham chiếu biến instance của lớp hiện tại (lưỡng nghĩa giữa biến instance và tham số)
-//Vi du ve tu khoa this trong Java  
-class Student11{  
-    int id;  
-    String name;  
-      
-    Student11(int id,String name){  
-    this.id = id;  // biến instance giống tham số nên sẽ bị hiểu là biến local
-    this.name = name;  
-    }  
-    void display(){System.out.println(id+" "+name);}  
-    public static void main(String args[]){  
-    Student11 s1 = new Student11(111,"Hoang");  
-    Student11 s2 = new Student11(222,"Thanh");  
-    s1.display();  
-    s2.display();  
-}  
-}  
+//Vi du ve tu khoa this trong Java khi tham số trùng tên với biến instance
+//class Student11{  
+//    int id;  
+//    String name;  
+//      
+//    Student11(int id,String name){  
+//    this.id = id;  // biến instance giống tham số nên sẽ bị hiểu là biến local
+//    this.name = name;  
+//    }  
+//    void display(){System.out.println(id+" "+name);}  
+//    public static void main(String args[]){  
+//    Student11 s1 = new Student11(111,"Hoang");  
+//    Student11 s2 = new Student11(222,"Thanh");  
+//    s1.display();  
+//    s2.display();  
+//}  
+//}  
+/////////
+//Chuong trinh vi du loi goi this() constructor (constructor chaining)  
+class Student13 {
+
+    int id;
+    String name;
+
+    Student13() {
+        System.out.println("Constructor mac dinh duoc goi");
+    }
+
+    Student13(int id, String name) {
+        this(); //no duoc su dung de goi constructor cua lop hien tai.  
+        this.id = id;
+        this.name = name;
+    }
+
+    void display() {
+        System.out.println(id + " " + name);
+    }
+
+    public static void main(String args[]) {
+        Student13 e1 = new Student13(111, "Hoang");
+        Student13 e2 = new Student13(222, "Thanh");
+        e1.display();
+        e2.display();
+    }
+}
