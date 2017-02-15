@@ -520,20 +520,32 @@ package itest;
 //    }
 //}
 ////////////// Tính Giai Thừa (factorial) dùng ĐỆ QUY với Java
-class MainClass {
+//class MainClass {
+//
+//    public static void main(String args[]) {
+//        for (int counter = 0; counter <= 10; counter++) {
+//            System.out.printf("%d! = %d\n", counter,
+//                    factorial(counter));
+//        }
+//    }
+//
+//    public static long factorial(long number) {
+//        if (number <= 1) {
+//            return 1;
+//        } else {
+//            return number * factorial(number - 1);
+//        }
+//    }
+//}
+/////////////// Overloading main()
+class Overloading1 {
 
-    public static void main(String args[]) {
-        for (int counter = 0; counter <= 10; counter++) {
-            System.out.printf("%d! = %d\n", counter,
-                    factorial(counter));
-        }
+    public static void main(int a) {
+        System.out.println(a);
     }
 
-    public static long factorial(long number) {
-        if (number <= 1) {
-            return 1;
-        } else {
-            return number * factorial(number - 1);
-        }
+    public static void main(String args[]) {
+        System.out.println("Phuong thuc main() duoc trieu hoi");
+        main(10);
     }
 }
