@@ -325,19 +325,50 @@ package itest;
 //    }
 //}
 ////// procedure
-class ExampleVoid {
+//class ExampleVoid {
+//
+//    public static void main(String[] args) {
+//        methodRankPoints(255.7);
+//    }
+//
+//    public static void methodRankPoints(double points) {
+//        if (points >= 202.5) {
+//            System.out.println("Rank:A1");
+//        } else if (points >= 122.4) {
+//            System.out.println("Rank:A2");
+//        } else {
+//            System.out.println("Rank:A3");
+//        }
+//    }
+//}
+// vi du de trao doi gia tri cua hai so
+class Test {
 
     public static void main(String[] args) {
-        methodRankPoints(255.7);
+        int a = 30;
+        int b = 45;
+
+        System.out.println("Truoc khi trao doi, gia tri cua a = "
+                + a + " va b = " + b);
+
+        // Trieu hoi phuong thuc hamTraoDoi
+        hamTraoDoi(a, b);
+        System.out.println("\n**Bay gio, Truoc va Sau khi trao doi, cac gia tri se giong nhu nhau o day**:");
+        System.out.println("Sau khi trao doi, a = "
+                + a + " va b = " + b);
+        System.out.println("Kết luận là: truyền tham số kiểu tham trị thì giá trị biến truyền không bị ảnh hưởng");
     }
 
-    public static void methodRankPoints(double points) {
-        if (points >= 202.5) {
-            System.out.println("Rank:A1");
-        } else if (points >= 122.4) {
-            System.out.println("Rank:A2");
-        } else {
-            System.out.println("Rank:A3");
-        }
+    public static void hamTraoDoi(int a, int b) {
+
+        System.out.println("Truoc khi trao doi (ben trong phuong thuc) , a = " + a
+                + " va b = " + b);
+        // trao doi gia tri cua hai so
+        int c = a;
+        a = b;
+        b = c;
+
+        System.out.println("Sau khi trao doi (ben trong phuong thuc), a = " + a
+                + " va b = " + b);
     }
 }
