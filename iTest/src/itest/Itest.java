@@ -481,23 +481,41 @@ package itest;
 //   }
 //}
 /////////////// Tháp hà nội ĐỆ QUY với Java
+//class MainClass {
+//
+//    public static void main(String[] args) {
+//        int nDisks = 5;
+//        doTowers(nDisks, 'A', 'B', 'C');
+//    }
+//
+//    public static void doTowers(int topN, char from,
+//            char inter, char to) {
+//        if (topN == 1) {
+//            System.out.println("Disk 1 from "
+//                    + from + " to " + to);
+//        } else {
+//            doTowers(topN - 1, from, to, inter);
+//            System.out.println("Disk "
+//                    + topN + " from " + from + " to " + to);
+//            doTowers(topN - 1, inter, from, to);
+//        }
+//    }
+//}
+///////////////// Tính Fibonacci ĐẸ QUY vơi Java
 class MainClass {
 
-    public static void main(String[] args) {
-        int nDisks = 5;
-        doTowers(nDisks, 'A', 'B', 'C');
+    public static long fibonacci(long number) {
+        if ((number == 0) || (number == 1)) {
+            return number;
+        } else {
+            return fibonacci(number - 1) + fibonacci(number - 2);
+        }
     }
 
-    public static void doTowers(int topN, char from,
-            char inter, char to) {
-        if (topN == 1) {
-            System.out.println("Disk 1 from "
-                    + from + " to " + to);
-        } else {
-            doTowers(topN - 1, from, to, inter);
-            System.out.println("Disk "
-                    + topN + " from " + from + " to " + to);
-            doTowers(topN - 1, inter, from, to);
+    public static void main(String[] args) {
+        for (int counter = 0; counter <= 10; counter++) {
+            System.out.printf("Fibonacci of %d is: %d\n",
+                    counter, fibonacci(counter));
         }
     }
 }
