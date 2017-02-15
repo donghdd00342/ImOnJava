@@ -422,28 +422,61 @@ package itest;
 //    }
 //}
 ////////////// truyền số lượng tham số tùy chọn với var-args
-class VarargsDemo {
-
-    public static void main(String args[]) {
-        // Goi phuong thuc voi bien args  
-        printMax(34, 3, 3, 2, 56.5);
-        System.out.println("----------------");
-        printMax(new double[]{1, 2, 3});
-    }
-
-    public static void printMax(double... numbers) {
-        if (numbers.length == 0) {
-            System.out.println("Khong co tham so nao duoc truyen");
-            return;
-        }
-
-        double result = numbers[0];
-
-        for (int i = 1; i < numbers.length; i++) {
-            if (numbers[i] > result) {
-                result = numbers[i];
-            }
-        }
-        System.out.println("Gia tri max la " + result);
-    }
+//class VarargsDemo {
+//
+//    public static void main(String[] args) {
+//        // Goi phuong thuc voi bien args  
+//        printMax(34, 3, 3, 2, 56.5);
+//        System.out.println("----------------");
+//        printMax(new double[]{1, 2, 3});
+//    }
+//
+//    public static void printMax(double... numbers) {
+//        if (numbers.length == 0) {
+//            System.out.println("Khong co tham so nao duoc truyen");
+//            return;
+//        }
+//
+//        double result = numbers[0];
+//
+//        for (int i = 1; i < numbers.length; i++) {
+//            if (numbers[i] > result) {
+//                result = numbers[i];
+//            }
+//        }
+//        System.out.println("Gia tri max la " + result);
+//    }
+//}
+//////// Overloading để in danh sách mảng các loại dữ liệu
+class MainClass {
+   public static void printArray(Integer[] inputArray) {
+      for (Integer element : inputArray){
+         System.out.printf("%s ", element);
+         System.out.println();
+      }
+   }
+   public static void printArray(Double[] inputArray) {
+      for (Double element : inputArray){
+         System.out.printf("%s ", element);
+         System.out.println();
+      }
+   }
+   public static void printArray(Character[] inputArray) {
+      for (Character element : inputArray){
+         System.out.printf("%s ", element);
+         System.out.println();
+      }
+   }
+   public static void main(String args[]) {
+      Integer[] integerArray = { 1, 2, 3, 4, 5, 6 };
+      Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4,
+      5.5, 6.6, 7.7 };
+      Character[] characterArray = { 'H', 'E', 'L', 'L', 'O' };
+      System.out.println("Array integerArray contains:");
+      printArray(integerArray); // không chèn trưc tiếp giá trị mảng vào đươc
+      System.out.println("\nArray doubleArray contains:");
+      printArray(doubleArray);
+      System.out.println("\nArray characterArray contains:");
+      printArray(characterArray);
+   }
 }
