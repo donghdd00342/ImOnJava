@@ -297,32 +297,47 @@ package itest;
 //        endTime = Calendar.getInstance().getTimeInMillis();
 //        System.out.println("Dùng [int j = list.size()-1; j >=0 ; j--] :: " + (endTime - startTime) + " ms");
 //    }
-
-
 //} // 44ms - 4ms (??!!!)- 5ms - 4ms: túm lại là nên xử lý theo cách 3
 //------- 10/2/2017
 // supper() được gọi ngầm trong contractor con - Bất cứ một class nào đều extand từ class tổ tiên Object
 ///// gọi phương thức có return
-class ExampleMinNumber {
+//class ExampleMinNumber {
+//
+//    public static void main(String[] args) {
+//        int a = 11;
+//        int b = 6;
+//        int c = minFunction(a, b);
+//        System.out.println("Gia tri nho nhat = " + minFunction(a, b));
+//    }
+//
+//    /**
+//     * Tra ve gia tri nho nhat cua hai so
+//     */
+//    public static int minFunction(int n1, int n2) {
+//        int min;
+//        if (n1 > n2) {
+//            min = n2;
+//        } else {
+//            min = n1;
+//        }
+//
+//        return min;
+//    }
+//}
+////// procedure
+class ExampleVoid {
 
     public static void main(String[] args) {
-        int a = 11;
-        int b = 6;
-        int c = minFunction(a, b);
-        System.out.println("Gia tri nho nhat = " + minFunction(a, b));
+        methodRankPoints(255.7);
     }
 
-    /**
-     * Tra ve gia tri nho nhat cua hai so
-     */
-    public static int minFunction(int n1, int n2) {
-        int min;
-        if (n1 > n2) {
-            min = n2;
+    public static void methodRankPoints(double points) {
+        if (points >= 202.5) {
+            System.out.println("Rank:A1");
+        } else if (points >= 122.4) {
+            System.out.println("Rank:A2");
         } else {
-            min = n1;
+            System.out.println("Rank:A3");
         }
-
-        return min;
     }
 }
