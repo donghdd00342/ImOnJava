@@ -309,7 +309,7 @@ class ExampleMinNumber {
         int a = 11;
         int b = 6;
         int c = minFunction(a, b);
-        System.out.println("Gia tri nho nhat = " + c);
+        System.out.println("Gia tri nho nhat = " + minFunction(a, b));
     }
 
     /**
