@@ -537,15 +537,15 @@ package itest;
 //        }
 //    }
 //}
-/////////////// Overloading main()
+/////////////// Overloading main()without static
 class Overloading1 {
 
-    public static void main(int a) {
+    public void main(int a) {
         System.out.println(a);
     }
 
     public static void main(String args[]) {
         System.out.println("Phuong thuc main() duoc trieu hoi");
-        main(10);
+        new Overloading1().main(10);
     }
 }
