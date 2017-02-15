@@ -502,20 +502,38 @@ package itest;
 //    }
 //}
 ///////////////// Tính Fibonacci ĐẸ QUY vơi Java
+//class MainClass {
+//
+//    public static long fibonacci(long number) {
+//        if ((number == 0) || (number == 1)) {
+//            return number;
+//        } else {
+//            return fibonacci(number - 1) + fibonacci(number - 2);
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        for (int counter = 0; counter <= 10; counter++) {
+//            System.out.printf("Fibonacci of %d is: %d\n",
+//                    counter, fibonacci(counter));
+//        }
+//    }
+//}
+////////////// Tính Giai Thừa (factorial) dùng ĐỆ QUY với Java
 class MainClass {
 
-    public static long fibonacci(long number) {
-        if ((number == 0) || (number == 1)) {
-            return number;
-        } else {
-            return fibonacci(number - 1) + fibonacci(number - 2);
+    public static void main(String args[]) {
+        for (int counter = 0; counter <= 10; counter++) {
+            System.out.printf("%d! = %d\n", counter,
+                    factorial(counter));
         }
     }
 
-    public static void main(String[] args) {
-        for (int counter = 0; counter <= 10; counter++) {
-            System.out.printf("Fibonacci of %d is: %d\n",
-                    counter, fibonacci(counter));
+    public static long factorial(long number) {
+        if (number <= 1) {
+            return 1;
+        } else {
+            return number * factorial(number - 1);
         }
     }
 }
