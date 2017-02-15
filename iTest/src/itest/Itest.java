@@ -633,35 +633,49 @@ package itest;
 //    }
 //}
 //////////// truyền tham số this trong contructor (HẠI NÃO...)
-class B {
+//class B {
+//
+//    A4 obj;
+//
+//    B(A4 obj) {
+//        System.out.println("ĐÂY LÀ CONTRUCTOR CỦA B");
+//        System.out.println("TRONG instance B có 1 biến obj là instance A4 và nó sẽ được gán = tham số truyền vào contructor B (tức là obj = a)");
+//        this.obj = obj;
+//    }
+//
+//    void display() {
+//        System.out.println("Đây là câu lệnh trong hàm display()");
+//        System.out.println("Vì obj = a cùng thuộc A4 nên obj.data = a.data = "+obj.data); //su dung thanh vien du lieu cua lop A4  
+//    }
+//}
+//
+//class A4 {
+//
+//    int data = 10;
+//
+//    A4() {
+//        System.out.println("1.biến a thuộc A4 được khởi tạo và a.data = "+ this.data);
+//        System.out.println("2.khởi tạo biến b thuộc B trong contructor A4");
+//        B b = new B(this);
+//        System.out.println("3.gọi hàm display() của b vừa tạo.");
+//        b.display();
+//    }
+//
+//    public static void main(String args[]) {
+//        A4 a = new A4();
+//    }
+//}
+//////// Từ khóa this có thể được sử dụng để trả về instance của lớp hiện tại
+class A5 {
 
-    A4 obj;
-
-    B(A4 obj) {
-        System.out.println("ĐÂY LÀ CONTRUCTOR CỦA B");
-        System.out.println("TRONG instance B có 1 biến obj là instance A4 và nó sẽ được gán = tham số truyền vào contructor B (tức là obj = a)");
-        this.obj = obj;
-    }
-
-    void display() {
-        System.out.println("Đây là câu lệnh trong hàm display()");
-        System.out.println("Vì obj = a cùng thuộc A4 nên obj.data = a.data = "+obj.data); //su dung thanh vien du lieu cua lop A4  
-    }
-}
-
-class A4 {
-
-    int data = 10;
-
-    A4() {
-        System.out.println("1.biến a thuộc A4 được khởi tạo và a.data = "+ this.data);
-        System.out.println("2.khởi tạo biến b thuộc B trong contructor A4");
-        B b = new B(this);
-        System.out.println("3.gọi hàm display() của b vừa tạo.");
-        b.display();
+    void m() {
+        System.out.println(this);//in ra cung tham chieu ID  
     }
 
     public static void main(String args[]) {
-        A4 a = new A4();
+        A5 obj = new A5();
+        System.out.println(obj);//in tham chieu ID  
+
+        obj.m();
     }
 }
