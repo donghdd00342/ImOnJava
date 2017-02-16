@@ -702,30 +702,72 @@ package itest;
 //    }
 //}
 //////////// QUAN HỆ HAS-A
-class Operation { // chứa các phép tính toán
+//class Operation { // chứa các phép tính toán
+//
+//    int square(int n) { // tính bình phương
+//        return n * n;
+//    }
+//}
+//
+//class Circle {
+//
+//    Operation op; //quan hệ HAS-A  
+//    double pi = 3.14;
+//
+//    double area(int radius) { // method tính diện tích hình tròn với tham số radius truyền vào
+//        op = new Operation();
+//        int rsquare = op.square(radius); //tai su dung code (vi du: uy quyen cho loi goi phuong thuc).  
+//        return pi * rsquare;
+//    }
+//}
+//
+//class test {
+//
+//    public static void main(String args[]) {
+//        Circle c = new Circle();
+//        double result = c.area(5);
+//        System.out.println(result);
+//    }
+//}
+//////// HAS-A
+class Address {
 
-    int square(int n) { // tính bình phương
-        return n * n;
+    String city, state, country;
+
+    public Address(String city, String state, String country) {
+        this.city = city;
+        this.state = state;
+        this.country = country;
     }
+
 }
 
-class Circle {
+class Emp {
 
-    Operation op; //quan hệ HAS-A  
-    double pi = 3.14;
+    int id;
+    String name;
+    Address address;
 
-    double area(int radius) { // method tính diện tích hình tròn với tham số radius truyền vào
-        op = new Operation();
-        int rsquare = op.square(radius); //tai su dung code (vi du: uy quyen cho loi goi phuong thuc).  
-        return pi * rsquare;
+    public Emp(int id, String name, Address address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
     }
-}
 
-class test {
+    void display() {
+        System.out.println(id + " " + name);
+        System.out.println(address.city + " " + address.state + " " + address.country);
+    }
 
-    public static void main(String args[]) {
-        Circle c = new Circle();
-        double result = c.area(5);
-        System.out.println(result);
+    public static void main(String[] args) {
+        Address address1 = new Address("hanoi", "HN", "vietnam");
+        Address address2 = new Address("hadong", "HN", "vietnam");
+
+        Emp e = new Emp(111, "hoang", address1);
+        Emp e2 = new Emp(112, "thanh", address2);
+
+        e.display();
+        e2.display();
+
     }
 }
