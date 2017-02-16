@@ -677,5 +677,9 @@ class A5 {
         System.out.println(obj);//in tham chieu ID  
 
         obj.m();
+        
+        // Thử NaN
+        System.out.println("NaN = " + 0.0/0.0);
+        System.out.println("-Inf = " + -1.0/0.0);
     }
 }
