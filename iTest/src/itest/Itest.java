@@ -773,26 +773,4 @@ import java.util.Scanner;
 //
 //    }
 //}
-/////////////////// kiểm tra một chuỗi Palindrome bằng Java
-class Palindrome {
 
-    public static void main(String[] args) {
-        String str;
-        System.out.println("Mời bạn nhập vào một chuỗi để kiểm tra: ");
-        str = new Scanner(System.in).nextLine();
-
-        int a = str.length() - 1;
-        int b = str.length() / 2;
-        boolean right = true;
-        for (int i = 0; i < b; i++) {
-            if (str.charAt(i) != str.charAt(a - i)) {
-                right = false;
-            }
-        }
-        if (right) {
-            System.out.println("Chuỗi CHÍNH LÀ là Palindrome!");
-        } else {
-            System.out.println("Chuỗi KHÔNG PHẢI là Palindrome!");
-        }
-    }
-}
