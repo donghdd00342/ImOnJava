@@ -666,20 +666,66 @@ package itest;
 //    }
 //}
 //////// Từ khóa this có thể được sử dụng để trả về instance của lớp hiện tại
-class A5 {
+//class A5 {
+//
+//    void m() {
+//        System.out.println(this);//in ra cung tham chieu ID  
+//    }
+//
+//    public static void main(String args[]) {
+//        A5 obj = new A5();
+//        System.out.println(obj);//in tham chieu ID  
+//
+//        obj.m();
+//        
+//        // Thử NaN
+//        System.out.println("NaN = " + 0.0/0.0);
+//        System.out.println("-Inf = " + -1.0/0.0);
+//    }
+//}
+/////////// KẾ THỪA IS-A
+/// Java không hỗ trợ đa kế thừa (kế thừa từ nhiều lớp) vì nếu các lớp được kế thừa có phương thức giống nhau thì tại class con khi gọi sẽ xảy ra tính lưỡng nghĩa và ngôn ngữ sẽ phức tạp, vậy nên java ko hỗ trợ đa kế thừa trong class và sẽ báo lỗi khi complie
+//class Employee {
+//
+//    protected float salary = 40000;
+//}
+//
+//class Programmer extends Employee {
+//
+//    protected int bonus = 10000;
+//
+//    public static void main(String args[]) {
+//        Programmer p = new Programmer();
+//        System.out.println("Luong Lap trinh vien la:" + p.salary);
+//        System.out.println("Bonus cua Lap trinh vien la:" + p.bonus);
+//        Math.addExact(0, 0);
+//    }
+//}
+//////////// QUAN HỆ HAS-A
+class Operation { // chứa các phép tính toán
 
-    void m() {
-        System.out.println(this);//in ra cung tham chieu ID  
+    int square(int n) { // tính bình phương
+        return n * n;
     }
+}
+
+class Circle {
+
+    Operation op; //quan hệ HAS-A  
+    double pi = 3.14;
+
+    double area(int radius) { // method tính diện tích hình tròn với tham số radius truyền vào
+        op = new Operation();
+        int rsquare = op.square(radius); //tai su dung code (vi du: uy quyen cho loi goi phuong thuc).  
+        return pi * rsquare;
+    }
+}
+
+class test {
 
     public static void main(String args[]) {
-        A5 obj = new A5();
-        System.out.println(obj);//in tham chieu ID  
-
-        obj.m();
-        
-        // Thử NaN
-        System.out.println("NaN = " + 0.0/0.0);
-        System.out.println("-Inf = " + -1.0/0.0);
+        Circle c = new Circle();
+        double result = c.area(5);
+        System.out.println(result);
     }
 }
