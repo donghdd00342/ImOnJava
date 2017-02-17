@@ -100,21 +100,19 @@ public class Algorithms {
 //        System.out.println("Hai chuỗi nhập vào là Anagrams!");
 //    }
 ///////////////// đảo 2 số cho nhau
-    // Cách 1
     static int a;
     static int b;
 
     public static void main(String[] args) {
 
         // Nhập vào từ người dùng
-        boolean loop = true;
-        while (loop) {
+        while (true) {
             try {
                 System.out.println("Nhập vào số a = ");
                 a = new Scanner(System.in).nextInt();
                 System.out.println("Nhập vào số b = ");
                 b = new Scanner(System.in).nextInt();
-                loop = false;
+                break;
 
             } catch (Exception e) {
                 System.err.println("Vui lòng chỉ nhập số!");
