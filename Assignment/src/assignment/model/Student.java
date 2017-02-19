@@ -7,14 +7,35 @@ package assignment.model;
 
 /**
  * Class này định nghĩa lớp đối tượng sinh viên
+ *
  * @author DongHo
  */
 public class Student {
-    String masv;
-    String name;
+
+    private String masv;
+    private String name;
+
     public Student(String masv, String name) {
         this.masv = masv;
         this.name = name;
     }
+
+    public String getMasv() {
+        return masv;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setMasv(String masv) {
+        this.masv = masv;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
+    
+
 }
