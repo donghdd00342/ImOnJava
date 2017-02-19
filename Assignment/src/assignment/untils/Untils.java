@@ -6,7 +6,6 @@
 package assignment.untils;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /**
  * Class này chứa các tiện ích nhập số, ký tự, chuỗi... từ người dùng
