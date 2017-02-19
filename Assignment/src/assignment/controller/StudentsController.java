@@ -26,10 +26,10 @@ public class StudentsController {
         boolean continueBoolean = true;
         while (continueBoolean) {
             System.out.println("Nhập vào mã số sinh viên: ");
-            student.masv = Untils.getString(3);
+            student.setMasv(Untils.getString(3));
 
             System.out.println("Nhập vào tên sinh viên: ");
-            student.name = Untils.getString(3);
+            student.setName(Untils.getString(3));
 
             System.out.println("... chèn dữ liệu vào bảng...");
 
