@@ -15,6 +15,11 @@ public class Student {
     private String masv;
     private String name;
 
+    public Student() {
+        this.masv = "";
+        this.name = "";
+    }
+
     public Student(String masv, String name) {
         this.masv = masv;
         this.name = name;
@@ -35,7 +40,5 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
 
 }
