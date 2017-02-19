@@ -5,6 +5,7 @@
  */
 package assignment.controller;
 
+import assignment.model.Student;
 import assignment.untils.Untils;
 import assignment.view.View;
 import java.util.Scanner;
@@ -21,15 +22,14 @@ public class StudentsController {
      * Dữ liệu được nhập vào từ người dùng
      */
     public static void addStudent() {
-        String masv;
-        String name;
+        Student student = null;
         boolean continueBoolean = true;
         while (continueBoolean) {
             System.out.println("Nhập vào mã số sinh viên: ");
-            masv = Untils.getString(3);
+            student.masv = Untils.getString(3);
 
             System.out.println("Nhập vào tên sinh viên: ");
-            name = Untils.getString(3);
+            student.name = Untils.getString(3);
 
             System.out.println("... chèn dữ liệu vào bảng...");
 
