@@ -17,7 +17,6 @@ import assignment.view.View;
  */
 public class StudentsController {
 
-//    |  1. Tạo mới sinh viên                  |
     /**
      * Hàm này thực hiện nhiệm vụ thêm mới sinh viên vào cơ sở dữ liệu Dữ liệu
      * được nhập vào từ người dùng
@@ -34,6 +33,7 @@ public class StudentsController {
 
             if (StudentModel.save(student)) {
                 System.err.println("Đã thêm mới thành công!");
+                View.printStudent(student);
             } else {
                 System.err.println("Có gì đó không đúng, vui lòng thử lại...");
             }
@@ -42,7 +42,6 @@ public class StudentsController {
         }
 
     }
-//    |  2. Tìm và sửa sinh viên theo mã số    |
 
     /**
      * Hàm này thực hiện nhiệm vụ sửa sinh viên theo mã số Người dùng sẽ nhập
@@ -70,8 +69,7 @@ public class StudentsController {
 
                 if (StudentModel.save(student, id)) {
                     System.out.println("------------- Sửa sinh viên thành công! ----------------");
-                    System.out.println("- Mã số hiện tại: " + student.getMasv());
-                    System.out.println("- Tên hiện tại: " + student.getName());
+                    View.printStudent(student);
                     System.out.println("--------------------------------------------------------");
                 } else {
                     System.err.println("Có gì đó không đúng, vui lòng thử lại...");
@@ -85,7 +83,6 @@ public class StudentsController {
         }
 
     }
-//    |  3. Tìm và xóa sinh viên theo mã số    |
 
     /**
      * Hàm này thực hiện nhiệm vụ xóa sinh viên theo mã số Người dùng sẽ nhập
@@ -107,8 +104,7 @@ public class StudentsController {
                     student = StudentModel.destroy(id);
                     if (student != null) {
                         System.out.println("------------- Xóa sinh viên thành công! ----------------");
-                        System.out.println("- Mã số SV đã xóa: " + student.getMasv());
-                        System.out.println("- Tên SV đã xóa: " + student.getName());
+                        View.printStudent(student);
                         System.out.println("--------------------------------------------------------");
                     } else {
                         System.err.println("Có gì đó không đúng! không thể xóa sinh viên...");
@@ -122,7 +118,6 @@ public class StudentsController {
         }
 
     }
-//    |  4. Tìm thông tin sinh viên theo mã số |
 
     /**
      * Hàm này thực hiện nhiệm vụ tìm kiếm thông tin sinh viên Người dùng sẽ
@@ -130,17 +125,44 @@ public class StudentsController {
      * thông tin.
      */
     public static void searchStudent() {
-        System.out.println("Nhập mã số SV muốn tìm: ");
+        Student student;
+        String masv;
+        boolean continueBoolean = true;
+
+        while (continueBoolean) {
+            System.out.println("Nhập mã số SV muốn tìm: ");
+            masv = Untils.getString(3);
+
+            student = StudentModel.get(masv);
+
+            if (student != null) {
+                System.out.println("------------- Thông tin sinh viên được tìm thấy ----------------");
+                View.printStudent(student);
+                System.out.println("----------------------------------------------------------------");
+            } else {
+                System.err.println("Không tìm thấy sinh viên theo yêu cầu...");
+            }
+
+            continueBoolean = View.continueBoolean();
+        }
 
     }
-//    |  5. Hiển thị danh sách sinh viên       |
 
     /**
-     * Hàm này thực hiện nhiệm vụ hiển thị toàn bộ danh sách sinh viên lấy trong
-     * CSDL
+     * Hàm này thực hiện nhiệm vụ hiển thị danh sách sinh viên lấy trong CSDL
+     *
      */
     public static void listStudent() {
+        int num;
+        boolean continueBoolean = true;
 
+        while (continueBoolean) {
+            System.out.println("Bạn muốn hiển thị số lượng bao nhiêu? ( số âm = xem tất cả) ");
+            num = Untils.getInt();
+            StudentModel.all(num);
+
+            continueBoolean = View.continueBoolean();
+        }
     }
 
 }
