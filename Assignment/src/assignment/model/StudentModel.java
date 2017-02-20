@@ -5,6 +5,7 @@
  */
 package assignment.model;
 
+import assignment.view.View;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,10 +16,46 @@ import java.sql.SQLException;
 public class StudentModel {
 
     /**
+     * Hàm này hiển thị toàn bộ sinh viên trong cơ sở dữ liệu
+     *
+     * @param num
+     * @return
+     */
+    public static int all(int num) {
+        ResultSet rs;
+        int count = 0;
+        String string;
+        Student student = new Student();
+        if (num < 0) {
+            string = "SELECT * FROM students";
+
+        } else {
+            string = "SELECT * FROM students LIMIT " + num;
+        }
+
+        try {
+            rs = DAO.getConnection().createStatement().executeQuery(string);
+            while (rs.next()) {
+                System.out.println("------------------------------------------");
+                student.setMasv(rs.getString("masv"));
+                student.setName(rs.getString("name"));
+                View.printStudent(student);
+                ++count;
+            }
+        } catch (SQLException ex) {
+            //Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Có lỗi: " + ex);
+            return 0;
+        }
+
+        return count;
+    }
+
+    /**
      * Hàm này thêm một đối tượng Student vào bảng students
      *
      * @param student
-     * @return
+     * @return boolean
      */
     public static boolean save(Student student) {
         String string = "INSERT INTO students (masv, name)"
@@ -39,7 +76,7 @@ public class StudentModel {
      *
      * @param student
      * @param id
-     * @return
+     * @return boolean
      */
     public static boolean save(Student student, int id) {
         String string = "UPDATE students "
@@ -60,7 +97,7 @@ public class StudentModel {
      * thấy thì trả về id, không tìm thấy thì trả về 0 null
      *
      * @param masv
-     * @return
+     * @return int
      */
     public static int find(String masv) {
         ResultSet rs;
@@ -81,6 +118,42 @@ public class StudentModel {
         return id;
     }
 
+    /**
+     * Hàm này trả về đối tượng sinh viên tương ứng với @masv truyền vào
+     *
+     * @param masv
+     * @return Student
+     */
+    public static Student get(String masv) {
+        Student student = new Student();
+
+        ResultSet rs;
+        String string = "SELECT * FROM students WHERE masv = '" + masv + "';";
+        try {
+            rs = DAO.getConnection().createStatement().executeQuery(string);
+            if (rs.next()) {
+                student.setMasv(rs.getString("masv"));
+                student.setName(rs.getString("name"));
+            } else {
+                System.err.println("Không tìm thấy sinh viên có mã số: " + masv);
+                return null;
+            }
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(StudentModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Có lỗi xảy ra: " + ex);
+            return null;
+        }
+
+        return student;
+    }
+
+    /**
+     * Hàm này xóa sinh viên có @id được truyền vào
+     *
+     * @param id
+     * @return Student
+     */
     public static Student destroy(int id) {
         Student student = new Student();
 

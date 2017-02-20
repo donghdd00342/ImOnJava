@@ -5,6 +5,7 @@
  */
 package assignment.view;
 
+import assignment.model.Student;
 import java.util.Scanner;
 
 /**
@@ -30,6 +31,15 @@ public class View {
         System.out.printf("%s%-2s%-38s%s\n", "|", "", "6. Thoát chương trình.", "|");
         System.out.println("------------------------------------------");
         System.out.print("- Hãy chọn hành động của bạn (1,2...6): ");
+    }
+
+    /**
+     * Hàm này thực hiện chức năng hiển thị thông tin của @student truyền vào.
+     * @param student 
+     */
+    public static void printStudent(Student student) {
+        System.out.println("- Mã số sinh viên: " + student.getMasv());
+        System.out.println("- Tên hiện tại: " + student.getName());
     }
 
     /**
@@ -77,4 +87,5 @@ public class View {
 
         return "yY".contains(choice);
     }
+    
 }
