@@ -49,12 +49,40 @@ public class StudentsController {
      * vào mã số sinh viên để tìm sửa
      */
     public static void editStudent() {
+        Student student = new Student();
         String masv;
-        System.out.println("Nhập mã số SV muốn sửa: ");
-        masv = Untils.getString(3);
+        String name;
+        int id;
+        boolean continueBoolean = true;
 
-        System.out.println("Nhập vào mã số sinh viên: ");
-        System.out.println("Nhập vào tên sinh viên: ");
+        while (continueBoolean) {
+            System.out.println("Nhập mã số SV muốn sửa: ");
+            masv = Untils.getString(3);
+
+            id = StudentModel.find(masv);
+
+            if (id > 0) {
+                System.out.println("Nhập vào mã số mới của sinh viên?: ");
+                student.setMasv(Untils.getString(3));
+
+                System.out.println("Nhập vào tên mới của sinh viên?: ");
+                student.setName(Untils.getString(3));
+
+                if (StudentModel.save(student, id)) {
+                    System.out.println("------------- Sửa sinh viên thành công! ----------------");
+                    System.out.println("- Mã số hiện tại: " + student.getMasv());
+                    System.out.println("- Tên hiện tại: " + student.getName());
+                    System.out.println("--------------------------------------------------------");
+                } else {
+                    System.err.println("Có gì đó không đúng, vui lòng thử lại...");
+                }
+
+            } else {
+                System.err.printf("Không tìm thấy sinh viên có mã số %s", masv);
+            }
+
+            continueBoolean = View.continueBoolean();
+        }
 
     }
 //    |  3. Tìm và xóa sinh viên theo mã số    |
@@ -64,7 +92,34 @@ public class StudentsController {
      * vào mã số sinh viên để tìm xóa
      */
     public static void deleteStudent() {
-        System.out.println("Nhập mã số SV muốn sửa: ");
+        Student student;
+        String masv;
+        int id;
+        boolean continueBoolean = true;
+
+        while (continueBoolean) {
+            System.out.println("Nhập mã số SV muốn xóa: ");
+            masv = Untils.getString(3);
+            id = StudentModel.find(masv);
+
+            if (id > 0) {
+                if (View.confirmBoolean()) {
+                    student = StudentModel.destroy(id);
+                    if (student != null) {
+                        System.out.println("------------- Xóa sinh viên thành công! ----------------");
+                        System.out.println("- Mã số SV đã xóa: " + student.getMasv());
+                        System.out.println("- Tên SV đã xóa: " + student.getName());
+                        System.out.println("--------------------------------------------------------");
+                    } else {
+                        System.err.println("Có gì đó không đúng! không thể xóa sinh viên...");
+                    }
+                }
+            } else {
+                System.err.println("Không tìm thấy sinh viên có mã số: " + masv);
+            }
+
+            continueBoolean = View.continueBoolean();
+        }
 
     }
 //    |  4. Tìm thông tin sinh viên theo mã số |
