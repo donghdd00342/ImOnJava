@@ -28,27 +28,27 @@ public class Assignment {
             choice = Untils.getInt();
             switch (choice) {
                 case 1:
-                    System.out.println("|  1. Tạo mới sinh viên");
+                    System.out.println("Bạn chọn:  1. Tạo mới sinh viên");
                     StudentsController.addStudent();
                     break;
                 case 2:
-                    System.out.println("|  2. Tìm và sửa sinh viên theo mã số");
+                    System.out.println("Bạn chọn:  2. Tìm và sửa sinh viên theo mã số");
                     StudentsController.editStudent();
                     break;
                 case 3:
-                    System.out.println("|  3. Tìm và xóa sinh viên theo mã số");
+                    System.out.println("Bạn chọn:  3. Tìm và xóa sinh viên theo mã số");
                     StudentsController.deleteStudent();
                     break;
                 case 4:
-                    System.out.println("|  4. Tìm thông tin sinh viên theo mã số");
+                    System.out.println("Bạn chọn:  4. Tìm thông tin sinh viên theo mã số");
                     StudentsController.searchStudent();
                     break;
                 case 5:
-                    System.out.println("|  5. Hiển thị danh sách sinh viên");
+                    System.out.println("Bạn chọn:  5. Hiển thị danh sách sinh viên");
                     StudentsController.listStudent();
                     break;
                 case 6:
-                    System.out.println("|  6. Thoát chương trình.");
+                    System.out.println("Bạn chọn:  6. Thoát chương trình.");
                     System.out.println("..........Tạm biệt..........");
                     break;
                 default:

@@ -13,8 +13,7 @@ import java.util.Scanner;
  * @author DongHo
  */
 public class Untils {
-
-    // Scanner scanInput = new Scanner(System.in); // warning!!!...
+    
     /**
      * Hàm này trả về một số mà người dùng nhập từ bàn phím
      *
@@ -22,7 +21,7 @@ public class Untils {
      */
     public static int getInt() {
         int inputInt = 0;
-        // Scanner scanInput = new Scanner(System.in); // warning!!!...
+        
         while (true) {
             try {
                 inputInt = new Scanner(System.in).nextInt();

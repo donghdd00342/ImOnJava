@@ -150,6 +150,7 @@ public class StudentsController {
 
     /**
      * Hàm này thực hiện nhiệm vụ hiển thị danh sách sinh viên lấy trong CSDL
+     * Người dùng có thể tùy chọn số lượng sinh viên muốn hiển thị
      *
      */
     public static void listStudent() {
@@ -157,7 +158,7 @@ public class StudentsController {
         boolean continueBoolean = true;
 
         while (continueBoolean) {
-            System.out.println("Bạn muốn hiển thị số lượng bao nhiêu? ( số âm = xem tất cả) ");
+            System.out.println("Bạn muốn hiển thị số lượng bao nhiêu? (số âm = xem tất cả) ");
             num = Untils.getInt();
             StudentModel.all(num);
 

@@ -53,6 +53,7 @@ public class View {
         boolean loop = true;
 
         while (true) {
+            System.out.println("------------------------------------------");
             System.out.println("Bạn có muốn tiếp tục không? (y/n): ");
             choice = new Scanner(System.in).nextLine();
             if (!"yYnN".contains(choice)) {
@@ -76,6 +77,7 @@ public class View {
         boolean loop = true;
 
         while (true) {
+            System.out.println("------------------------------------------");
             System.out.println("Bạn có chắc là muốn thực hiện hành động? (y/n): ");
             choice = new Scanner(System.in).nextLine();
             if (!"yYnN".contains(choice)) {
