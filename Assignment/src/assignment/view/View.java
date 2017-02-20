@@ -14,9 +14,8 @@ import java.util.Scanner;
 public class View {
 
     /**
-     * Chương trình hiển thị danh sách menu để người dùng lựa chọn
-     * Chỉ hiện menu và không có tương tác khác
-     * không có giá trị trả về
+     * Chương trình hiển thị danh sách menu để người dùng lựa chọn Chỉ hiện menu
+     * và không có tương tác khác không có giá trị trả về
      *
      */
     public static void printMenu() {
@@ -34,7 +33,9 @@ public class View {
     }
 
     /**
-     * Hàm này hiện ra câu hỏi "Bạn có muốn tiếp tục không? (y/n)" và trả về [(y)? true : false]
+     * Hàm này hiện ra câu hỏi "Bạn có muốn tiếp tục không? (y/n)" và trả về
+     * [(y)? true : false]
+     *
      * @return boolean
      */
     public static boolean continueBoolean() {
@@ -50,7 +51,30 @@ public class View {
                 break;
             }
         }
-        
+
+        return "yY".contains(choice);
+    }
+
+    /**
+     * Hàm này thực hiện hỏi xác nhận của người dùng xem muốn thực hiện hành
+     * động không? Trả về true nếu (y) hoặc false nếu (n)
+     *
+     * @return boolean
+     */
+    public static boolean confirmBoolean() {
+        String choice = "";
+        boolean loop = true;
+
+        while (true) {
+            System.out.println("Bạn có chắc là muốn thực hiện hành động? (y/n): ");
+            choice = new Scanner(System.in).nextLine();
+            if (!"yYnN".contains(choice)) {
+                System.err.println("Vui lòng chỉ nhập 'y' hoặc 'n'");
+            } else {
+                break;
+            }
+        }
+
         return "yY".contains(choice);
     }
 }
