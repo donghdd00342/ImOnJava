@@ -6,7 +6,7 @@
 package assignment.model;
 
 /**
- *
+ * Class này chứa các thông tin cấu hình chung về MySQL....
  * @author DongHo
  */
 public class GlobalConfig {
@@ -17,6 +17,14 @@ public class GlobalConfig {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
+    /**
+     * Bảng "students"
+     * Gồm 3 cột: "id, masv, name"
+     * "id": INT(10), AUTO_INCREMENT, PRIMARY KEY
+     * "masv": VARCHAR(10), UNIQUE
+     * "name": VACHAR(20), NOT NULL
+     * @return 
+     */
     public static String getCONNECTION_URL_PREFIX() {
         return CONNECTION_URL_PREFIX;
     }
