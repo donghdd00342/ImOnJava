@@ -553,53 +553,72 @@ import java.util.Scanner;
 //}
 ///////////////// interface, abstract, extends...
 // mot interface A
-interface A {
-    int a = 100;
-
-    void a();
-
-    void b();
-
-    void c();
-
-    void d();
-}
-
-// lop truu tuong B ke thua interface A  
-abstract class B implements A {
-//trong vi du nay, lop truu tuong B co the chi cung cap trinh trien khai phuong thuc c()
-
-    public void c() {
-        System.out.println("Toi la C");
+//interface A {
+//    int a = 100;
+//
+//    void a();
+//
+//    void b();
+//
+//    abstract void c();
+//
+//    void d();
+//}
+//
+//// lop truu tuong B ke thua interface A  
+//abstract class B implements A {
+////trong vi du nay, lop truu tuong B co the chi cung cap trinh trien khai phuong thuc c()
+//
+////    public void c() {
+////        System.out.println("Toi la C");
+////    }
+//}
+//
+//// lop M ke thua lop truu tuong B  
+//class M extends B {
+//
+//// bat buoc phai trien khai cac phuong thuc a(), b(), c()
+//    public void a() {
+//        System.out.println("Toi la a");
+//    }
+//
+//    public void b() {
+//        System.out.println("Toi la b");
+//    }
+//
+//    public void d() {
+//        System.out.println("Toi la d");
+//    }
+//}
+//
+//// lop Test5 chua phuong thuc main()  
+//class Test5 {
+//
+//    public static void main(String args[]) {
+//        A a = new M();
+//        a.a();
+//        a.b();
+//        a.c();
+//        a.d();
+//        System.out.println("a of A = "+ a.a);
+//    }
+//}
+/////////// overiding
+class A {
+    void a(){
+        System.out.println("a() of A");
     }
 }
-
-// lop M ke thua lop truu tuong B  
-class M extends B {
-
-// bat buoc phai trien khai cac phuong thuc a(), b(), c()
-    public void a() {
-        System.out.println("Toi la a");
-    }
-
-    public void b() {
-        System.out.println("Toi la b");
-    }
-
-    public void d() {
-        System.out.println("Toi la d");
+class B extends A {
+    int a(int a){
+        System.out.println("a() of B extends A");
+        return 0;
     }
 }
-
-// lop Test5 chua phuong thuc main()  
-class Test5 {
-
-    public static void main(String args[]) {
-        A a = new M();
-        a.a();
-        a.b();
-        a.c();
-        a.d();
-        System.out.println("a of A = "+ a.a);
+class Main {
+    public static void main(String[] args) {
+        A a = new B();
+        B b = (B)a;
+        b.a(1);
     }
 }
