@@ -639,15 +639,23 @@ class B extends A {
     }
 }
 
+class C extends B {
+
+}
+
+class D extends C {
+
+}
+
 class main {
 
     public static void main(String[] args) {
         A a = new B(); // upcassting
-        B b = (B)a;
+        D d = new D();
         System.out.println("a instanceof A = " + (a instanceof A));
         System.out.println("a instanceof B = " + (a instanceof B));
         System.err.println("-----------------------------------------");
-        System.out.println("b instanceof A = " + (b instanceof A));
-        System.out.println("b instanceof B = " + (b instanceof B));
+        System.out.println("b instanceof A = " + (d instanceof A));
+        System.out.println("b instanceof B = " + (d instanceof B));
     }
 }
