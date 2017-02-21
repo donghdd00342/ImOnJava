@@ -626,39 +626,66 @@ import java.util.Scanner;
 //}
 ////////// instanceof
 class A {
-
-    void a() {
-        System.out.println("a() of A");
-    }
 }
 
 class B extends A {
-
-    void a() {
-        System.out.println("a() of B");
-    }
 }
 
 class C extends B {
-
 }
 
 class D extends C {
-
 }
+
 class E {
-    
 }
 
 class main {
 
     public static void main(String[] args) {
-        A a = new B(); // upcassting
-        D d = new D();
+        A a = new B(); // upcassting = true, true, false, false
+//        A a = new A(); // true, false, false, false
         System.out.println("a instanceof A = " + (a instanceof A));
         System.out.println("a instanceof B = " + (a instanceof B));
-        System.err.println("-----------------------------------------");
-        System.out.println("b instanceof A = " + (d instanceof A));
+        System.out.println("a instanceof B = " + (a instanceof C));
+        System.out.println("a instanceof B = " + (a instanceof D));
 //        System.out.println(d instanceof E); // ??? không có false!!
     }
 }
+///////////////////////////////
+//class Animal {
+//}
+//
+//class Dog2 {
+//
+//    // không thể convert
+//    public static void test(Animal a) {
+//        if (a instanceof Dog3) {
+//            Dog3 d = (Dog3) a; // downcasting  
+//            System.out.println("downcasting ở Dog2");
+//        } else {
+//            System.err.println("Dog2: a instanceof Dog3 = " + (a instanceof Dog3));
+//        }
+//    }
+//}
+//
+//class Dog3 extends Animal {
+//
+//    static void method(Animal a) {
+//        if (a instanceof Dog3) {
+//            Dog3 d = (Dog3) a; // downcasting  
+//            System.out.println("Bay gio downcasting duoc thuc hien");
+//        } else {
+//            System.err.println("a instanceof Dog3 = " + (a instanceof Dog3));
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        Animal a = new Animal(); // upcasting
+////        Dog3 d = (Dog3) a; // downcasting  
+////        Dog3.method(a);
+////        Dog2.test(a);
+//        System.err.println("Dog2: a instanceof Dog3 = " + (a instanceof Dog3));
+//    }
+//
+//}
