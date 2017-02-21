@@ -604,21 +604,50 @@ import java.util.Scanner;
 //    }
 //}
 /////////// overiding
+//class A {
+//    A a(){ // không thể ghi đè static
+//        System.out.println("a() of A");
+//        return null;
+//    }
+//}
+//class B extends A {
+//    @Override
+//    B a(){ // method ghi đè phải cùng tên, cùng tham số, cùng kiểu trả về hoặc convariant
+//        System.out.println("a() of B extends A");
+//        return null;
+//    }
+//}
+//class Main {
+//    public static final void main(String[] args) {
+//        A a = new B(); // upcasting
+//        B b = (B)a; // downcasting
+//        b.a();
+//    }
+//}
+////////// instanceof
 class A {
-    void a(){ // không thể ghi đè static
+
+    void a() {
         System.out.println("a() of A");
     }
 }
+
 class B extends A {
-    @Override
-    void a(){ // method ghi đè phải cùng tên, cùng tham số, cùng kiểu trả về
-        System.out.println("a() of B extends A");
+
+    void a() {
+        System.out.println("a() of B");
     }
 }
-class Main {
+
+class main {
+
     public static void main(String[] args) {
-        A a = new B(); // upcasting
-        B b = (B)a; // downcasting
-        b.a();
+        A a = new B(); // upcassting
+        B b = (B)a;
+        System.out.println("a instanceof A = " + (a instanceof A));
+        System.out.println("a instanceof B = " + (a instanceof B));
+        System.err.println("-----------------------------------------");
+        System.out.println("b instanceof A = " + (b instanceof A));
+        System.out.println("b instanceof B = " + (b instanceof B));
     }
 }
