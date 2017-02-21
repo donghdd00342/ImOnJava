@@ -485,7 +485,7 @@ abstract class A {
         return email;
     }
 
-    public abstract void run();
+    public abstract int run(int speed);
 }
 
 class B extends A {
@@ -500,9 +500,13 @@ class B extends A {
     int a;
     boolean b;
 
-    @Override
     public void run() {
-        System.out.println("Đây là run method in Class B phải được định nghĩa lại");
+        System.out.println("Đây là run method in Class B");
+    }
+
+    @Override // covariant
+    public int run(int speed) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
