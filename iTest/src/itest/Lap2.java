@@ -605,20 +605,20 @@ import java.util.Scanner;
 //}
 /////////// overiding
 class A {
-    void a(){
+    void a(){ // không thể ghi đè static
         System.out.println("a() of A");
     }
 }
 class B extends A {
-    int a(int a){
+    @Override
+    void a(){ // method ghi đè phải cùng tên, cùng tham số, cùng kiểu trả về
         System.out.println("a() of B extends A");
-        return 0;
     }
 }
 class Main {
     public static void main(String[] args) {
-        A a = new B();
-        B b = (B)a;
-        b.a(1);
+        A a = new B(); // upcasting
+        B b = (B)a; // downcasting
+        b.a();
     }
 }
