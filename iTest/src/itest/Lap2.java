@@ -625,48 +625,38 @@ import java.util.Scanner;
 //    }
 //}
 ////////// instanceof
-class A {
-}
-
-class B extends A {
-}
-
-class C extends B {
-}
-
-class D extends C {
-}
-
-class E {
-}
-
-class main {
-
-    public static void main(String[] args) {
-        A a = new B(); // upcassting = true, true, false, false
-//        A a = new A(); // true, false, false, false
-        System.out.println("a instanceof A = " + (a instanceof A));
-        System.out.println("a instanceof B = " + (a instanceof B));
-        System.out.println("a instanceof B = " + (a instanceof C));
-        System.out.println("a instanceof B = " + (a instanceof D));
-//        System.out.println(d instanceof E); // ??? không có false!!
-    }
-}
+//class A {
+//}
+//
+//class B extends A {
+//}
+//
+//class C extends B {
+//}
+//
+//class D extends C {
+//}
+//
+//class E {
+//}
+//
+//class main {
+//
+//    public static void main(String[] args) {
+//        A a = new B(); // upcassting = true, true, false, false
+////        A a = new A(); // true, false, false, false
+//        System.out.println("a instanceof A = " + (a instanceof A));
+//        System.out.println("a instanceof B = " + (a instanceof B));
+//        System.out.println("a instanceof B = " + (a instanceof C));
+//        System.out.println("a instanceof B = " + (a instanceof D));
+////        System.out.println(d instanceof E); // ??? không có false!!
+//    }
+//}
 ///////////////////////////////
 //class Animal {
 //}
 //
 //class Dog2 {
-//
-//    // không thể convert
-//    public static void test(Animal a) {
-//        if (a instanceof Dog3) {
-//            Dog3 d = (Dog3) a; // downcasting  
-//            System.out.println("downcasting ở Dog2");
-//        } else {
-//            System.err.println("Dog2: a instanceof Dog3 = " + (a instanceof Dog3));
-//        }
-//    }
 //}
 //
 //class Dog3 extends Animal {
@@ -689,3 +679,19 @@ class main {
 //    }
 //
 //}
+//////////////// hiểu rõ hơn về Upcasting và downcasting
+class A {
+    
+}
+class B extends A {
+    
+}
+class main {
+    public static void main(String[] args) {
+        A a = new B(); // up
+        B b = (B) a; // down
+        // ------------------------
+        A a1 = new A();
+        B b1 = (B) a1; // lỗi tại runtime
+    }
+}
