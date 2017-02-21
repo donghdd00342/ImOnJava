@@ -646,6 +646,9 @@ class C extends B {
 class D extends C {
 
 }
+class E {
+    
+}
 
 class main {
 
@@ -656,6 +659,6 @@ class main {
         System.out.println("a instanceof B = " + (a instanceof B));
         System.err.println("-----------------------------------------");
         System.out.println("b instanceof A = " + (d instanceof A));
-        System.out.println("b instanceof B = " + (d instanceof B));
+//        System.out.println(d instanceof E); // ??? không có false!!
     }
 }
