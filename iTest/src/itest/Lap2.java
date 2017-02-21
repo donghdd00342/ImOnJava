@@ -520,34 +520,86 @@ import java.util.Scanner;
 //}
 ////////////// abstract & upcasting
 // lop truu tuong Shape
-abstract class Shape {
+//abstract class Shape {
+//
+//    int a = 10;
+//
+//    abstract void draw();
+//}
+//
+//class Rectangle extends Shape {
+//
+//    @Override
+//    void draw() {
+//        System.out.println("Ve hinh chu nhat");
+//    }
+//}
+//
+//class Circle extends Shape {
+//
+//    @Override
+//    void draw() {
+//        System.out.println("Ve hinh tron");
+//    }
+//}
+//
+//class Main {
+//
+//    public static void main(String args[]) {
+//        Shape s = new Circle();
+//        s.draw();
+//        System.out.println("a = " + s.a);
+//    }
+//}
+///////////////// interface, abstract, extends...
+// mot interface A
+interface A {
+    int a = 100;
 
-    int a = 10;
+    void a();
 
-    abstract void draw();
+    void b();
+
+    void c();
+
+    void d();
 }
 
-class Rectangle extends Shape {
+// lop truu tuong B ke thua interface A  
+abstract class B implements A {
+//trong vi du nay, lop truu tuong B co the chi cung cap trinh trien khai phuong thuc c()
 
-    @Override
-    void draw() {
-        System.out.println("Ve hinh chu nhat");
+    public void c() {
+        System.out.println("Toi la C");
     }
 }
 
-class Circle extends Shape {
+// lop M ke thua lop truu tuong B  
+class M extends B {
 
-    @Override
-    void draw() {
-        System.out.println("Ve hinh tron");
+// bat buoc phai trien khai cac phuong thuc a(), b(), c()
+    public void a() {
+        System.out.println("Toi la a");
+    }
+
+    public void b() {
+        System.out.println("Toi la b");
+    }
+
+    public void d() {
+        System.out.println("Toi la d");
     }
 }
 
-class Main {
+// lop Test5 chua phuong thuc main()  
+class Test5 {
 
     public static void main(String args[]) {
-        Shape s = new Circle();
-        s.draw();
-        System.out.println("a = " + s.a);
+        A a = new M();
+        a.a();
+        a.b();
+        a.c();
+        a.d();
+        System.out.println("a of A = "+ a.a);
     }
 }
