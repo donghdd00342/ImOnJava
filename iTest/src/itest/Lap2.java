@@ -459,62 +459,95 @@ import java.util.Scanner;
 //////////////// Upcasting & Downcasting
 //class A {
 /// abstract
-abstract class A {
+//abstract class A {
+//
+//    private String name;
+//    private String email;
+//
+//    A(String name, String email) {
+//        this.name = name;
+//        this.email = email;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public abstract int run(int speed);
+//}
+//
+//class B extends A {
+//    public B(){
+//        super(null, null);
+//    }
+//
+//    public B(String name, String email) {
+//        super(name, email);
+//    }
+//
+//    int a;
+//    boolean b;
+//
+//    public void run() {
+//        System.out.println("Đây là run method in Class B");
+//    }
+//
+//    @Override // covariant
+//    public int run(int speed) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//}
+//
+//class main {
+//    public static void main(String[] args) {
+//        B b = new B("Dong", "dong@phuc.com");
+//        System.out.println(b.getName());
+//        System.out.println(b.getEmail());
+//    }
+//}
+////////////// abstract & upcasting
+// lop truu tuong Shape
+abstract class Shape {
 
-    private String name;
-    private String email;
+    int a = 10;
 
-    A(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public abstract int run(int speed);
+    abstract void draw();
 }
 
-class B extends A {
-    public B(){
-        super(null, null);
+class Rectangle extends Shape {
+
+    @Override
+    void draw() {
+        System.out.println("Ve hinh chu nhat");
     }
-
-    public B(String name, String email) {
-        super(name, email);
-    }
-
-    int a;
-    boolean b;
-
-    public void run() {
-        System.out.println("Đây là run method in Class B");
-    }
-
-    @Override // covariant
-    public int run(int speed) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
 
-class main {
-    public static void main(String[] args) {
-        B b = new B("Dong", "dong@phuc.com");
-        System.out.println(b.getName());
-        System.out.println(b.getEmail());
+class Circle extends Shape {
+
+    @Override
+    void draw() {
+        System.out.println("Ve hinh tron");
+    }
+}
+
+class Main {
+
+    public static void main(String args[]) {
+        Shape s = new Circle();
+        s.draw();
+        System.out.println("a = " + s.a);
     }
 }
