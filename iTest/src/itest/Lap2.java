@@ -456,139 +456,61 @@ import java.util.Scanner;
 //        c.invoke(p);
 //    }
 //}
-/* Ten File : Employee.java */
-//abstract class Employee {
-//
-//    private String name;
-//    private String address;
-//    private int number;
-//
-//    public Employee(String name, String address, int number) {
-//        System.out.println("Xay dung mot Employee");
-//        this.name = name;
-//        this.address = address;
-//        this.number = number;
-//    }
-//
-//    public double computePay() {
-//        System.out.println("Ben trong Employee computePay");
-//        return 0.0;
-//    }
-//
-//    public void mailCheck() {
-//        System.out.println("Gui mail kiem tra toi " + this.name
-//                + " " + this.address);
-//    }
-//
-//    public String toString() {
-//        return name + " " + address + " " + number;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(String newAddress) {
-//        address = newAddress;
-//    }
-//
-//    public int getNumber() {
-//        return number;
-//    }
-//}
-//
-//class Salary extends Employee {
-//
-//    private double salary; //Annual salary
-//
-//    public Salary(String name, String address, int number, double salary) {
-//        super(name, address, number);
-//        setSalary(salary);
-//    }
-//
-//    @Override
-//    public void mailCheck() {
-//        System.out.println("Ben trong mailCheck cua Salary class ");
-//        System.out.println("Gui mail kiem tra toi " + getName()
-//                + " voi salary la " + salary);
-//    }
-//
-//    public double getSalary() {
-//        return salary;
-//    }
-//
-//    public void setSalary(double newSalary) {
-//        if (newSalary >= 0.0) {
-//            salary = newSalary;
-//        }
-//    }
-//
-//    @Override
-//    public double computePay() {
-//        System.out.println("Tinh toan luong tra cho " + getName());
-//        return salary / 52;
-//    }
-//}
-///* Ten File : AbstractDemo.java */
-//class AbstractDemo
-//{
-//   public static void main(String [] args)
-//   {
-//      Salary s = new Salary("Mohd Mohtashim", "Ambehta, UP", 3, 3600.00);
-//      Employee e = new Salary("John Adams", "Boston, MA", 2, 2400.00);
-//
-//      System.out.println("Goi mailCheck boi su dung tham chieu Salary --");
-//      s.mailCheck();
-//
-//      System.out.println("\n Goi mailCheck boi su dung tham chieu Employee --");
-//      e.mailCheck();
-//    }
-//}
 //////////////// Upcasting & Downcasting
-class A {
-    void voice(){
-        System.out.println("voice in Class A");
+//class A {
+/// abstract
+abstract class A {
+
+    private String name;
+    private String email;
+
+    A(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
-    
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public abstract void run();
 }
+
 class B extends A {
+    public B(){
+        super(null, null);
+    }
+
+    public B(String name, String email) {
+        super(name, email);
+    }
+
+    int a;
+    boolean b;
+
     @Override
-    void voice(){
-        System.out.println("voice in Class B");
+    public void run() {
+        System.out.println("Đây là run method in Class B phải được định nghĩa lại");
     }
-    void run(){
-        System.out.println("Run in Class B");
-    }
+
 }
-class C extends B {
-    @Override
-    void voice(){
-        System.out.println("voice in Class C");
-    }
-}
-class Bb extends A {
-    @Override
-    void voice(){
-        System.out.println("voice in Class Bb");
-    }
-}
-class main{
+
+class main {
     public static void main(String[] args) {
-        // upcasting
-        B b = new B(); // voice bị ghi đè ở B
-        b.voice();
-        A a = b; // không tường minh
-        a.voice(); // voice bị ghi đè sâu nhất có thể
-        
-        A aA = (A)b; // tường minh
-        aA.voice(); // voice bị ghi đè sâu nhất có thể
-        // downcasting
-        B bB = (B) a;
-        bB.voice(); // voice bị ghi đè ở B
-        bB.run(); //
+        B b = new B("Dong", "dong@phuc.com");
+        System.out.println(b.getName());
+        System.out.println(b.getEmail());
     }
 }
