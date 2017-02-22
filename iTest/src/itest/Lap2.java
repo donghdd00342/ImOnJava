@@ -754,26 +754,62 @@ import java.util.Scanner;
 //    }
 //}
 ////////////////////////// ghi đè toString trong enum
-enum Currency {
+//enum Currency {
+//
+//    VND, USD, EURO;
+//
+//    @Override
+//    public String toString() {
+//        if (this == VND) {
+//            return "Dong---------";
+//        } else if (this == USD) {
+//            return "Dola----------";
+//        }
+//        return super.toString();
+//    }
+//
+//    public static void main(String[] args) {
+//        Currency money = Currency.USD;
+//
+//        System.out.println("Money " + money);
+//        System.out.println("Money " + money.toString());
+//        System.out.println("VND " + Currency.VND);
+//        System.out.println("EURO " + Currency.EURO);
+//    }
+//}
+///////////////////////// trừu tượng trong enum
+enum Color {
 
-    VND, USD, EURO;
-
-    @Override
-    public String toString() {
-        if (this == VND) {
-            return "Dong---------";
-        } else if (this == USD) {
-            return "Dola----------";
+    RED("red") {
+        @Override
+        public String getHexCode() {
+            return "#ff0000";
         }
-        return super.toString();
+    },
+    GREEN("green") {
+        @Override
+        public String getHexCode() {
+            return "#00ff00";
+        }
+    },
+    BLUE("blue") {
+        @Override
+        public String getHexCode() {
+            return "#0000ff";
+        }
+    };
+
+    private String name;
+
+    Color(String name) {
+        this.name = name;
     }
 
-    public static void main(String[] args) {
-        Currency money = Currency.USD;
-
-        System.out.println("Money " + money);
-        System.out.println("Money " + money.toString());
-        System.out.println("VND " + Currency.VND);
-        System.out.println("EURO " + Currency.EURO);
+    public String getName() {
+        return name;
     }
+
+    public abstract String getHexCode();
+
 }
+
