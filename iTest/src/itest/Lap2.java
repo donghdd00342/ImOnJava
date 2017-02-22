@@ -680,18 +680,62 @@ import java.util.Scanner;
 //
 //}
 //////////////// hiểu rõ hơn về Upcasting và downcasting
-class A {
-    
+//class A {
+//    
+//}
+//class B extends A {
+//    
+//}
+//class main {
+//    public static void main(String[] args) {
+//        A a = new B(); // up
+//        B b = (B) a; // down
+//        // ------------------------
+//        A a1 = new A();
+//        B b1 = (B) a1; // lỗi tại runtime
+//    }
+//}
+////////////// đa kế thừa interface
+interface A {
+
+    void run();
 }
-class B extends A {
-    
+
+interface B {
+
+    void run(); // không bị lưỡng nghĩa vì người dùng cuối sẽ định nghĩa BODY
+
+    void talk();
 }
-class main {
-    public static void main(String[] args) {
-        A a = new B(); // up
-        B b = (B) a; // down
-        // ------------------------
-        A a1 = new A();
-        B b1 = (B) a1; // lỗi tại runtime
+
+interface C extends A, B {
+
+    void fly();
+}
+
+class Test implements C {
+
+    @Override
+    public void fly() {
+        System.out.println("fly");
     }
+
+    @Override
+    public void run() {
+        System.out.println("run");
+    }
+
+    @Override
+    public void talk() {
+        System.out.println("talk");
+    }
+
+    //---------------------- TEST-----
+    public static void main(String[] args) {
+        A a = new Test(); // up
+        a.run(); // a of A
+        B b = (B) a; // down
+        b.talk(); // b of B
+    }
+
 }
