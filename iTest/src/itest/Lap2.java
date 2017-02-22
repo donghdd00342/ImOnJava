@@ -696,46 +696,84 @@ import java.util.Scanner;
 //    }
 //}
 ////////////// đa kế thừa interface
-interface A {
+//interface A {
+//    int a = 100;
+//    void run();
+//}
+//
+//interface B {
+//
+//    void run(); // không bị lưỡng nghĩa vì người dùng cuối sẽ định nghĩa BODY
+//
+//    void talk();
+//}
+//
+//interface C extends A, B {
+//
+//    void fly();
+//}
+//
+//class Test implements C {
+//
+//    @Override
+//    public void fly() {
+//        System.out.println("fly");
+//    }
+//
+//    @Override
+//    public void run() {
+//        System.out.println("run");
+//    }
+//
+//    @Override
+//    public void talk() {
+//        System.out.println("talk");
+//    }
+//
+//    //---------------------- TEST-----
+//    public static void main(String[] args) {
+//        A a = new Test(); // up
+//        a.run(); // a of A
+//        System.out.println("a = "+ a.a);
+//        B b = (B) a; // down
+//        b.talk(); // b of B
+//    }
+//
+//}
+//////////////// enum
+//enum Week {
+//    THUHAI, THUBA, THUTU, THUNAM, THUSAU, THUBAY, CHUNHAT;
+//}
+//class main {
+//    public static void main(String[] args) {
+//        Week w = Week.CHUNHAT;
+//        Week[] arrW = Week.values();
+//        for (Week week : arrW) {
+//            System.out.println(week);
+//        }
+//    }
+//}
+////////////////////////// ghi đè toString trong enum
+enum Currency {
 
-    void run();
-}
-
-interface B {
-
-    void run(); // không bị lưỡng nghĩa vì người dùng cuối sẽ định nghĩa BODY
-
-    void talk();
-}
-
-interface C extends A, B {
-
-    void fly();
-}
-
-class Test implements C {
+    VND, USD, EURO;
 
     @Override
-    public void fly() {
-        System.out.println("fly");
+    public String toString() {
+        if (this == VND) {
+            return "Dong---------";
+        } else if (this == USD) {
+            return "Dola----------";
+        }
+        return super.toString();
     }
 
-    @Override
-    public void run() {
-        System.out.println("run");
-    }
-
-    @Override
-    public void talk() {
-        System.out.println("talk");
-    }
-
-    //---------------------- TEST-----
     public static void main(String[] args) {
-        A a = new Test(); // up
-        a.run(); // a of A
-        B b = (B) a; // down
-        b.talk(); // b of B
-    }
+        Currency money = Currency.USD;
 
+        System.out.println("Money " + money);
+        System.out.println("Money " + money.toString());
+        System.out.println("VND " + Currency.VND);
+        System.out.println("EURO " + Currency.EURO);
+    }
 }
