@@ -864,54 +864,80 @@ import java.util.Scanner;
 //    }
 //}
 /////////////////////lớp trừu tượng và Interface trong Java
-//Tao interface ma co 4 phuong thuc  
-interface A {
+////Tao interface ma co 4 phuong thuc  
+//interface A {
+//
+//    void a();//theo mac dinh, public va abstract  
+//
+//    void b();
+//
+//    void c();
+//
+//    void d();
+//}
+//
+////Tao lop abstract ma cung cap trinh trien khai cua mot phuong thuc cua A interface  
+//abstract class B implements A {
+//
+//    @Override
+//    public void c() {
+//        System.out.println("Toi la C");
+//    }
+//}
+//
+////Tao lop con cua lop abstract, bay gio chung ta can cung cap trinh trien khai cho cac phuong thuc con lai  
+//class M extends B {
+//
+//    @Override
+//    public void a() {
+//        System.out.println("Toi la a");
+//    }
+//
+//    @Override
+//    public void b() {
+//        System.out.println("Toi la b");
+//    }
+//
+//    @Override
+//    public void d() {
+//        System.out.println("Toi la d");
+//    }
+//}
+//
+////Tao mot lop Test ma goi cac phuong thuc cua A interface  
+//class Test5 {
+//
+//    public static void main(String args[]) {
+//        A a = new M();
+//        a.a();
+//        a.b();
+//        a.c();
+//        a.d();
+//    }
+//}
+///////////// static & final
+class A {
 
-    void a();//theo mac dinh, public va abstract  
-
-    void b();
-
-    void c();
-
-    void d();
+    public final B b = new B();
 }
 
-//Tao lop abstract ma cung cap trinh trien khai cua mot phuong thuc cua A interface  
-abstract class B implements A {
+class B {
 
-    @Override
-    public void c() {
-        System.out.println("Toi la C");
-    }
+    public static int a = 1;
+    public String str = "Hellow";
 }
 
-//Tao lop con cua lop abstract, bay gio chung ta can cung cap trinh trien khai cho cac phuong thuc con lai  
-class M extends B {
+class main {
 
-    @Override
-    public void a() {
-        System.out.println("Toi la a");
-    }
-
-    @Override
-    public void b() {
-        System.out.println("Toi la b");
-    }
-
-    @Override
-    public void d() {
-        System.out.println("Toi la d");
-    }
-}
-
-//Tao mot lop Test ma goi cac phuong thuc cua A interface  
-class Test5 {
-
-    public static void main(String args[]) {
-        A a = new M();
-        a.a();
-        a.b();
-        a.c();
-        a.d();
+    public static void main(String[] args) {
+        A a = new A();
+        B b = new B();
+        // a.b = b; //cannot assign a value to final variable b
+        System.out.println("Trước khi thay đổi: a.b.str = " + a.b.str);
+        a.b.a = 100;
+        a.b.str = "Anh Đông ệp zai!";
+        System.out.println("--------------------------------------");
+        System.out.println("Sau khi thay đổi: a.b.a = " + B.a);
+        System.out.println("Sau khi thay đổi: a.b.str = " + a.b.str);
     }
 }
