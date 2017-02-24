@@ -833,33 +833,85 @@ import java.util.Scanner;
 //    }
 //}
 ///////////////////// lớp lồng trong lớp
-class Outer {
+//class Outer {
+//
+//    int outer_x = 100;
+//
+//    void test() {
+//        Inner inner = new Inner();
+//        inner.display_x();
+//    }
+//
+//    class Inner { // có thể truy xuất trực tiếp biến đối tượng của lớp Outer
+//
+//        int inner_y = 10;
+//
+//        void display_x() {
+//            System.out.println("display: outer_x = " + outer_x);
+//        }
+//    }
+//
+//    void display_y() { // không thể truy xuất biến đối tượng của lớp Inner
+////        System.out.println("display: inner_y = " + inner_y); // Error
+//    }
+//}
+//
+//class InnerClassDemo {
+//
+//    public static void main(String args[]) {
+//        Outer outer = new Outer();
+//        outer.test();
+//    }
+//}
+/////////////////////lớp trừu tượng và Interface trong Java
+//Tao interface ma co 4 phuong thuc  
+interface A {
 
-    int outer_x = 100;
+    void a();//theo mac dinh, public va abstract  
 
-    void test() {
-        Inner inner = new Inner();
-        inner.display_x();
-    }
+    void b();
 
-    class Inner { // có thể truy xuất trực tiếp biến đối tượng của lớp Outer
+    void c();
 
-        int inner_y = 10;
+    void d();
+}
 
-        void display_x() {
-            System.out.println("display: outer_x = " + outer_x);
-        }
-    }
+//Tao lop abstract ma cung cap trinh trien khai cua mot phuong thuc cua A interface  
+abstract class B implements A {
 
-    void display_y() { // không thể truy xuất biến đối tượng của lớp Inner
-//        System.out.println("display: inner_y = " + inner_y); // Error
+    @Override
+    public void c() {
+        System.out.println("Toi la C");
     }
 }
 
-class InnerClassDemo {
+//Tao lop con cua lop abstract, bay gio chung ta can cung cap trinh trien khai cho cac phuong thuc con lai  
+class M extends B {
+
+    @Override
+    public void a() {
+        System.out.println("Toi la a");
+    }
+
+    @Override
+    public void b() {
+        System.out.println("Toi la b");
+    }
+
+    @Override
+    public void d() {
+        System.out.println("Toi la d");
+    }
+}
+
+//Tao mot lop Test ma goi cac phuong thuc cua A interface  
+class Test5 {
 
     public static void main(String args[]) {
-        Outer outer = new Outer();
-        outer.test();
+        A a = new M();
+        a.a();
+        a.b();
+        a.c();
+        a.d();
     }
 }
