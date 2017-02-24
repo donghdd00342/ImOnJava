@@ -773,4 +773,62 @@ import java.util.Scanner;
 //
 //    }
 //}
+//////////////// Một interface có thể kế thừa từ một interface khác
+interface A {
 
+    public void a();
+}
+
+interface B {
+
+    public void b();
+}
+
+interface C extends A, B {
+
+    public void c();
+}
+
+class D implements C {
+
+    @Override
+    public void c() {
+        System.out.println("c()");
+    }
+
+    @Override
+    public void a() {
+        System.out.println("a()");
+    }
+
+    @Override
+    public void b() {
+        System.out.println("b()");
+    }
+    public void d(){
+        System.out.println("d()");
+    }
+
+}
+
+class main {
+
+    public static void main(String... args) {
+        A a = new D();
+        a.a();
+        B b = (B) a;
+        b.b();
+        C c = (C) a;
+        System.out.println("--------------------------");
+        c.a();
+        c.b();
+        c.c();
+        System.out.println("--------------------------");
+        D d = (D) a;
+        d.a();
+        d.b();
+        d.c();
+        d.d();
+
+    }
+}
