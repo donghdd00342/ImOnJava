@@ -5,6 +5,7 @@
  */
 package itest;
 
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
 import java.util.Scanner;
 
 /**
@@ -916,28 +917,52 @@ import java.util.Scanner;
 //    }
 //}
 ///////////// static & final
+//class A {
+//
+//    public final B b = new B();
+//}
+//
+//class B {
+//
+//    public static int a = 1;
+//    
+//    public String str = "Hellow";
+//}
+//
+//class main {
+//
+//    public static void main(String[] args) {
+//        A a = new A();
+//        B b = new B();
+//        // a.b = b; //cannot assign a value to final variable b
+//        System.out.println("Trước khi thay đổi: a.b.str = " + a.b.str);
+//        a.b.a = 100;
+//        a.b.str = "Anh Đông ệp zai!";
+//        System.out.println("--------------------------------------");
+//        System.out.println("Sau khi thay đổi: a.b.a = " + B.a);
+//        System.out.println("Sau khi thay đổi: a.b.str = " + a.b.str);
+//    }
+//}
+///////////////// ghi đè Access Modifier
 class A {
-
-    public final B b = new B();
+    protected void method() {
+        System.out.println("in A");
+    }
 }
-
-class B {
-
-    public static int a = 1;
-    public String str = "Hellow";
+class B extends A {
+    @Override
+    public void method() {
+        System.out.println("in B extends A");
+    }
 }
-
-class main {
-
-    public static void main(String[] args) {
-        A a = new A();
-        B b = new B();
-        // a.b = b; //cannot assign a value to final variable b
-        System.out.println("Trước khi thay đổi: a.b.str = " + a.b.str);
-        a.b.a = 100;
-        a.b.str = "Anh Đông ệp zai!";
-        System.out.println("--------------------------------------");
-        System.out.println("Sau khi thay đổi: a.b.a = " + B.a);
-        System.out.println("Sau khi thay đổi: a.b.str = " + a.b.str);
+class C {
+    void c(){
+        
+    }
+}
+class D extends C {
+    @Override
+    void c(){ // không thể private
+        
     }
 }
