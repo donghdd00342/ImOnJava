@@ -6,6 +6,8 @@
 package itest;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,38 +44,65 @@ import java.util.Scanner;
 //
 //}
 /////////////////// waiting thread
-class ThreadA {
+//class ThreadA {
+//
+//    public static void main(String[] args) {
+//        ThreadB b = new ThreadB();
+//        b.start();
+//
+//        synchronized (b) {
+//            try {
+//                System.out.println("Bắt đầu chờ Thread B...");
+//                b.wait();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//            System.out.println("Tổng a + b = " + b.total);
+//        }
+//    }
+//}
+//
+//class ThreadB extends Thread {
+//
+//    int total;
+//
+//    @Override
+//    public void run() {
+//        synchronized (this) {
+//            System.out.println("Nhập số a = ");
+//            int a = new Scanner(System.in).nextInt();
+//            System.out.println("Nhập số b = ");
+//            int b = new Scanner(System.in).nextInt();
+//            total = a +b;
+//            notify();
+//        }
+//    }
+//}
+//////////////// tiếp tục thread
+class A {
 
     public static void main(String[] args) {
-        ThreadB b = new ThreadB();
-        b.start();
+        B b1 = new B();
+        B b2 = new B();
+        b1.start();
+        b2.start();
 
-        synchronized (b) {
-            try {
-                System.out.println("Bắt đầu chờ Thread B...");
-                b.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("Tổng a + b = " + b.total);
-        }
     }
 }
 
-class ThreadB extends Thread {
-
-    int total;
+class B extends Thread {
 
     @Override
     public void run() {
-        synchronized (this) {
-            System.out.println("Nhập số a = ");
-            int a = new Scanner(System.in).nextInt();
-            System.out.println("Nhập số b = ");
-            int b = new Scanner(System.in).nextInt();
-            total = a +b;
-            notify();
+        for (int i = 0; i < 10; i++) {
+            System.out.println("i = " + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(B.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
+    
 }

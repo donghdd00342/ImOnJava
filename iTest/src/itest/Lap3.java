@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author DongHo
  */
-public class Lap3 {
+//public class Lap3 {
 
     //////////////////////// kiểm tra một chuỗi Palindrome bằng Java (đảo ngược chuỗi không thay đổi)
 //    public static void main(String[] args) {
@@ -100,40 +100,40 @@ public class Lap3 {
 //        System.out.println("Hai chuỗi nhập vào là Anagrams!");
 //    }
 ///////////////// đảo 2 số cho nhau
-    static int a;
-    static int b;
-
-    public static void main(String[] args) {
-
-        // Nhập vào từ người dùng
-        while (true) {
-            try {
-                System.out.println("Nhập vào số a = ");
-                a = new Scanner(System.in).nextInt();
-                System.out.println("Nhập vào số b = ");
-                b = new Scanner(System.in).nextInt();
-                break;
-
-            } catch (Exception e) {
-                System.err.println("Vui lòng chỉ nhập số!");
-                System.out.println("Nhập lại từ đầu....");
-            }
-        }
-        System.out.printf("Trước khi đổi: a = %d, b = %d", a, b);
-        System.out.println("");
-        Lap3 ob = new Lap3();
-        Lap3.swap(ob);
-        System.out.printf("Sau khi đổi: a = %d, b = %d", a, b);
-        System.out.println("");
-        System.out.println("Kết thúc chương trình...");
-    }
-
-    public static void swap(Lap3 ob) {
-        int temp;
-        temp = ob.a;
-        ob.a = ob.b;
-        ob.b = temp;
-
-    }
-
-} // END - class Lap3
+//    static int a;
+//    static int b;
+//
+//    public static void main(String[] args) {
+//
+//        // Nhập vào từ người dùng
+//        while (true) {
+//            try {
+//                System.out.println("Nhập vào số a = ");
+//                a = new Scanner(System.in).nextInt();
+//                System.out.println("Nhập vào số b = ");
+//                b = new Scanner(System.in).nextInt();
+//                break;
+//
+//            } catch (Exception e) {
+//                System.err.println("Vui lòng chỉ nhập số!");
+//                System.out.println("Nhập lại từ đầu....");
+//            }
+//        }
+//        System.out.printf("Trước khi đổi: a = %d, b = %d", a, b);
+//        System.out.println("");
+//        Lap3 ob = new Lap3();
+//        Lap3.swap(ob);
+//        System.out.printf("Sau khi đổi: a = %d, b = %d", a, b);
+//        System.out.println("");
+//        System.out.println("Kết thúc chương trình...");
+//    }
+//
+//    public static void swap(Lap3 ob) {
+//        int temp;
+//        temp = ob.a;
+//        ob.a = ob.b;
+//        ob.b = temp;
+//
+//    }
+//
+//} // END - class Lap3

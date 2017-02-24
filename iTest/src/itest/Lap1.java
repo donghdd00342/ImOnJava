@@ -944,25 +944,25 @@ import java.util.Scanner;
 //    }
 //}
 ///////////////// ghi đè Access Modifier
-class A {
-    protected void method() {
-        System.out.println("in A");
-    }
-}
-class B extends A {
-    @Override
-    public void method() {
-        System.out.println("in B extends A");
-    }
-}
-class C {
-    void c(){
-        
-    }
-}
-class D extends C {
-    @Override
-    void c(){ // không thể private
-        
-    }
-}
+//class A {
+//    protected void method() {
+//        System.out.println("in A");
+//    }
+//}
+//class B extends A {
+//    @Override
+//    public void method() {
+//        System.out.println("in B extends A");
+//    }
+//}
+//class C {
+//    void c(){
+//        
+//    }
+//}
+//class D extends C {
+//    @Override
+//    void c(){ // không thể private
+//        
+//    }
+//}
