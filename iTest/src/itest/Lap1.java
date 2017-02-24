@@ -774,61 +774,92 @@ import java.util.Scanner;
 //    }
 //}
 //////////////// Một interface có thể kế thừa từ một interface khác
-interface A {
+//interface A {
+//
+//    public void a();
+//}
+//
+//interface B {
+//
+//    public void b();
+//}
+//
+//interface C extends A, B {
+//
+//    public void c();
+//}
+//
+//class D implements C {
+//
+//    @Override
+//    public void c() {
+//        System.out.println("c()");
+//    }
+//
+//    @Override
+//    public void a() {
+//        System.out.println("a()");
+//    }
+//
+//    @Override
+//    public void b() {
+//        System.out.println("b()");
+//    }
+//    public void d(){
+//        System.out.println("d()");
+//    }
+//
+//}
+//
+//class main {
+//
+//    public static void main(String... args) {
+//        A a = new D();
+//        a.a();
+//        B b = (B) a;
+//        b.b();
+//        C c = (C) a;
+//        System.out.println("--------------------------");
+//        c.a();
+//        c.b();
+//        c.c();
+//        System.out.println("--------------------------");
+//        D d = (D) a;
+//        d.a();
+//        d.b();
+//        d.c();
+//        d.d();
+//
+//    }
+//}
+///////////////////// lớp lồng trong lớp
+class Outer {
 
-    public void a();
-}
+    int outer_x = 100;
 
-interface B {
-
-    public void b();
-}
-
-interface C extends A, B {
-
-    public void c();
-}
-
-class D implements C {
-
-    @Override
-    public void c() {
-        System.out.println("c()");
+    void test() {
+        Inner inner = new Inner();
+        inner.display_x();
     }
 
-    @Override
-    public void a() {
-        System.out.println("a()");
+    class Inner { // có thể truy xuất trực tiếp biến đối tượng của lớp Outer
+
+        int inner_y = 10;
+
+        void display_x() {
+            System.out.println("display: outer_x = " + outer_x);
+        }
     }
 
-    @Override
-    public void b() {
-        System.out.println("b()");
+    void display_y() { // không thể truy xuất biến đối tượng của lớp Inner
+//        System.out.println("display: inner_y = " + inner_y); // Error
     }
-    public void d(){
-        System.out.println("d()");
-    }
-
 }
 
-class main {
+class InnerClassDemo {
 
-    public static void main(String... args) {
-        A a = new D();
-        a.a();
-        B b = (B) a;
-        b.b();
-        C c = (C) a;
-        System.out.println("--------------------------");
-        c.a();
-        c.b();
-        c.c();
-        System.out.println("--------------------------");
-        D d = (D) a;
-        d.a();
-        d.b();
-        d.c();
-        d.d();
-
+    public static void main(String args[]) {
+        Outer outer = new Outer();
+        outer.test();
     }
 }
