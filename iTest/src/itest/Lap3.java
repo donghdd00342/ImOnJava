@@ -12,8 +12,7 @@ import java.util.Scanner;
  * @author DongHo
  */
 //public class Lap3 {
-
-    //////////////////////// kiểm tra một chuỗi Palindrome bằng Java (đảo ngược chuỗi không thay đổi)
+//////////////////////// kiểm tra một chuỗi Palindrome bằng Java (đảo ngược chuỗi không thay đổi)
 //    public static void main(String[] args) {
 //        String str;
 //        System.out.println("Mời bạn nhập vào một chuỗi để kiểm tra: ");
@@ -33,7 +32,7 @@ import java.util.Scanner;
 //            System.out.println("Chuỗi KHÔNG PHẢI là Palindrome!");
 //        }
 //    }
-    ///////////////// kiểm tra 2 chuỗi nhập vào có phải là Anagrams của nhau không (cùng số lượng nhưng đảo vị trí các ký tự)
+///////////////// kiểm tra 2 chuỗi nhập vào có phải là Anagrams của nhau không (cùng số lượng nhưng đảo vị trí các ký tự)
 //    public static void main(String[] args) {
 //        String input1, input2;
 //        char[] arr1, arr2;
@@ -137,3 +136,15 @@ import java.util.Scanner;
 //    }
 //
 //} // END - class Lap3
+//////// Coppy mảng
+class TestArrayCopyDemo {
+
+    public static void main(String[] args) {
+        char[] copyFrom = {'d', 'e', 'c', 'a', 'f', 'f', 'e',
+            'i', 'n', 'a', 't', 'e', 'd'};
+        char[] copyTo = new char[7];
+
+        System.arraycopy(copyFrom, 2, copyTo, 0, 7);
+        System.out.println(new String(copyTo));
+    }
+}
