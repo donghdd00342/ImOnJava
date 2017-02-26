@@ -14,6 +14,29 @@ import java.util.Scanner;
 
 class main {
 
+    // tìm min, max của mảng
+    // min
+    private static int min(int[] arr) {
+        int min = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (min > arr[i]) {
+                min = arr[i];
+            }
+        }
+        return min;
+    }
+
+    // max
+    private static int max(int[] arr) {
+        int max = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+
     // in mảng với message
     private static void printArr(String message, int[] arr) {
         System.out.println("----------- " + message + " -----------");
@@ -63,6 +86,11 @@ class main {
         Arrays.sort(arrInt);
         // in ra sau khi sắp xếp
         printArr("Sau khi sắp xếp", arrInt);
+        // min
+        System.out.println("Số nhỏ nhất trong mảng = " + min(arrInt));
+        System.out.println("Số lớn nhất trong mảng = " + max(arrInt));
+        System.out.print("... nhấn một phím bất kỳ để tiếp tục");
+        new Scanner(System.in).nextLine();
         // đảo mảng
         printArr("Đảo mảng sau khi sắp xếp", reverseArray(arrInt));
 
