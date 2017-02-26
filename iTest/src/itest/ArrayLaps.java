@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 class main {
 
+    // in mảng với message
     private static void printArr(String message, int[] arr) {
         System.out.println("----------- " + message + " -----------");
         System.out.print("[length = " + arr.length + "]: ");
@@ -28,6 +29,7 @@ class main {
 
     }
 
+    // chèn một phần tử vào mảng
     private static int[] insertElement(int[] arr, int element, int index) {
         int leng = arr.length;
         // tạo mảng mới
@@ -42,6 +44,16 @@ class main {
         return newArray;
     }
 
+    // đảo mảng
+    private static int[] reverseArray(int[] arr) {
+        int[] newArray = new int[arr.length];
+        for (int i = 0, j = arr.length - 1; i < arr.length; i++, j--) {
+            newArray[j] = arr[i];
+        }
+        return newArray;
+    }
+
+    ////////////////////////////////////////////// Hàm chạy test
     public static void main(String[] args) {
         int[] arrInt = {1, 15, 12, 36, 32, 21, 12, 4, 57, 5, 6, 2, 8, 5, 8};
         // in trước khi xếp
@@ -51,6 +63,8 @@ class main {
         Arrays.sort(arrInt);
         // in ra sau khi sắp xếp
         printArr("Sau khi sắp xếp", arrInt);
+        // đảo mảng
+        printArr("Đảo mảng sau khi sắp xếp", reverseArray(arrInt));
 
         String ch;
         int num;
@@ -75,7 +89,7 @@ class main {
             }
         }
         // chèn
-        while (true) {            
+        while (true) {
             System.out.print("Nhập vào số muốn chèn: ");
             num = new Scanner(System.in).nextInt();
             System.out.print("Bạn muốn chèn vào vị trí nào? (bắt đầu từ 0) ");
