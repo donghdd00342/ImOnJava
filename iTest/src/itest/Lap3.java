@@ -149,49 +149,49 @@ import java.util.Scanner;
 //    }
 //}
 /////////////// tìm kiếm mảng
-class main {
-
-    public static void main(String[] args) {
-        int[] arrInt = {1, 15, 12, 36, 32, 21, 12, 4, 57, 5, 6, 2, 8, 5, 8};
-        // in trước khi xếp
-        System.out.println("----------- Trước khi sắp xếp -----------");
-        for (int i : arrInt) {
-            System.out.print(i);
-            System.out.print(" ");
-        }
-        System.out.println("");
-
-        // sắp xếp
-        java.util.Arrays.sort(arrInt);
-        // in ra sau khi sắp xếp
-        System.out.println("----------- Sau khi sắp xếp -----------");
-        for (int i : arrInt) {
-            System.out.print(i);
-            System.out.print(" ");
-        }
-        System.out.println("");
-
-        String ch;
-        int num;
-        int index;
-        while (true) {
-
-            System.out.print("Nhập vào số muốn tìm kiếm: ");
-            num = new Scanner(System.in).nextInt();
-            // tìm
-            index = java.util.Arrays.binarySearch(arrInt, num);
-            if (index >= 0) {
-                System.out.printf("Tìm thấy (%d) tại vị trí [%d]\n", num, index);
-            } else {
-                System.out.printf("Không tìm thấy (%d)\n", num);
-            }
-            // tìm tiếp?
-            System.out.println("Bạn muốn tìm tiếp? ");
-            ch = new Scanner(System.in).nextLine();
-            if ("nN".contains(ch)) {
-                break;
-            }
-        }
-
-    }
-}
+//class main {
+//
+//    public static void main(String[] args) {
+//        int[] arrInt = {1, 15, 12, 36, 32, 21, 12, 4, 57, 5, 6, 2, 8, 5, 8};
+//        // in trước khi xếp
+//        System.out.println("----------- Trước khi sắp xếp -----------");
+//        for (int i : arrInt) {
+//            System.out.print(i);
+//            System.out.print(" ");
+//        }
+//        System.out.println("");
+//
+//        // sắp xếp
+//        java.util.Arrays.sort(arrInt);
+//        // in ra sau khi sắp xếp
+//        System.out.println("----------- Sau khi sắp xếp -----------");
+//        for (int i : arrInt) {
+//            System.out.print(i);
+//            System.out.print(" ");
+//        }
+//        System.out.println("");
+//
+//        String ch;
+//        int num;
+//        int index;
+//        while (true) {
+//
+//            System.out.print("Nhập vào số muốn tìm kiếm: ");
+//            num = new Scanner(System.in).nextInt();
+//            // tìm
+//            index = java.util.Arrays.binarySearch(arrInt, num);
+//            if (index >= 0) {
+//                System.out.printf("Tìm thấy (%d) tại vị trí [%d]\n", num, index);
+//            } else {
+//                System.out.printf("Không tìm thấy (%d)\n", num);
+//            }
+//            // tìm tiếp?
+//            System.out.println("Bạn muốn tìm tiếp? ");
+//            ch = new Scanner(System.in).nextLine();
+//            if ("nN".contains(ch)) {
+//                break;
+//            }
+//        }
+//
+//    }
+//}

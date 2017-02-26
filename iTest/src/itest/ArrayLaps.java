@@ -1,0 +1,93 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package itest;
+
+/**
+ *
+ * @author DongHo
+ */
+import java.util.Arrays;
+import java.util.Scanner;
+
+class main {
+
+    private static void printArr(String message, int[] arr) {
+        System.out.println("----------- " + message + " -----------");
+        System.out.print("[length = " + arr.length + "]: ");
+        for (int i = 0; i < arr.length; i++) {
+            if (i != 0) {
+                System.out.print(", ");
+            }
+            System.out.print(arr[i]);
+
+        }
+        System.out.println();
+
+    }
+
+    private static int[] insertElement(int[] arr, int element, int index) {
+        int leng = arr.length;
+        // tạo mảng mới
+        int[] newArray = new int[leng + 1];
+        // coppy phần trước
+        System.arraycopy(arr, 0, newArray, 0, index);
+        // gán tại index
+        newArray[index] = element;
+        // coppy phần còn lại
+        System.arraycopy(arr, index, newArray, index + 1, leng - index);
+
+        return newArray;
+    }
+
+    public static void main(String[] args) {
+        int[] arrInt = {1, 15, 12, 36, 32, 21, 12, 4, 57, 5, 6, 2, 8, 5, 8};
+        // in trước khi xếp
+        printArr("Trước khi sắp xếp", arrInt);
+
+        // sắp xếp
+        Arrays.sort(arrInt);
+        // in ra sau khi sắp xếp
+        printArr("Sau khi sắp xếp", arrInt);
+
+        String ch;
+        int num;
+        int index;
+
+        // tìm kiếm
+        while (true) {
+            System.out.print("Nhập vào số muốn tìm kiếm: ");
+            num = new Scanner(System.in).nextInt();
+            // tìm
+            index = Arrays.binarySearch(arrInt, num);
+            if (index >= 0) {
+                System.out.printf("Tìm thấy (%d) tại vị trí [%d]\n", num, index);
+            } else {
+                System.out.printf("Không tìm thấy (%d)\n", num);
+            }
+            // tìm tiếp?
+            System.out.println("Bạn muốn tìm tiếp? ");
+            ch = new Scanner(System.in).nextLine();
+            if ("nN".contains(ch)) {
+                break;
+            }
+        }
+        // chèn
+        while (true) {            
+            System.out.print("Nhập vào số muốn chèn: ");
+            num = new Scanner(System.in).nextInt();
+            System.out.print("Bạn muốn chèn vào vị trí nào? (bắt đầu từ 0) ");
+            index = new Scanner(System.in).nextInt();
+            printArr("Sau khi chèn (" + num + ") vào vị trí (" + index + ")", insertElement(arrInt, num, index));
+            // Chèn tiếp?
+            System.out.println("Bạn muốn chèn tiếp? ");
+            ch = new Scanner(System.in).nextLine();
+            if ("nN".contains(ch)) {
+                break;
+            }
+        }
+
+    }
+}
