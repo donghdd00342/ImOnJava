@@ -13,6 +13,15 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 class main {
+    
+    // join 2 mảng
+    private static int[] joinArray(int[] arr1, int[] arr2){
+        int[] joinArray = new int[arr1.length + arr2.length];
+        System.arraycopy(arr1, 0, joinArray, 0, arr1.length);
+        System.arraycopy(arr2, 0, joinArray, arr1.length, arr2.length);
+        
+        return joinArray;
+    }
 
     // tìm min, max của mảng
     // min
@@ -93,6 +102,9 @@ class main {
         new Scanner(System.in).nextLine();
         // đảo mảng
         printArr("Đảo mảng sau khi sắp xếp", reverseArray(arrInt));
+        System.out.print("... nhấn một phím bất kỳ để tiếp tục");
+        printArr("Nối mảng và mảng đảo với nhau", joinArray(arrInt,reverseArray(arrInt)));
+        System.out.print("... nhấn một phím bất kỳ để tiếp tục");
 
         String ch;
         int num;
