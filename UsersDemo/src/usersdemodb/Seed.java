@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db;
+package usersdemodb;
 
 /**
  *
  * @author DongHo
  */
-public class GlobalConfigs {
-    String urlConnection = "";
+public class Seed {
     
 }

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package usersdemo.main;
 
-import entity.Product;
-import model.ProductModel;
+import usersdemo.entity.Product;
+import usersdemo.model.ProductModel;
 
 /**
  *

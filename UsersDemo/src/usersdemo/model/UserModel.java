@@ -3,39 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package usersdemo.model;
 
-import entity.Product;
+import usersdemo.entity.User;
 
 /**
  *
  * @author DongHo
  */
-public class ProductModel {
+public class UserModel {
 
-    public static Product find(int id) {
-        Product product = new Product();
+    public static User find(int id) {
+        User user = new User();
 
-        return product;
+        return user;
     }
 
-    public static int insert(Product product) {
+    public static int insert(User user) {
         int id = 0;
 
         return id;
-
     }
 
-    public static boolean update(Product product, int id) {
+    public static boolean update(User user, int id) {
         boolean success = true;
 
         return success;
     }
 
-    public static Product delete(int id) {
-        Product product = new Product();
+    public static User delete(int id) {
+        User user = new User();
 
-        return product;
+        return user;
     }
 
     public static void all(byte pagination) {
