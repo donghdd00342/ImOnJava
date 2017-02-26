@@ -105,6 +105,8 @@ class main {
         System.out.print("... nhấn một phím bất kỳ để tiếp tục");
         printArr("Nối mảng và mảng đảo với nhau", joinArray(arrInt,reverseArray(arrInt)));
         System.out.print("... nhấn một phím bất kỳ để tiếp tục");
+        printArr("Coppy nhanh một mảng", Arrays.copyOf(arrInt, arrInt.length));
+        System.out.print("... nhấn một phím bất kỳ để tiếp tục");
 
         String ch;
         int num;
