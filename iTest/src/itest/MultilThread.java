@@ -5,6 +5,9 @@
  */
 package itest;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author DongHo
@@ -103,3 +106,50 @@ package itest;
 //    }
 //
 //}
+/////////////// synchronized
+class User {
+
+    int balance = 1000;
+
+    public synchronized void rut(int money) {
+        if (money > this.balance) {
+            try {
+                System.err.println("Không có đủ tiền để rút!");
+                System.err.println("Bắt đầu chờ nạp tiền...");
+                wait();
+            } catch (InterruptedException ex) {
+                System.err.println("Có lỗi gì đó: " + ex);
+            }
+        }
+        System.out.println("Số dư: " + this.balance);
+        this.balance -= money;
+        System.out.println("Sau khi RÚT Số dư: " + this.balance);
+    }
+
+    public synchronized void gui(int money) {
+        System.out.println("Số dư: " + this.balance);
+        this.balance += money;
+        System.out.println("Sau khi GỬI Số dư: " + this.balance);
+        System.out.println("Bắt đầu kích hoạt Thread đang chờ gửi tiền...");
+        notifyAll();
+    }
+
+    public static void main(String[] args) {
+        User u = new User();
+        Thread guiTien = new Thread() {
+            @Override
+            public void run() {
+                u.gui(800);
+            }
+        };
+        Thread rutTien = new Thread() {
+            @Override
+            public void run() {
+                u.rut(1500);
+            }
+        };
+        // test
+        rutTien.start();
+        guiTien.start();
+    }
+}
