@@ -1,17 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package itest;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
-import java.util.Scanner;
-
-/**
- *
- * @author DongHo
- */
+///*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
+//package itest;
+//
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
+//import java.util.Scanner;
+//
+///**
+// *
+// * @author DongHo
+// */
 ////////////////////////////////////////////////////////////////////////////////
 //public class Itest {
 //
