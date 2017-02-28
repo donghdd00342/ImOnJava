@@ -3,7 +3,7 @@
 // * To change this template file, choose Tools | Templates
 // * and open the template in the editor.
 // */
-//package itest;
+package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
 //import java.util.Scanner;
