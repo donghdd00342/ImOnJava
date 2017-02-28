@@ -983,16 +983,30 @@ package itest;
 //    }
 //}
 /////////////// date & time
-
-import java.util.Date;
+//import java.util.Date;
+//
+//class DateDemo {
+//
+//    public static void main(String args[]) {
+//        // khoi tao mot doi tuong Date
+//        Date date = new Date();
+//
+//        // hien thi date va time boi su dung toString()
+//        System.out.println(date.toString()); // Tue Feb 28 15:54:10 ICT 2017
+//    }
+//}
+//////// sử dụng SimpleDateFormat
+import java.util.*;
+import java.text.*;
 
 class DateDemo {
 
     public static void main(String args[]) {
-        // khoi tao mot doi tuong Date
-        Date date = new Date();
 
-        // hien thi date va time boi su dung toString()
-        System.out.println(date.toString()); // Tue Feb 28 15:54:10 ICT 2017
+        Date dNow = new Date();
+        SimpleDateFormat ft
+                = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+
+        System.out.println("Date hien tai: " + ft.format(dNow));
     }
 }
