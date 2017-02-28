@@ -1044,19 +1044,19 @@ import java.util.*;
 class DiffDemo {
 
     public static void main(String args[]) {
-        try {
-            long start = System.currentTimeMillis();
-            System.out.println(new Date() + "\n");
-            Thread.sleep(3000);
-            System.out.println(new Date() + "\n");
-            long end = System.currentTimeMillis();
-            long diff = end - start;
-            System.out.println("Khac nhau la : " + diff);
-        } catch (Exception e) {
-            System.out.println("Nhan mot exception!");
-        }
+//        try {
+//            long start = System.currentTimeMillis();
+//            System.out.println(new Date() + "\n");
+//            Thread.sleep(300);
+//            System.out.println(new Date() + "\n");
+//            long end = System.currentTimeMillis();
+//            long diff = end - start;
+//            System.out.println("Khac nhau la : " + diff);
+//        } catch (InterruptedException e) {
+//            System.out.println("Nhan mot exception!");
+//        }
         // GregorianCalendar
         GregorianCalendar calendar = new GregorianCalendar();
-        System.out.println(calendar.YEAR);
+        System.out.println(calendar);
     }
 }
