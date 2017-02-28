@@ -996,6 +996,7 @@ package itest;
 //    }
 //}
 //////// sử dụng SimpleDateFormat
+
 import java.util.*;
 import java.text.*;
 
@@ -1007,7 +1008,16 @@ class DateDemo {
         SimpleDateFormat ft
                 = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
 
-        System.out.println("Date hien tai: " + ft.format(dNow));
         // Date hien tai: Tue 2017.02.28 at 03:59:06 PM ICT
+        System.out.println("Date hien tai: " + ft.format(dNow));
+        //Tue 2017.02.28 at 04:13:55 PM ICT
+        System.out.println(new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz").format(new Date()));
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2017-02-28");
+            // Tue Feb 28 00:00:00 ICT 2017
+            System.out.println(date);
+        } catch (ParseException ex) {
+            System.err.println("Có lỗi! " + ex);
+        }
     }
 }
