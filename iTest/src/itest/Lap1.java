@@ -1008,5 +1008,6 @@ class DateDemo {
                 = new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
 
         System.out.println("Date hien tai: " + ft.format(dNow));
+        // Date hien tai: Tue 2017.02.28 at 03:59:06 PM ICT
     }
 }
