@@ -967,14 +967,19 @@ package itest;
 //    }
 //}
 ///////// tham trị tham chiếu
+
 class A {
-    
-    public static void changeString(String str) {
-        str = str + " by Ho Dong!";
+
+    String str = "Anh Dong";
+
+    public static void changeString(A a) {
+        a.str += " by Ho Dong!";
     }
+
     public static void main(String[] args) {
-        String str = "Anh Dong";
-        changeString(str);
-        System.out.println(str);
+        A a = new A();
+        System.out.println("Trước khi đổi: " + a.str);
+        a.changeString(a);
+        System.out.println("Sau khi đổi: " + a.str);
     }
 }
