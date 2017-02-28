@@ -6,6 +6,9 @@
 package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
+
+import java.util.regex.Pattern;
+
 //import java.util.Scanner;
 //
 ///**
@@ -1038,25 +1041,30 @@ package itest;
 //    }
 //}
 //////// đo lượng thời gian
-
-import java.util.*;
-
-class DiffDemo {
-
-    public static void main(String args[]) {
-//        try {
-//            long start = System.currentTimeMillis();
-//            System.out.println(new Date() + "\n");
-//            Thread.sleep(300);
-//            System.out.println(new Date() + "\n");
-//            long end = System.currentTimeMillis();
-//            long diff = end - start;
-//            System.out.println("Khac nhau la : " + diff);
-//        } catch (InterruptedException e) {
-//            System.out.println("Nhan mot exception!");
-//        }
-        // GregorianCalendar
-        GregorianCalendar calendar = new GregorianCalendar();
-        System.out.println(calendar);
+//import java.util.*;
+//
+//class DiffDemo {
+//
+//    public static void main(String args[]) {
+////        try {
+////            long start = System.currentTimeMillis();
+////            System.out.println(new Date() + "\n");
+////            Thread.sleep(300);
+////            System.out.println(new Date() + "\n");
+////            long end = System.currentTimeMillis();
+////            long diff = end - start;
+////            System.out.println("Khac nhau la : " + diff);
+////        } catch (InterruptedException e) {
+////            System.out.println("Nhan mot exception!");
+////        }
+//        // GregorianCalendar
+//        GregorianCalendar calendar = new GregorianCalendar();
+//        System.out.println(calendar);
+//    }
+//}
+///////////////// Regular Expression
+class main {
+    public static void main(String[] args) {
+        System.out.println(Pattern.matches("\\A([^@\\s]+)@((?:[-a-z0-9]+\\.)+[a-z]{2,})\\z", "Dong@phuc.com"));
     }
 }
