@@ -966,3 +966,15 @@ package itest;
 //        
 //    }
 //}
+///////// tham trị tham chiếu
+class A {
+    
+    public static void changeString(String str) {
+        str = str + " by Ho Dong!";
+    }
+    public static void main(String[] args) {
+        String str = "Anh Dong";
+        changeString(str);
+        System.out.println(str);
+    }
+}
