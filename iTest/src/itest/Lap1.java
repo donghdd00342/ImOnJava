@@ -967,19 +967,32 @@ package itest;
 //    }
 //}
 ///////// tham trị tham chiếu
+//class A {
+//
+//    String str = "Anh Dong";
+//
+//    public static void changeString(A a) {
+//        a.str += " by Ho Dong!";
+//    }
+//
+//    public static void main(String[] args) {
+//        A a = new A();
+//        System.out.println("Trước khi đổi: " + a.str);
+//        a.changeString(a);
+//        System.out.println("Sau khi đổi: " + a.str);
+//    }
+//}
+/////////////// date & time
 
-class A {
+import java.util.Date;
 
-    String str = "Anh Dong";
+class DateDemo {
 
-    public static void changeString(A a) {
-        a.str += " by Ho Dong!";
-    }
+    public static void main(String args[]) {
+        // khoi tao mot doi tuong Date
+        Date date = new Date();
 
-    public static void main(String[] args) {
-        A a = new A();
-        System.out.println("Trước khi đổi: " + a.str);
-        a.changeString(a);
-        System.out.println("Sau khi đổi: " + a.str);
+        // hien thi date va time boi su dung toString()
+        System.out.println(date.toString()); // Tue Feb 28 15:54:10 ICT 2017
     }
 }
