@@ -1022,18 +1022,41 @@ package itest;
 //    }
 //}
 ////////// sleep và time
+//
+//import java.util.*;
+//
+//class SleepDemo {
+//
+//    public static void main(String args[]) {
+//        try {
+//            System.out.println(new Date() + "\n");
+//            Thread.sleep(5 * 60 * 10);
+//            System.out.println(new Date() + "\n");
+//        } catch (InterruptedException e) {
+//            System.out.println("Nhan mot exception!");
+//        }
+//    }
+//}
+//////// đo lượng thời gian
 
 import java.util.*;
 
-class SleepDemo {
+class DiffDemo {
 
     public static void main(String args[]) {
         try {
+            long start = System.currentTimeMillis();
             System.out.println(new Date() + "\n");
-            Thread.sleep(5 * 60 * 10);
+            Thread.sleep(3000);
             System.out.println(new Date() + "\n");
-        } catch (InterruptedException e) {
+            long end = System.currentTimeMillis();
+            long diff = end - start;
+            System.out.println("Khac nhau la : " + diff);
+        } catch (Exception e) {
             System.out.println("Nhan mot exception!");
         }
+        // GregorianCalendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        System.out.println(calendar.YEAR);
     }
 }
