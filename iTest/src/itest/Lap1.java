@@ -6,6 +6,10 @@
 package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //
 ///**
 // *
@@ -1065,20 +1069,49 @@ package itest;
 //    }
 //}
 ////// StringPool
-class main {
+//class main {
+//
+//    public static void change(String str) {
+//        str += " by DONGHO.";
+//    }
+//
+//    public static void main(String[] args) {
+//        String str = "123";
+//        if ("123" == str) {
+//            System.out.println("yes");
+//        } else {
+//            System.out.println("no");
+//        }
+//        change(str);
+//        System.out.println(str);
+//    }
+//}
+///////////////////////////////// clone() hoặc có contructor để sao chép (nhưng sẽ tốn tài nguyên hớn clone)
+class A implements Cloneable {
 
-    public static void change(String str) {
-        str += " by DONGHO.";
+    int a = 1;
+    int b = 2;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
 
     public static void main(String[] args) {
-        String str = "123";
-        if ("123" == str) {
-            System.out.println("yes");
+        A a1 = new A();
+//        A a2 = a1;
+        A a2 = new A(); a2 = a1;
+//        try {
+//            a2 = (A)a1.clone();
+//        } catch (CloneNotSupportedException ex) {
+//            System.err.println("Looix gi g=do");
+//        }
+        a2.a = 100;
+        if (a1 == a2) {
+            System.out.println("Tham chiếu cùng đối tượng");
         } else {
-            System.out.println("no");
+            System.out.println("KHÔNG tham chiếu cùng đối tượng");
         }
-        change(str);
-        System.out.println(str);
+        System.out.println(a1.a);
     }
 }
