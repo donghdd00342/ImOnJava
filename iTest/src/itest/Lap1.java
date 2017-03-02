@@ -1186,17 +1186,32 @@ package itest;
 //	}
 //}
 //////// equals
-class A {
+//class A {
+//
+//	public static void main(String[] args) {
+//		String sb1 = "123";
+////		String sb2 = "123";
+////		StringBuilder sb2 = new StringBuilder("123");
+//		//String sb = "";
+//		if (sb1.equals(sb2)) {
+//			System.out.println("Bằng");
+//		} else {
+//			System.out.println("Không Bằng");
+//		}
+//	}
+//}
+class returntest {
 
-	public static void main(String[] args) {
-		String sb1 = "123";
-//		String sb2 = "123";
-//		StringBuilder sb2 = new StringBuilder("123");
-		//String sb = "";
-		if (sb1.equals(sb2)) {
-			System.out.println("Bằng");
-		} else {
-			System.out.println("Không Bằng");
-		}
+	public static void main(String... args) {
+
+		String name1 = "Test";
+		String s = new String("Test");
+		StringBuilder sb = new StringBuilder("Test");
+
+		System.out.println(name1.equals(sb)); //false
+		System.out.println(name1.equals(s));  //true
+		System.out.println(s.equals(sb));     // false
+		System.out.println(s.equals(name1));  //true
 	}
+
 }
