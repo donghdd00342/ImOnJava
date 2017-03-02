@@ -6,8 +6,6 @@
 package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
-///**
-// *
 // * @author DongHo
 // */
 ////////////////////////////////////////////////////////////////////////////////
@@ -1063,23 +1061,23 @@ package itest;
 //        System.out.println(Pattern.matches("\\A([^@\\s]+)@((?:[a-z0-9]+\\.)+[a-z]{2,})\\z", "Dong@phuc.com.edu.vnn"));
 //    }
 //}
-//// StringPool
-class main {
-
-    public static void change(String str) {
-        str += " by DONGHO.";
-    }
-
-    public static void main(String[] args) {
-        String str1 = "123";
-        String str2 = "12"+"3";
-        if (str1 != str2) {
-            System.out.println("Bằng");
-        } else {
-            System.out.println("KHÔNG PHẢI RÁC...");
-        }
-    }
-}
+//// StringPool - KHÔNG PHẢI RÁC...
+//class main {
+//
+//    public static void change(String str) {
+//        str += " by DONGHO.";
+//    }
+//
+//    public static void main(String[] args) {
+//        String str1 = "123";
+//        String str2 = "12"+"3";
+//        if (str1 != str2) {
+//            System.out.println("Bằng");
+//        } else {
+//            System.out.println("KHÔNG PHẢI RÁC...");
+//        }
+//    }
+//}
 ///////////////////////////////// clone() hoặc có contructor để sao chép (nhưng sẽ tốn tài nguyên hớn clone)
 //class A implements Cloneable {
 //
@@ -1108,4 +1106,42 @@ class main {
 //        }
 //        System.out.println(a1.a);
 //    }
+//}
+/////////// String
+//class Testimmutablestring {
+//
+//    public static void main(String args[]) {
+//        String s = "Anh Dong";
+//        s.concat(" Đệp Zai"); //phuong thuc concat() phu them vao cuoi chuoi  
+//        System.out.println(s);//se in Anh Dong vì string la immutable  
+//    }
+//}
+//////////// Chuỗi con trong Java
+//
+//class A {
+//
+//    public static void main(String[] args) {
+//        String str = "0123456789";
+//        System.out.println("length = " + str.length());
+//        System.out.println(str.substring(1));
+//        System.out.println("." + str.substring(0, 0) + ".");
+//
+//        String s1 = "Java la mot ngon ngu lap trinh. Java la mot nen tang. Java la mot hon dao.";
+//        String replaceString = s1.replace("Java", "HaLong");//thay the tat ca su xuat hien cua "Java" thanh "HaLong"    
+//        System.out.println(replaceString);
+//        System.out.println(s1);
+//        
+//        StringBuffer strBf = new StringBuffer();
+//    }
+//}
+//////// StringBuffer
+
+//class Test {
+//
+//	public static void main(String args[]) {
+//		StringBuffer sb = new StringBuffer("Test");
+//		sb.append(" String Buffer");
+//		System.out.println(sb);
+//		System.out.println(sb.append(1.0));
+//	}
 //}
