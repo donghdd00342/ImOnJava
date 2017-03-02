@@ -1158,30 +1158,45 @@ package itest;
 //	}
 //}
 ///// Kiểm tra hiệu suất của lớp String và StringBuffer trong Java
-class Test1 {
-
-	public static String concatWithString() {
-		String t = "Java";
-		for (int i = 0; i < 10000; i++) {
-			t = t + ".";
-		}
-		return t;
-	}
-
-	public static String concatWithStringBuffer() {
-		StringBuffer sb = new StringBuffer("Java");
-		for (int i = 0; i < 10000; i++) {
-			sb.append(".");
-		}
-		return sb.toString();
-	}
+//class Test1 {
+//
+//	public static String concatWithString() {
+//		String t = "Java";
+//		for (int i = 0; i < 10000; i++) {
+//			t = t + ".";
+//		}
+//		return t;
+//	}
+//
+//	public static String concatWithStringBuffer() {
+//		StringBuffer sb = new StringBuffer("Java");
+//		for (int i = 0; i < 10000; i++) {
+//			sb.append(".");
+//		}
+//		return sb.toString();
+//	}
+//
+//	public static void main(String[] args) {
+//		long startTime = System.currentTimeMillis();
+//		concatWithString();
+//		System.out.println("Thoi gian tieu ton boi noi chuoi voi String: " + (System.currentTimeMillis() - startTime) + "ms");
+//		startTime = System.currentTimeMillis();
+//		concatWithStringBuffer();
+//		System.out.println("Thoi gian tieu ton boi noi chuoi voi StringBuffer: " + (System.currentTimeMillis() - startTime) + "ms");
+//	}
+//}
+//////// equals
+class A {
 
 	public static void main(String[] args) {
-		long startTime = System.currentTimeMillis();
-		concatWithString();
-		System.out.println("Thoi gian tieu ton boi noi chuoi voi String: " + (System.currentTimeMillis() - startTime) + "ms");
-		startTime = System.currentTimeMillis();
-		concatWithStringBuffer();
-		System.out.println("Thoi gian tieu ton boi noi chuoi voi StringBuffer: " + (System.currentTimeMillis() - startTime) + "ms");
+		String sb1 = "123";
+//		String sb2 = "123";
+//		StringBuilder sb2 = new StringBuilder("123");
+		//String sb = "";
+		if (sb1.equals(sb2)) {
+			System.out.println("Bằng");
+		} else {
+			System.out.println("Không Bằng");
+		}
 	}
 }
