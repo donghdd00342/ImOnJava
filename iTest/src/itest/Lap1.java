@@ -1200,18 +1200,36 @@ package itest;
 //		}
 //	}
 //}
-class returntest {
+//class returntest {
+//
+//	public static void main(String... args) {
+//
+//		String name1 = "Test";
+//		String s = new String("Test");
+//		StringBuilder sb = new StringBuilder("Test");
+//
+//		System.out.println(name1.equals(sb)); //false
+//		System.out.println(name1.equals(s));  //true
+//		System.out.println(s.equals(sb));     // false
+//		System.out.println(s.equals(name1));  //true
+//	}
+//
+//}
+//////// Kiểm tra hiệu suất của lớp StringBuffer và StringBuilder (nghe đồn là StringBulder hiệu suất hơn nhưng thấy tương đương
+class ConcatTest {
 
-	public static void main(String... args) {
-
-		String name1 = "Test";
-		String s = new String("Test");
-		StringBuilder sb = new StringBuilder("Test");
-
-		System.out.println(name1.equals(sb)); //false
-		System.out.println(name1.equals(s));  //true
-		System.out.println(s.equals(sb));     // false
-		System.out.println(s.equals(name1));  //true
+	public static void main(String[] args) {
+		long startTime = System.currentTimeMillis();
+		StringBuffer sb = new StringBuffer("Java");
+		for (int i = 0; i < 100000; i++) {
+			sb.append("Vietjack");
+		}
+		System.out.println("Thoi gian tieu ton boi StringBuffer: " + (System.currentTimeMillis() - startTime) + "ms");
+		startTime = System.currentTimeMillis();
+		StringBuilder sb2 = new StringBuilder("Java");
+		for (int i = 0; i < 100000; i++) {
+			sb2.append("Vietjack");
+		}
+		System.out.println("Thoi gian tieu ton boi StringBuilder: " + (System.currentTimeMillis() - startTime) + "ms");
 	}
-
 }
