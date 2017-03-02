@@ -1282,23 +1282,40 @@ package itest;
 //		System.out.println("Phan code con lai...");
 //	}
 //}
-/////////////
+///////////// "passes the exception from up the calling chain"
 class ExceptionThrow {
 
 	char[] charArray = new char[]{'c', 'e', 'a', 'b', 'd'};
 
+//	void checkArray() throws ABException {
+//		for (int i = 0; i < charArray.length; i++) {
+//			switch (charArray[i]) {
+//				case 'a':
+//					throw new ABException();
+//				case 'b':
+//					throw new ABException();// creating the instance of the
+//				// exception anticipated
+//				default:
+//					System.out.println(charArray[i] + " is not A or a B");
+//
+//			}
+//		}
+//	}
 	void checkArray() throws ABException {
 		for (int i = 0; i < charArray.length; i++) {
-			switch (charArray[i]) {
-				case 'a':
-					throw new ABException();
-				case 'b':
-					throw new ABException();// creating the instance of the
-				// exception anticipated
-				default:
-					System.out.println(charArray[i] + " is not A or a B");
+			check(charArray[i]);
+		}
+	}
 
-			}
+	void check(char c) throws ABException {
+		switch (c) {
+			case 'a':
+				throw new ABException();
+			case 'b':
+				throw new ABException();// creating the instance of the
+			// exception anticipated
+			default:
+				System.out.println(c + " is not A or a B");
 		}
 	}
 
@@ -1307,9 +1324,11 @@ class ExceptionThrow {
 
 		try {
 			et.checkArray();
-		} catch (ABException ab) {
-			System.err.println(ab.getMessage() + " An exception did actually occur");
-		} finally {
+		}
+//		catch (ABException ab) {
+//			System.err.println(ab.getMessage() + " An exception did actually occur");
+//		} 
+		finally {
 			System.out.println("This block will always execute");
 		}
 
