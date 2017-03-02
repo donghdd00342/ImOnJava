@@ -1216,20 +1216,32 @@ package itest;
 //
 //}
 //////// Kiểm tra hiệu suất của lớp StringBuffer và StringBuilder (nghe đồn là StringBulder hiệu suất hơn nhưng thấy tương đương
-class ConcatTest {
-
-	public static void main(String[] args) {
-		long startTime = System.currentTimeMillis();
-		StringBuffer sb = new StringBuffer("Java");
-		for (int i = 0; i < 100000; i++) {
-			sb.append("Vietjack");
-		}
-		System.out.println("Thoi gian tieu ton boi StringBuffer: " + (System.currentTimeMillis() - startTime) + "ms");
-		startTime = System.currentTimeMillis();
-		StringBuilder sb2 = new StringBuilder("Java");
-		for (int i = 0; i < 100000; i++) {
-			sb2.append("Vietjack");
-		}
-		System.out.println("Thoi gian tieu ton boi StringBuilder: " + (System.currentTimeMillis() - startTime) + "ms");
-	}
-}
+//class ConcatTest {
+//
+//	public static void main(String[] args) {
+//		long startTime = System.currentTimeMillis();
+//		StringBuffer sb = new StringBuffer("Java");
+//		for (int i = 0; i < 100000; i++) {
+//			sb.append("Vietjack");
+//		}
+//		System.out.println("Thoi gian tieu ton boi StringBuffer: " + (System.currentTimeMillis() - startTime) + "ms");
+//		startTime = System.currentTimeMillis();
+//		StringBuilder sb2 = new StringBuilder("Java");
+//		for (int i = 0; i < 100000; i++) {
+//			sb2.append("Vietjack");
+//		}
+//		System.out.println("Thoi gian tieu ton boi StringBuilder: " + (System.currentTimeMillis() - startTime) + "ms");
+//	}
+//}
+class TestMultipleCatchBlock1{  
+  public static void main(String args[]){  
+   try{  
+    int a[]=new int[5];  
+    a[5]=30/0;  
+   }  
+   catch(Exception e){System.out.println("Task chung duoc hoan thanh");} // chung trước bị lỗi  
+   catch(ArithmeticException e){System.out.println("Task1 duoc hoan thanh");}  // riêng
+   catch(ArrayIndexOutOfBoundsException e){System.out.println("Task2 duoc hoan thanh");} // riêng đã gồm trong chung  
+   System.out.println("Phan code con lai...");  
+ }  
+}  
