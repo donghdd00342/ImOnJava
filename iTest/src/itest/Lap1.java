@@ -1234,15 +1234,51 @@ package itest;
 //	}
 //}
 //////////////// TestMultipleCatchBlock1
-class TestMultipleCatchBlock1{  
-  public static void main(String args[]){  
-   try{  
-    int a[]=new int[5];  
-    a[5]=30/0;  
-   }  
-   catch(Exception e){System.out.println("Task chung duoc hoan thanh");} // chung trước bị lỗi  
-   catch(ArithmeticException e){System.out.println("Task1 duoc hoan thanh");}  // riêng
-   catch(ArrayIndexOutOfBoundsException e){System.out.println("Task2 duoc hoan thanh");} // riêng đã gồm trong chung  
-   System.out.println("Phan code con lai...");  
- }  
-}  
+//class TestMultipleCatchBlock1{  
+//  public static void main(String args[]){  
+//   try{  
+//    int a[]=new int[5];  
+//    a[5]=30/0;  
+//   }  
+//   catch(Exception e){System.out.println("Task chung duoc hoan thanh");} // chung trước bị lỗi  
+//   catch(ArithmeticException e){System.out.println("Task1 duoc hoan thanh");}  // riêng
+//   catch(ArrayIndexOutOfBoundsException e){System.out.println("Task2 duoc hoan thanh");} // riêng đã gồm trong chung  
+//   System.out.println("Phan code con lai...");  
+// }  
+//}  
+//class TestFinallyBlock1 {
+//
+//	public static void main(String args[]) {
+//		try {
+//			int data = 25 / 0;
+//			System.out.println(data);
+//		} catch (NullPointerException e) {
+//			System.out.println(e);
+//		} finally {
+//			System.out.println("Khoi finally luon luon duoc thuc thi");
+//		}
+//		System.out.println("Phan code con lai...");
+//		System.g
+//	}
+//}
+////////////////////
+class TestThrow1 {
+
+	static void validate(int tuoi) {
+		if (tuoi < 18) {
+			throw new ArithmeticException("Khong hop le");
+		} else {
+			System.out.println("Chao mung ban den bo phieu");
+		}
+	}
+
+	public static void main(String args[]) {
+		try {
+			validate(13);
+
+		} catch (Exception e) {
+			System.err.println("Lỗi gì đó, vui lòng kiểm tra lại");
+		}
+		System.out.println("Phan code con lai...");
+	}
+}
