@@ -1145,3 +1145,15 @@ package itest;
 //		System.out.println(sb.append(1.0));
 //	}
 //}
+//////// capacity = (old_capacity*2)+2
+class Main {
+
+	public static void main(String args[]) {
+		StringBuffer sb = new StringBuffer();
+		System.out.println(sb.capacity());//mac dinh la 16  
+		sb.append("Hello");
+		System.out.println(sb.capacity());//bay gio la 16  
+		sb.append("Java la mot ngon ngu lap trinh manh me");
+		System.out.println(sb.capacity());//bay gio la (16*2)+2=34 vi du cua cong thuc (oldcapacity*2)+2  
+	}
+}
