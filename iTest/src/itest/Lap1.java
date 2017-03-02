@@ -1233,6 +1233,7 @@ package itest;
 //		System.out.println("Thoi gian tieu ton boi StringBuilder: " + (System.currentTimeMillis() - startTime) + "ms");
 //	}
 //}
+//////////////// TestMultipleCatchBlock1
 class TestMultipleCatchBlock1{  
   public static void main(String args[]){  
    try{  
