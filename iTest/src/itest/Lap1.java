@@ -6,10 +6,6 @@
 package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
-
-import java.util.regex.Pattern;
-
-//import java.util.Scanner;
 //
 ///**
 // *
@@ -1063,8 +1059,26 @@ import java.util.regex.Pattern;
 //    }
 //}
 ///////////////// Regular Expression
+//class main {
+//    public static void main(String[] args) {
+//        System.out.println(Pattern.matches("\\A([^@\\s]+)@((?:[a-z0-9]+\\.)+[a-z]{2,})\\z", "Dong@phuc.com.edu.vnn"));
+//    }
+//}
+////// StringPool
 class main {
+
+    public static void change(String str) {
+        str += " by DONGHO.";
+    }
+
     public static void main(String[] args) {
-        System.out.println(Pattern.matches("\\A([^@\\s]+)@((?:[-a-z0-9]+\\.)+[a-z]{2,})\\z", "Dong@phuc.com"));
+        String str = "123";
+        if ("123" == str) {
+            System.out.println("yes");
+        } else {
+            System.out.println("no");
+        }
+        change(str);
+        System.out.println(str);
     }
 }
