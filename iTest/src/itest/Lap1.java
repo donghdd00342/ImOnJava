@@ -1146,14 +1146,42 @@ package itest;
 //	}
 //}
 //////// capacity = (old_capacity*2)+2
-class Main {
+//class Main {
+//
+//	public static void main(String args[]) {
+//		StringBuffer sb = new StringBuffer();
+//		System.out.println(sb.capacity());//mac dinh la 16  
+//		sb.append("Hello");
+//		System.out.println(sb.capacity());//bay gio la 16  
+//		sb.append("Java la mot ngon ngu lap trinh manh me");
+//		System.out.println(sb.capacity());//bay gio la (16*2)+2=34 vi du cua cong thuc (oldcapacity*2)+2  
+//	}
+//}
+///// Kiểm tra hiệu suất của lớp String và StringBuffer trong Java
+class Test1 {
 
-	public static void main(String args[]) {
-		StringBuffer sb = new StringBuffer();
-		System.out.println(sb.capacity());//mac dinh la 16  
-		sb.append("Hello");
-		System.out.println(sb.capacity());//bay gio la 16  
-		sb.append("Java la mot ngon ngu lap trinh manh me");
-		System.out.println(sb.capacity());//bay gio la (16*2)+2=34 vi du cua cong thuc (oldcapacity*2)+2  
+	public static String concatWithString() {
+		String t = "Java";
+		for (int i = 0; i < 10000; i++) {
+			t = t + ".";
+		}
+		return t;
+	}
+
+	public static String concatWithStringBuffer() {
+		StringBuffer sb = new StringBuffer("Java");
+		for (int i = 0; i < 10000; i++) {
+			sb.append(".");
+		}
+		return sb.toString();
+	}
+
+	public static void main(String[] args) {
+		long startTime = System.currentTimeMillis();
+		concatWithString();
+		System.out.println("Thoi gian tieu ton boi noi chuoi voi String: " + (System.currentTimeMillis() - startTime) + "ms");
+		startTime = System.currentTimeMillis();
+		concatWithStringBuffer();
+		System.out.println("Thoi gian tieu ton boi noi chuoi voi StringBuffer: " + (System.currentTimeMillis() - startTime) + "ms");
 	}
 }
