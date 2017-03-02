@@ -1283,57 +1283,82 @@ package itest;
 //	}
 //}
 ///////////// "passes the exception from up the calling chain"
-class ExceptionThrow {
-
-	char[] charArray = new char[]{'c', 'e', 'a', 'b', 'd'};
-
+//class ExceptionThrow {
+//
+//	char[] charArray = new char[]{'c', 'e', 'a', 'b', 'd'};
+//
+////	void checkArray() throws ABException {
+////		for (int i = 0; i < charArray.length; i++) {
+////			switch (charArray[i]) {
+////				case 'a':
+////					throw new ABException();
+////				case 'b':
+////					throw new ABException();// creating the instance of the
+////				// exception anticipated
+////				default:
+////					System.out.println(charArray[i] + " is not A or a B");
+////
+////			}
+////		}
+////	}
 //	void checkArray() throws ABException {
 //		for (int i = 0; i < charArray.length; i++) {
-//			switch (charArray[i]) {
-//				case 'a':
-//					throw new ABException();
-//				case 'b':
-//					throw new ABException();// creating the instance of the
-//				// exception anticipated
-//				default:
-//					System.out.println(charArray[i] + " is not A or a B");
-//
-//			}
+//			check(charArray[i]);
 //		}
 //	}
-	void checkArray() throws ABException {
-		for (int i = 0; i < charArray.length; i++) {
-			check(charArray[i]);
-		}
+//
+//	void check(char c) throws ABException {
+//		switch (c) {
+//			case 'a':
+//				throw new ABException();
+//			case 'b':
+//				throw new ABException();// creating the instance of the
+//			// exception anticipated
+//			default:
+//				System.out.println(c + " is not A or a B");
+//		}
+//	}
+//
+//	public static void main(String[] args) throws ABException {
+//		ExceptionThrow et = new ExceptionThrow();
+//
+//		try {
+//			et.checkArray();
+//		}
+////		catch (ABException ab) {
+////			System.err.println(ab.getMessage() + " An exception did actually occur");
+////		} 
+//		finally {
+//			System.out.println("This block will always execute");
+//		}
+//
+//	}
+//}
+//
+//class ABException extends Exception {
+//}
+///////////// Quá trình lan truyền Exception trong Java
+class TestExceptionPropagation1 {
+
+	void m() {
+		int data = 50 / 0; // không được xử lý sẽ lan sang n()
 	}
 
-	void check(char c) throws ABException {
-		switch (c) {
-			case 'a':
-				throw new ABException();
-			case 'b':
-				throw new ABException();// creating the instance of the
-			// exception anticipated
-			default:
-				System.out.println(c + " is not A or a B");
-		}
+	void n() {
+		m(); // không được xử lý sẽ lan sang p()
 	}
 
-	public static void main(String[] args) throws ABException {
-		ExceptionThrow et = new ExceptionThrow();
-
+	void p() {
 		try {
-			et.checkArray();
+			n(); // xử lý tại đây hoặc xử lý tại main() cũng oke
+		} catch (Exception e) {
+			System.out.println("Exception duoc xu ly");
 		}
-//		catch (ABException ab) {
-//			System.err.println(ab.getMessage() + " An exception did actually occur");
-//		} 
-		finally {
-			System.out.println("This block will always execute");
-		}
-
 	}
-}
 
-class ABException extends Exception {
+	public static void main(String args[]) {
+		TestExceptionPropagation1 obj = new TestExceptionPropagation1();
+		obj.p();
+		System.out.println("Luong chuan...");
+	}
 }
