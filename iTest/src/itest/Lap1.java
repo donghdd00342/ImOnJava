@@ -1262,23 +1262,59 @@ package itest;
 //	}
 //}
 ////////////////////
-class TestThrow1 {
+//class TestThrow1 {
+//
+//	static void validate(int tuoi) {
+//		if (tuoi < 18) {
+//			throw new ArithmeticException("Khong hop le");
+//		} else {
+//			System.out.println("Chao mung ban den bo phieu");
+//		}
+//	}
+//
+//	public static void main(String args[]) {
+//		try {
+//			validate(13);
+//
+//		} catch (Exception e) {
+//			System.err.println("Lỗi gì đó, vui lòng kiểm tra lại");
+//		}
+//		System.out.println("Phan code con lai...");
+//	}
+//}
+/////////////
+class ExceptionThrow {
 
-	static void validate(int tuoi) {
-		if (tuoi < 18) {
-			throw new ArithmeticException("Khong hop le");
-		} else {
-			System.out.println("Chao mung ban den bo phieu");
+	char[] charArray = new char[]{'c', 'e', 'a', 'b', 'd'};
+
+	void checkArray() throws ABException {
+		for (int i = 0; i < charArray.length; i++) {
+			switch (charArray[i]) {
+				case 'a':
+					throw new ABException();
+				case 'b':
+					throw new ABException();// creating the instance of the
+				// exception anticipated
+				default:
+					System.out.println(charArray[i] + " is not A or a B");
+
+			}
 		}
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) throws ABException {
+		ExceptionThrow et = new ExceptionThrow();
+
 		try {
-			validate(13);
-
-		} catch (Exception e) {
-			System.err.println("Lỗi gì đó, vui lòng kiểm tra lại");
+			et.checkArray();
+		} catch (ABException ab) {
+			System.err.println(ab.getMessage() + " An exception did actually occur");
+		} finally {
+			System.out.println("This block will always execute");
 		}
-		System.out.println("Phan code con lai...");
+
 	}
+}
+
+class ABException extends Exception {
 }
