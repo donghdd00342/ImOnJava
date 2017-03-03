@@ -1338,27 +1338,70 @@ package itest;
 //class ABException extends Exception {
 //}
 ///////////// Quá trình lan truyền Exception trong Java
-class TestExceptionPropagation1 {
-
-	void m() {
-		int data = 50 / 0; // không được xử lý sẽ lan sang n()
-	}
-
-	void n() {
-		m(); // không được xử lý sẽ lan sang p()
-	}
-
-	void p() {
-		try {
-			n(); // xử lý tại đây hoặc xử lý tại main() cũng oke
-		} catch (Exception e) {
-			System.out.println("Exception duoc xu ly");
-		}
-	}
-
-	public static void main(String args[]) {
-		TestExceptionPropagation1 obj = new TestExceptionPropagation1();
-		obj.p();
-		System.out.println("Luong chuan...");
+//class TestExceptionPropagation1 {
+//
+//	void m() {
+//		int data = 50 / 0; // không được xử lý sẽ lan sang n()
+//	}
+//
+//	void n() {
+//		m(); // không được xử lý sẽ lan sang p()
+//	}
+//
+//	void p() {
+//		try {
+//			n(); // xử lý tại đây hoặc xử lý tại main() cũng oke
+//		} catch (Exception e) {
+//			System.out.println("Exception duoc xu ly");
+//		}
+//	}
+//
+//	public static void main(String args[]) {
+//		TestExceptionPropagation1 obj = new TestExceptionPropagation1();
+//		obj.p();
+//		System.out.println("Luong chuan...");
+//	}
+//}
+////////////////////////
+//class TestExceptionPropagation2 {
+//
+//	void m() {
+//		throw new java.io.IOException("device error");//checked exception  
+//	}
+//
+//	void n() {
+//		m();
+//	}
+//
+//	void p() {
+//		try {
+//			n();
+//		} catch (Exception e) {
+//			System.out.println("Exception duoc xu ly");
+//		}
+//	}
+//
+//	public static void main(String args[]) {
+//		TestExceptionPropagation2 obj = new TestExceptionPropagation2();
+//		obj.p();
+//		System.out.println("Luong chuan");
+//	}
+//}
+////////////// String vs StringBuffer vs StringBuilder
+class A {
+	public static void main(String[] args) {
+		String str1 = "123";
+		StringBuffer strB1 = new StringBuffer("123");
+		StringBuilder strB2 = new StringBuilder("123");
+		System.out.println("String vs StringBuffer (strB1): "+ str1.equals(strB1));
+		System.out.println("String vs StringBuffer (strB2): "+ str1.equals(strB2));
+		System.out.println("StringBuilder vs StringBuffer (strB2): "+ strB1.equals(strB2));
+		System.out.println("---------------------");
+		System.out.println("StringBuilder (strB2) vs StringBuilder (strB2): "+ strB2.equals(strB2));
+		System.out.println("StringBuffer (strB1) vs StringBuffer (strB1): "+ strB1.equals(strB1));
+		System.out.println("----------------");
+		System.out.println("StringBuilder.toString vs StringBuffer.toString (strB2): "+ strB1.toString().equals(strB2.toString()));
+		System.out.println("String vs StringBuffer.toString (strB1): "+ str1.equals(strB1.toString()));
+		
 	}
 }
