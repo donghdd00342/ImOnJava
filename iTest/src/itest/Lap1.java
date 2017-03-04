@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // * @author DongHo
 // */
@@ -1580,61 +1582,125 @@ import java.io.IOException;
 //	  }
 //     }
 //}
-///////////////////////
-// class GiaoDien
-class GiaoDien {
+/////////////////////// class giao tiếp thô sơ
+//// class GiaoDien
+//class GiaoDien {
+//
+//     private Download download;
+//
+//     /**
+//      * phuong thuc khoi tao Giao dien, dong thoi khoi tao doi tuong download va
+//      * truyen chinh giao dien sang class Download de cap nhat giao dien
+//      */
+//     public GiaoDien() {
+//	  download = new Download(this);
+//     }
+//
+//     private void nhanDownload() {
+//	  download.download();
+//     }
+//
+//     public void capNhatGiaoDien(int phanTramDownload) {
+//	  System.out.println("class giao dien cap nhat duoc: " + phanTramDownload
+//		  + "%");
+//     }
+//
+//     public void coTheHuyDownload() {
+//	  System.err.println("... nhấn hủy bỏ...");
+//	  download.cancel();
+//     }
+//
+//     public static void main(String[] args) {
+//	  GiaoDien giaoDien = new GiaoDien();
+//	  giaoDien.nhanDownload();
+//     }
+//}
+///// class Download
+//
+//class Download {
+//
+//     private GiaoDien giaoDien;
+//
+//     /**
+//      * @param giaoDien de cap nhat giao dien
+//      */
+//     public Download(GiaoDien giaoDien) {
+//	  this.giaoDien = giaoDien;
+//     }
+//
+//     public void download() {
+//	  for (int i = 0; i < 100; i++) {
+//	       System.out.println("Dang download...");
+//	       giaoDien.capNhatGiaoDien(i);
+//	  }
+//	  System.out.println("Ket thuc download");
+//     }
+//
+//     public void cancel() {
+//	  System.err.println("nhấn hủy bỏ");
+//     }
+//}
+////////////////// giao tiếp hiện đại qua interface và sử dụng upcasting
+interface CapNhat {
+
+     public void capNhatGiaoDien(int giaTri);
+}
+
+class Download {
+
+     private CapNhat capNhat;
+
+     /**
+      * @param capNhat lang nghe su kien download
+      */
+     public void addDownloadListener(CapNhat capNhat) {
+	  this.capNhat = capNhat;
+     }
+
+     public void download() {
+	  for (int i = 0; i < 100; i++) {
+	       System.out.println("Downloading...");
+	       try {
+		    Thread.sleep(500);
+	       } catch (InterruptedException ex) {
+		    System.err.println("lỗi không sleep đc: " + ex);
+	       }
+	       capNhat.capNhatGiaoDien(i); // phương thức ghi đè ở  GiaoDien sẽ được dùng
+	  }
+	  System.out.println("Ket thuc download");
+     }
+}
+
+class GiaoDien implements CapNhat {
 
      private Download download;
 
      /**
-      * phuong thuc khoi tao Giao dien, dong thoi khoi tao doi tuong download va
-      * truyen chinh giao dien sang class Download de cap nhat giao dien
+      * phuong thuc khoi tao Giao dien, dong thoi dat lang nghe su kien download
       */
      public GiaoDien() {
-	  download = new Download(this);
+	  download = new Download();
+
+	  /**
+	   * dat lang nghe su kien download
+	   */
+	  download.addDownloadListener(this);
      }
 
      private void nhanDownload() {
 	  download.download();
      }
 
-     public void capNhatGiaoDien(int phanTramDownload) {
-	  System.out.println("class giao dien cap nhat duoc: " + phanTramDownload
-		  + "%");
-     }
-
-     public void coTheHuyDownload() {
-	  System.err.println("... nhấn hủy bỏ...");
-	  download.cancel();
+     /**
+      * Tu dong duoc goi trong qua trinh download thong qua interface CapNhap
+      */
+     @Override
+     public void capNhatGiaoDien(int giaTri) {
+	  System.out.println("Upcasting ... đang tải: " + giaTri + "%");
      }
 
      public static void main(String[] args) {
 	  GiaoDien giaoDien = new GiaoDien();
 	  giaoDien.nhanDownload();
-     }
-}
-/// class Download
-
-class Download {
-
-     private GiaoDien giaoDien;
-
-     /**
-      * @param giaoDien de cap nhat giao dien
-      */
-     public Download(GiaoDien giaoDien) {
-	  this.giaoDien = giaoDien;
-     }
-
-     public void download() {
-	  for (int i = 0; i < 100; i++) {
-	       System.out.println("Dang download...");
-	       giaoDien.capNhatGiaoDien(i);
-	  }
-	  System.out.println("Ket thuc download");
-     }
-
-     public void cancel() {
-	  System.err.println("nhấn hủy bỏ");
      }
 }
