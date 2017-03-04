@@ -7,6 +7,9 @@ package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 // * @author DongHo
@@ -1461,8 +1464,19 @@ import java.io.IOException;
 //////////////////////// chơi với Exception
 class Dong {
 
+     static void docFileXin() throws FileNotFoundException, IOException {
+	  FileReader fr = new FileReader("xin.txt");
+	  BufferedReader br = new BufferedReader(fr);
+	  String line = br.readLine();
+	  while (line != "") {
+	       System.out.println(line);
+	       fr.close();
+	  }
+     }
+
      void a() throws IOException {
-	  throw new IOException("Lỗi IO được ném tại a()");
+//	  throw new IOException("Lỗi IO được ném tại a()");
+	  Dong.docFileXin();
      }
 
      void b() throws IOException {
@@ -1480,6 +1494,7 @@ class Dong {
 	       System.err.println("Anh đã tóm được mày rồi nhé! " + e);
 	  }
      }
+
      public static void main(String[] args) {
 	  new Dong().d();
 	  System.out.println("luồng chuẩn của anh...");
