@@ -1462,41 +1462,79 @@ import java.io.IOException;
 //  }  
 //}
 //////////////////////// chơi với Exception
-class Dong {
+//class Dong {
+//
+//     static void docFileXin() throws FileNotFoundException, IOException {
+//	  FileReader fr = new FileReader("xin.txt");
+//	  BufferedReader br = new BufferedReader(fr);
+//	  String line = br.readLine();
+//	  while (line != "") {
+//	       System.out.println(line);
+//	       fr.close();
+//	  }
+//     }
+//
+//     void a() throws IOException {
+////	  throw new IOException("Lỗi IO được ném tại a()");
+//	  Dong.docFileXin();
+//     }
+//
+//     void b() throws IOException {
+//	  a();
+//     }
+//
+//     void c() throws IOException {
+//	  b();
+//     }
+//
+//     void d() {
+//	  try {
+//	       c();
+//	  } catch (Exception e) {
+//	       System.err.println("Anh đã tóm được mày rồi nhé! " + e);
+//	  }
+//     }
+//
+//     public static void main(String[] args) {
+//	  new Dong().d();
+//	  System.out.println("luồng chuẩn của anh...");
+//     }
+//}
+//////////////// interface - lỗi dùng sai upcasting
+class Toan {
 
-     static void docFileXin() throws FileNotFoundException, IOException {
-	  FileReader fr = new FileReader("xin.txt");
-	  BufferedReader br = new BufferedReader(fr);
-	  String line = br.readLine();
-	  while (line != "") {
-	       System.out.println(line);
-	       fr.close();
-	  }
+     public void mangSachToiTruong() {
+	  System.out.println("Sach Toan duoc mang toi truong");
      }
+}
 
-     void a() throws IOException {
-//	  throw new IOException("Lỗi IO được ném tại a()");
-	  Dong.docFileXin();
-     }
+class Ly {
 
-     void b() throws IOException {
-	  a();
+     public void mangSachToiTruong() {
+	  System.out.println("Sach Ly nhe");
      }
+}
 
-     void c() throws IOException {
-	  b();
-     }
+class Hoa {
 
-     void d() {
-	  try {
-	       c();
-	  } catch (Exception e) {
-	       System.err.println("Anh đã tóm được mày rồi nhé! " + e);
-	  }
+     public void mangSachToiTruong() {
+	  System.out.println("Sach Hoa ok");
      }
+}
+
+class Sinh {
+
+     public void mangSachToiTruong() {
+	  System.out.println("Sach Sinh day roi");
+     }
+}
+
+class TruongHoc {
 
      public static void main(String[] args) {
-	  new Dong().d();
-	  System.out.println("luồng chuẩn của anh...");
+	  Object[] sach = {new Toan(), new Ly(), new Hoa(), new Sinh()};
+	  for (Object s : sach) {
+	       s.mangSachToiTruong(); // LỖI Ở ĐÂY
+	  }
      }
 }
