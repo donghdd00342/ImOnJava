@@ -813,3 +813,26 @@ package itest;
 //
 //}
 //
+///////// tiếp tục chơi với Exception
+class E1 extends Exception {
+     
+}
+class E2 extends E1 {
+     
+}
+class E3 extends E2 {
+     
+}
+class Test {
+     public static void main(String[] args) {
+	  try {
+	       throw new E1();
+	  } catch (E3 e) {
+	       System.err.println("Là E3");
+	  } catch (E2 e) {
+	       System.err.println("Là E2");
+	  } catch (E1 e) {
+	       System.err.println("Là E1");
+	  }
+     }
+}
