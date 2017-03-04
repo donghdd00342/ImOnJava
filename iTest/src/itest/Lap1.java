@@ -1539,44 +1539,102 @@ import java.io.IOException;
 //     }
 //}
 //////////////// interface - Upcasting tạo hành động (method) chung
-interface Sach {
+//interface Sach {
+//
+//     void sachMangToiTruong();
+//}
+//
+//class Toan implements Sach {
+//
+//     @Override
+//     public void sachMangToiTruong() {
+//	  System.out.println("Sach TOÁN tới trường");
+//     }
+//
+//}
+//
+//class Ly implements Sach {
+//
+//     @Override
+//     public void sachMangToiTruong() {
+//	  System.out.println("Sach LÝ tới trường");
+//     }
+//
+//}
+//
+//class Hoa implements Sach {
+//
+//     @Override
+//     public void sachMangToiTruong() {
+//	  System.out.println("Sach HÓA tới trường");
+//     }
+//
+//}
+//
+//class Main {
+//
+//     public static void main(String[] args) {
+//	  Sach[] sach = {new Toan(), new Ly(), new Hoa()};
+//	  for (Sach s : sach) {
+//	       s.sachMangToiTruong();
+//	  }
+//     }
+//}
+///////////////////////
+// class GiaoDien
+class GiaoDien {
 
-     void sachMangToiTruong();
-}
+     private Download download;
 
-class Toan implements Sach {
-
-     @Override
-     public void sachMangToiTruong() {
-	  System.out.println("Sach TOÁN tới trường");
+     /**
+      * phuong thuc khoi tao Giao dien, dong thoi khoi tao doi tuong download va
+      * truyen chinh giao dien sang class Download de cap nhat giao dien
+      */
+     public GiaoDien() {
+	  download = new Download(this);
      }
 
-}
-
-class Ly implements Sach {
-
-     @Override
-     public void sachMangToiTruong() {
-	  System.out.println("Sach LÝ tới trường");
+     private void nhanDownload() {
+	  download.download();
      }
 
-}
-
-class Hoa implements Sach {
-
-     @Override
-     public void sachMangToiTruong() {
-	  System.out.println("Sach HÓA tới trường");
+     public void capNhatGiaoDien(int phanTramDownload) {
+	  System.out.println("class giao dien cap nhat duoc: " + phanTramDownload
+		  + "%");
      }
 
-}
-
-class Main {
+     public void coTheHuyDownload() {
+	  System.err.println("... nhấn hủy bỏ...");
+	  download.cancel();
+     }
 
      public static void main(String[] args) {
-	  Sach[] sach = {new Toan(), new Ly(), new Hoa()};
-	  for (Sach s : sach) {
-	       s.sachMangToiTruong();
+	  GiaoDien giaoDien = new GiaoDien();
+	  giaoDien.nhanDownload();
+     }
+}
+/// class Download
+
+class Download {
+
+     private GiaoDien giaoDien;
+
+     /**
+      * @param giaoDien de cap nhat giao dien
+      */
+     public Download(GiaoDien giaoDien) {
+	  this.giaoDien = giaoDien;
+     }
+
+     public void download() {
+	  for (int i = 0; i < 100; i++) {
+	       System.out.println("Dang download...");
+	       giaoDien.capNhatGiaoDien(i);
 	  }
+	  System.out.println("Ket thuc download");
+     }
+
+     public void cancel() {
+	  System.err.println("nhấn hủy bỏ");
      }
 }
