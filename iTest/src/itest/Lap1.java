@@ -1501,40 +1501,82 @@ import java.io.IOException;
 //     }
 //}
 //////////////// interface - lỗi dùng sai upcasting
-class Toan {
+//class Toan {
+//
+//     public void mangSachToiTruong() {
+//	  System.out.println("Sach Toan duoc mang toi truong");
+//     }
+//}
+//
+//class Ly {
+//
+//     public void mangSachToiTruong() {
+//	  System.out.println("Sach Ly nhe");
+//     }
+//}
+//
+//class Hoa {
+//
+//     public void mangSachToiTruong() {
+//	  System.out.println("Sach Hoa ok");
+//     }
+//}
+//
+//class Sinh {
+//
+//     public void mangSachToiTruong() {
+//	  System.out.println("Sach Sinh day roi");
+//     }
+//}
+//
+//class TruongHoc {
+//
+//     public static void main(String[] args) {
+//	  Object[] sach = {new Toan(), new Ly(), new Hoa(), new Sinh()};
+//	  for (Object s : sach) {
+//	       s.mangSachToiTruong(); // LỖI Ở ĐÂY
+//	  }
+//     }
+//}
+//////////////// interface - Upcasting tạo hành động (method) chung
+interface Sach {
 
-     public void mangSachToiTruong() {
-	  System.out.println("Sach Toan duoc mang toi truong");
-     }
+     void sachMangToiTruong();
 }
 
-class Ly {
+class Toan implements Sach {
 
-     public void mangSachToiTruong() {
-	  System.out.println("Sach Ly nhe");
+     @Override
+     public void sachMangToiTruong() {
+	  System.out.println("Sach TOÁN tới trường");
      }
+
 }
 
-class Hoa {
+class Ly implements Sach {
 
-     public void mangSachToiTruong() {
-	  System.out.println("Sach Hoa ok");
+     @Override
+     public void sachMangToiTruong() {
+	  System.out.println("Sach LÝ tới trường");
      }
+
 }
 
-class Sinh {
+class Hoa implements Sach {
 
-     public void mangSachToiTruong() {
-	  System.out.println("Sach Sinh day roi");
+     @Override
+     public void sachMangToiTruong() {
+	  System.out.println("Sach HÓA tới trường");
      }
+
 }
 
-class TruongHoc {
+class Main {
 
      public static void main(String[] args) {
-	  Object[] sach = {new Toan(), new Ly(), new Hoa(), new Sinh()};
-	  for (Object s : sach) {
-	       s.mangSachToiTruong(); // LỖI Ở ĐÂY
+	  Sach[] sach = {new Toan(), new Ly(), new Hoa()};
+	  for (Sach s : sach) {
+	       s.sachMangToiTruong();
 	  }
      }
 }
