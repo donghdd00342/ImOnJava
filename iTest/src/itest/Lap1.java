@@ -1700,72 +1700,72 @@ import java.util.logging.Logger;
 //     }
 //}
 ////////////// observer pattern
-interface OnController {
-
-     void download();
-}
-
-interface OnView {
-
-     void capNhatTrangThai(int i);
-}
-
-class View implements OnView {
-
-     OnController onCon;
-
-     // Khởi tạo giá trị (cầu nối cho onCon)
-     void ketnoiController(OnController onCon) {
-	  this.onCon = onCon;
-     }
-
-     // nhấn download (gọi download bên controller)
-     void nguoiDungNhanDownLoad() {
-	  onCon.download();
-     }
-
-     // controller trả về trang thái download để view cập nhật hiển thị
-     @Override
-     public void capNhatTrangThai(int i) {
-	  System.out.println("Đang tải (" + i + "%)...");
-     }
-}
-
-class Controller implements OnController {
-
-     OnView onView;
-
-     // khởi tạo giá trị (lắng nghe)
-     public Controller(OnView onView) {
-	  this.onView = onView;
-     }
-//     void onViewListener(OnView onView) {
+//interface OnController {
+//
+//     void download();
+//}
+//
+//interface OnView {
+//
+//     void capNhatTrangThai(int i);
+//}
+//
+//class View implements OnView {
+//
+//     OnController onCon;
+//
+//     // Khởi tạo giá trị (cầu nối cho onCon)
+//     void ketnoiController(OnController onCon) {
+//	  this.onCon = onCon;
+//     }
+//
+//     // nhấn download (gọi download bên controller)
+//     void nguoiDungNhanDownLoad() {
+//	  onCon.download();
+//     }
+//
+//     // controller trả về trang thái download để view cập nhật hiển thị
+//     @Override
+//     public void capNhatTrangThai(int i) {
+//	  System.out.println("Đang tải (" + i + "%)...");
+//     }
+//}
+//
+//class Controller implements OnController {
+//
+//     OnView onView;
+//
+//     // khởi tạo giá trị (lắng nghe)
+//     public Controller(OnView onView) {
 //	  this.onView = onView;
 //     }
-
-     // phương thức download được gọi khi bên View thao tác
-     @Override
-     public void download() {
-	  System.out.println("Bắt đầu tải về...");
-	  for (int i = 0; i < 10; i++) {
-	       try {
-		    onView.capNhatTrangThai(i * 10);
-		    Thread.sleep(300);
-	       } catch (InterruptedException ex) {
-		    System.err.println("Lỗi ngủ: " + ex);
-	       }
-	  }
-	  System.out.println("Tải về hoàn tất");
-     }
-     // tải và trả về trạng thái (tương tác với View) đê View hiển thị trạng thái
-}
-
-class Main {
-
-     public static void main(String[] args) {
-
-	  View view = new View();
-	  view.ketnoiController(new Controller(view));
-	  view.nguoiDungNhanDownLoad();
-     }
-}
+////     void onViewListener(OnView onView) {
+////	  this.onView = onView;
+////     }
+//
+//     // phương thức download được gọi khi bên View thao tác
+//     @Override
+//     public void download() {
+//	  System.out.println("Bắt đầu tải về...");
+//	  for (int i = 0; i < 10; i++) {
+//	       try {
+//		    onView.capNhatTrangThai(i * 10);
+//		    Thread.sleep(300);
+//	       } catch (InterruptedException ex) {
+//		    System.err.println("Lỗi ngủ: " + ex);
+//	       }
+//	  }
+//	  System.out.println("Tải về hoàn tất");
+//     }
+//     // tải và trả về trạng thái (tương tác với View) đê View hiển thị trạng thái
+//}
+//
+//class Main {
+//
+//     public static void main(String[] args) {
+//
+//	  View view = new View();
+//	  view.ketnoiController(new Controller(view));
+//	  view.nguoiDungNhanDownLoad();
+//     }
+//}
