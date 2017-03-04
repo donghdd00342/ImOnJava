@@ -7,14 +7,9 @@ package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// * @author DongHo
 // */
 ////////////////////////////////////////////////////////////////////////////////
 //public class Itest {
@@ -1641,66 +1636,136 @@ import java.util.logging.Logger;
 //     }
 //}
 ////////////////// giao tiếp hiện đại qua interface và sử dụng upcasting
-interface CapNhat {
+//interface CapNhat {
+//
+//     public void capNhatGiaoDien(int giaTri);
+//}
+//
+//class Download {
+//
+//     private CapNhat capNhat;
+//
+//     /**
+//      * @param capNhat lang nghe su kien download
+//      */
+//     public void addDownloadListener(CapNhat capNhat) {
+//	  this.capNhat = capNhat;
+//     }
+//
+//     public void download() {
+//	  for (int i = 0; i < 100; i++) {
+//	       System.out.println("Downloading...");
+//	       try {
+//		    Thread.sleep(500);
+//	       } catch (InterruptedException ex) {
+//		    System.err.println("lỗi không sleep đc: " + ex);
+//	       }
+//	       capNhat.capNhatGiaoDien(i); // phương thức ghi đè ở  GiaoDien sẽ được dùng
+//	  }
+//	  System.out.println("Ket thuc download");
+//     }
+//}
+//
+//class GiaoDien implements CapNhat {
+//
+//     private Download download;
+//
+//     /**
+//      * phuong thuc khoi tao Giao dien, dong thoi dat lang nghe su kien download
+//      */
+//     public GiaoDien() {
+//	  download = new Download();
+//
+//	  /**
+//	   * dat lang nghe su kien download
+//	   */
+//	  download.addDownloadListener(this);
+//     }
+//
+//     private void nhanDownload() {
+//	  download.download();
+//     }
+//
+//     /**
+//      * Tu dong duoc goi trong qua trinh download thong qua interface CapNhap
+//      */
+//     @Override
+//     public void capNhatGiaoDien(int giaTri) {
+//	  System.out.println("Upcasting ... đang tải: " + giaTri + "%");
+//     }
+//
+//     public static void main(String[] args) {
+//	  GiaoDien giaoDien = new GiaoDien();
+//	  giaoDien.nhanDownload();
+//     }
+//}
+////////////// observer pattern
+interface OnController {
 
-     public void capNhatGiaoDien(int giaTri);
+     void download();
 }
 
-class Download {
+interface OnView {
 
-     private CapNhat capNhat;
-
-     /**
-      * @param capNhat lang nghe su kien download
-      */
-     public void addDownloadListener(CapNhat capNhat) {
-	  this.capNhat = capNhat;
-     }
-
-     public void download() {
-	  for (int i = 0; i < 100; i++) {
-	       System.out.println("Downloading...");
-	       try {
-		    Thread.sleep(500);
-	       } catch (InterruptedException ex) {
-		    System.err.println("lỗi không sleep đc: " + ex);
-	       }
-	       capNhat.capNhatGiaoDien(i); // phương thức ghi đè ở  GiaoDien sẽ được dùng
-	  }
-	  System.out.println("Ket thuc download");
-     }
+     void capNhatTrangThai(int i);
 }
 
-class GiaoDien implements CapNhat {
+class View implements OnView {
 
-     private Download download;
+     OnController onCon;
 
-     /**
-      * phuong thuc khoi tao Giao dien, dong thoi dat lang nghe su kien download
-      */
-     public GiaoDien() {
-	  download = new Download();
-
-	  /**
-	   * dat lang nghe su kien download
-	   */
-	  download.addDownloadListener(this);
+     // Khởi tạo giá trị (cầu nối cho onCon)
+     void ketnoiController(OnController onCon) {
+	  this.onCon = onCon;
      }
 
-     private void nhanDownload() {
-	  download.download();
+     // nhấn download (gọi download bên controller)
+     void nguoiDungNhanDownLoad() {
+	  onCon.download();
      }
 
-     /**
-      * Tu dong duoc goi trong qua trinh download thong qua interface CapNhap
-      */
+     // controller trả về trang thái download để view cập nhật hiển thị
      @Override
-     public void capNhatGiaoDien(int giaTri) {
-	  System.out.println("Upcasting ... đang tải: " + giaTri + "%");
+     public void capNhatTrangThai(int i) {
+	  System.out.println("Đang tải (" + i + "%)...");
      }
+}
+
+class Controller implements OnController {
+
+     OnView onView;
+
+     // khởi tạo giá trị (lắng nghe)
+     public Controller(OnView onView) {
+	  this.onView = onView;
+     }
+//     void onViewListener(OnView onView) {
+//	  this.onView = onView;
+//     }
+
+     // phương thức download được gọi khi bên View thao tác
+     @Override
+     public void download() {
+	  System.out.println("Bắt đầu tải về...");
+	  for (int i = 0; i < 10; i++) {
+	       try {
+		    onView.capNhatTrangThai(i * 10);
+		    Thread.sleep(300);
+	       } catch (InterruptedException ex) {
+		    System.err.println("Lỗi ngủ: " + ex);
+	       }
+	  }
+	  System.out.println("Tải về hoàn tất");
+     }
+     // tải và trả về trạng thái (tương tác với View) đê View hiển thị trạng thái
+}
+
+class Main {
 
      public static void main(String[] args) {
-	  GiaoDien giaoDien = new GiaoDien();
-	  giaoDien.nhanDownload();
+
+	  View view = new View();
+	  view.ketnoiController(new Controller(view));
+	  view.nguoiDungNhanDownLoad();
      }
 }
