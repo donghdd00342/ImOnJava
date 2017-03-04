@@ -1388,20 +1388,71 @@ package itest;
 //	}
 //}
 ////////////// String vs StringBuffer vs StringBuilder
-class A {
-	public static void main(String[] args) {
-		String str1 = "123";
-		StringBuffer strB1 = new StringBuffer("123");
-		StringBuilder strB2 = new StringBuilder("123");
-		System.out.println("String vs StringBuffer (strB1): "+ str1.equals(strB1));
-		System.out.println("String vs StringBuffer (strB2): "+ str1.equals(strB2));
-		System.out.println("StringBuilder vs StringBuffer (strB2): "+ strB1.equals(strB2));
-		System.out.println("---------------------");
-		System.out.println("StringBuilder (strB2) vs StringBuilder (strB2): "+ strB2.equals(strB2));
-		System.out.println("StringBuffer (strB1) vs StringBuffer (strB1): "+ strB1.equals(strB1));
-		System.out.println("----------------");
-		System.out.println("StringBuilder.toString vs StringBuffer.toString (strB2): "+ strB1.toString().equals(strB2.toString()));
-		System.out.println("String vs StringBuffer.toString (strB1): "+ str1.equals(strB1.toString()));
-		
-	}
-}
+//class A {
+//	public static void main(String[] args) {
+//		String str1 = "123";
+//		StringBuffer strB1 = new StringBuffer("123");
+//		StringBuilder strB2 = new StringBuilder("123");
+//		System.out.println("String vs StringBuffer (strB1): "+ str1.equals(strB1));
+//		System.out.println("String vs StringBuffer (strB2): "+ str1.equals(strB2));
+//		System.out.println("StringBuilder vs StringBuffer (strB2): "+ strB1.equals(strB2));
+//		System.out.println("---------------------");
+//		System.out.println("StringBuilder (strB2) vs StringBuilder (strB2): "+ strB2.equals(strB2));
+//		System.out.println("StringBuffer (strB1) vs StringBuffer (strB1): "+ strB1.equals(strB1));
+//		System.out.println("----------------");
+//		System.out.println("StringBuilder.toString vs StringBuffer.toString (strB2): "+ strB1.toString().equals(strB2.toString()));
+//		System.out.println("String vs StringBuffer.toString (strB1): "+ str1.equals(strB1.toString()));
+//		
+//	}
+//}
+///////////////////////////////// Console
+//import java.io.Console;
+//
+//class ConsoleDemo {
+//
+//   public static void main(String[] args) {      
+//      Console cnsl = null;
+//      String alpha = null;
+//      
+//      try {
+//      
+//         // creates a console object
+//         cnsl = System.console();
+//
+//         // if console is not null
+//         if (cnsl != null) {
+//            
+//            // read line from the user input
+//            alpha = cnsl.readLine("Name: ");
+//            
+//            // prints
+//            System.out.println("Name is: " + alpha);
+//            
+//            // read password into the char array
+//            char[] pwd = cnsl.readPassword("Password: ");
+//            
+//            // prints
+//            System.out.println("Password is: "+pwd);
+//         } 
+//         
+//      } catch(Exception ex) {
+//         
+//         // if any error occurs
+//         ex.printStackTrace();      
+//      }
+//   }
+//}
+//////////////// TestThrow1
+class TestThrow1{  
+   static void validate(int tuoi){  
+	
+     if(tuoi<18)  
+      throw new ArithmeticException("Khong hop le");  
+     else  
+      System.out.println("Chao mung ban den bo phieu");  
+   }  
+   public static void main(String args[]){  
+      validate(11);  
+      System.out.println("Phan code con lai...");  
+  }  
+}  
