@@ -6,6 +6,9 @@
 package itest;
 //
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import;
+
+import java.io.IOException;
+
 // * @author DongHo
 // */
 ////////////////////////////////////////////////////////////////////////////////
@@ -1135,7 +1138,6 @@ package itest;
 //    }
 //}
 //////// StringBuffer
-
 //class Test {
 //
 //	public static void main(String args[]) {
@@ -1443,16 +1445,43 @@ package itest;
 //   }
 //}
 //////////////// TestThrow1
-class TestThrow1{  
-   static void validate(int tuoi){  
-	
-     if(tuoi<18)  
-      throw new ArithmeticException("Khong hop le");  
-     else  
-      System.out.println("Chao mung ban den bo phieu");  
-   }  
-   public static void main(String args[]){  
-      validate(11);  
-      System.out.println("Phan code con lai...");  
-  }  
-}  
+//class TestThrow1{  
+//   static void validate(int tuoi){  
+//	
+//     if(tuoi<18)  
+//      throw new ArithmeticException("Khong hop le");  
+//     else  
+//      System.out.println("Chao mung ban den bo phieu");  
+//   }  
+//   public static void main(String args[]){  
+//      validate(11);  
+//      System.out.println("Phan code con lai...");  
+//  }  
+//}
+//////////////////////// chơi với Exception
+class Dong {
+
+     void a() throws IOException {
+	  throw new IOException("Lỗi IO được ném tại a()");
+     }
+
+     void b() throws IOException {
+	  a();
+     }
+
+     void c() throws IOException {
+	  b();
+     }
+
+     void d() {
+	  try {
+	       c();
+	  } catch (Exception e) {
+	       System.err.println("Anh đã tóm được mày rồi nhé! " + e);
+	  }
+     }
+     public static void main(String[] args) {
+	  new Dong().d();
+	  System.out.println("luồng chuẩn của anh...");
+     }
+}
