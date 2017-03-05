@@ -60,15 +60,15 @@ class ArrayListDemo {
 //	  
 /////////////////////////////////////////////////////////////////////////////////
 	  System.err.println("------------------------------------------------------------------");
-	  
+
 	  ArrayList arrL = new ArrayList();
-	  System.err.println("- size() = "+ arrL.size());
+	  System.err.println("- size() = " + arrL.size());
 	  arrL.add(1);
 	  arrL.add("2");
 	  arrL.add('9');
 	  arrL.add("Dong");
 	  arrL.add('G');
-	  System.err.println("- size() = "+ arrL.size());
+	  System.err.println("- size() = " + arrL.size());
 	  // in ra màn hình
 	  arrL.forEach((t) -> {
 	       System.out.println(t);
@@ -80,6 +80,7 @@ class ArrayListDemo {
 	  arrL.forEach((t) -> {
 	       System.out.println(t);
 	  });
-	  System.err.println("- size() = "+ arrL.size());
+	  System.err.println("- size() = " + arrL.size());
+	  System.err.println(".toString() = " + arrL);
      }
 }
