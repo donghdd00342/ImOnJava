@@ -8,12 +8,43 @@ package Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  *
  * @author DongHo
  */
 public class LinkedListVSHashSet {
+     // Đẩy các dấu đóng ngoặc vào stack đồng thời remove xâu con khi gặp dấu mở ngoặc
+
+     public String removeTextInBracket(String text) {
+	  int length = text.length();
+	  int tempLength;
+	  Stack<Integer> st = new Stack<Integer>();
+	  for (int i = length - 1; i >= 0; i--) {
+	       if (text.charAt(i) == ')') {
+		    st.push(i);
+		    continue;
+	       }
+	       if (text.charAt(i) == '(' && !st.isEmpty()) {
+		    tempLength = text.length();
+		    text = text.substring(0, i) + text.substring(st.pop() + 1);
+		    updateStack(st, tempLength - text.length());
+	       }
+	  }
+	  return text;
+     }
+
+// Update lại vị trí của các dấu đóng mở ngoặc khi độ dài xâu thay đổi.
+     private static void updateStack(Stack<Integer> stack, int lengthSpan) {
+	  int size = stack.size();
+	  Integer temp;
+	  for (int i = 0; i < size; i++) {
+	       temp = stack.get(i);
+	       stack.remove(i);
+	       stack.add(i, temp - lengthSpan);
+	  }
+     }
 
      public static void main(String[] args) {
 	  LinkedList ll = new LinkedList();
@@ -48,6 +79,10 @@ public class LinkedListVSHashSet {
 	       hs.remove(j);
 	  }
 	  System.out.println("REMOVE: HashSet's time = " + (System.currentTimeMillis() - start)); // 3
+	  
+	  //////////// Regex ăn xâu kiểu greedy và lazy
+	  String inputString = "Công ty (((CT))) trách nhiệm hữu hạn (TNHH)";
+	  System.out.println(new LinkedListVSHashSet().removeTextInBracket(inputString));
      }
 
 } // LinkedList: thêm 
