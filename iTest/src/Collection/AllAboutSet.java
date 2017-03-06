@@ -1,0 +1,91 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Collection;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
+/**
+ *
+ * @author DongHo
+ */
+public class AllAboutSet {
+
+     public static void main(String[] args) {
+	  Set<Cat> hs = new HashSet<Cat>();
+	  Set<Cat> ts = new TreeSet<Cat>();
+	  Set<Cat> lhs = new LinkedHashSet<Cat>();
+	  /////// kiểm tra tôc độ add
+	  // hs
+	  long start = System.currentTimeMillis();
+	  for (int i = 0; i < 100000; i++) {
+	       hs.add(new Cat(i));
+	  }
+	  System.out.println("ADD's Time: HashSet = " + (System.currentTimeMillis() - start));
+	  // ts
+	  start = System.currentTimeMillis();
+	  for (int i = 0; i < 100000; i++) {
+	       ts.add(new Cat(i));
+	  }
+	  System.out.println("ADD's Time: TreeSet = " + (System.currentTimeMillis() - start));
+	  // lhs
+	  start = System.currentTimeMillis();
+	  for (int i = 0; i < 100000; i++) {
+	       lhs.add(new Cat(i));
+	  }
+	  System.out.println("ADD's Time: LinkedHashSet = " + (System.currentTimeMillis() - start));
+	  //////////// kiểm tra tốc độ remove
+	  System.out.println("--------- kiểm tra tốc độ remove ------------------");
+	  // hs
+	  start = System.currentTimeMillis();
+	  for (int i = 0; i < 100000; i++) {
+	       hs.remove(new Cat(i));
+	  }
+	  System.out.println("ADD's Time: HashSet = " + (System.currentTimeMillis() - start));
+	  // ts
+	  start = System.currentTimeMillis();
+	  for (int i = 0; i < 100000; i++) {
+	       ts.remove(new Cat(i));
+	  }
+	  System.out.println("ADD's Time: TreeSet = " + (System.currentTimeMillis() - start));
+	  // lhs
+	  start = System.currentTimeMillis();
+	  for (int i = 0; i < 100000; i++) {
+	       lhs.remove(new Cat(i));
+	  }
+	  System.out.println("ADD's Time: LinkedHashSet = " + (System.currentTimeMillis() - start));
+     }
+}
+
+class Cat implements Comparable<Cat>{
+
+     long size;
+
+     public Cat(long foo) {
+	  size = foo;
+     }
+
+     @Override
+     public int hashCode() {
+	  int hash = 3;
+	  hash = 97 * hash + (int) (this.size ^ (this.size >>> 32));
+	  return hash;
+     }
+
+     @Override
+     public boolean equals(Object obj) {
+	  return (obj instanceof Cat) ? this.size == ((Cat)obj).size : false;
+     }
+
+     @Override
+     public int compareTo(Cat t) {
+	  return (int) (this.size - t.size);
+     }
+     
+
+}
