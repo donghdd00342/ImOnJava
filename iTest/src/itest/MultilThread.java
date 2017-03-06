@@ -5,9 +5,6 @@
  */
 package itest;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author DongHo

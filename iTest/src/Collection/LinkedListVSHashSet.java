@@ -8,6 +8,8 @@ package Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -47,7 +49,7 @@ public class LinkedListVSHashSet {
      }
 
      public static void main(String[] args) {
-	  LinkedList ll = new LinkedList();
+	  List ll = new LinkedList();
 	  HashSet hs = new HashSet();
 
 	  // LinkedList
@@ -83,6 +85,31 @@ public class LinkedListVSHashSet {
 	  //////////// Regex ăn xâu kiểu greedy và lazy
 	  String inputString = "Công ty (((CT))) trách nhiệm hữu hạn (TNHH)";
 	  System.out.println(new LinkedListVSHashSet().removeTextInBracket(inputString));
+	  // thử tí
+	  A.main();
      }
 
 } // LinkedList: thêm 
+
+class A extends LinkedList implements B {
+     public static void main(){
+	  A a = new A();
+	  a.add(1);
+	  a.add(2);
+	  a.forEach((t) -> {
+	       System.out.println(t);
+	  });
+	  B.b1();
+     }
+
+     @Override
+     public void b() {
+	  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     }
+}
+interface B {
+     public static void b1(){
+	  System.out.println("Cái gì đây?");
+     }
+     public abstract void b();
+}

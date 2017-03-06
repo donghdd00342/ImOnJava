@@ -5,7 +5,10 @@
  */
 package Collection;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -28,5 +31,8 @@ public class LinkedHashSetTest {
 	  lhs.forEach((t) -> {
 	       System.out.println(t);
 	  });
+	  /////////////
+	  Set ts = new TreeSet();
+	  Set hs = new HashSet();
      }
 }

@@ -61,26 +61,60 @@ class ArrayListDemo {
 /////////////////////////////////////////////////////////////////////////////////
 	  System.err.println("------------------------------------------------------------------");
 
-	  ArrayList arrL = new ArrayList();
-	  System.err.println("- size() = " + arrL.size());
-	  arrL.add(1);
-	  arrL.add("2");
-	  arrL.add('9');
-	  arrL.add("Dong");
-	  arrL.add('G');
-	  System.err.println("- size() = " + arrL.size());
+	  ArrayList<Dog> arrL = new ArrayList<>();
+	  System.out.println("- size() = " + arrL.size());
+	  arrL.add(new Dog(1));
+	  arrL.add(new Dog(5));
+	  arrL.add(new Dog(3));
+	  arrL.add(new Dog(2));
+	  arrL.add(new Dog(1));
+	  arrL.add(new Dog(5));
+	  System.out.println("- size() = " + arrL.size());
 	  // in ra màn hình
 	  arrL.forEach((t) -> {
 	       System.out.println(t);
 	  });
 	  // xóa
-	  arrL.remove(2);
-	  arrL.remove(1);
+	  arrL.remove(new Dog(5));
+//	  arrL.remove(1);
 	  // in
+	  System.out.println("----------------------sau khi xóa-------------------");
 	  arrL.forEach((t) -> {
 	       System.out.println(t);
 	  });
-	  System.err.println("- size() = " + arrL.size());
-	  System.err.println(".toString() = " + arrL);
+	  System.out.println("- size() = " + arrL.size());
+	  System.out.println(".toString() = " + arrL);
      }
+}
+class Dog {
+     private int size;
+
+     public Dog(int size) {
+	  this.size = size;
+     }
+
+     public int getSize() {
+	  return size;
+     }
+
+     public void setSize(int size) {
+	  this.size = size;
+     }
+
+     @Override
+     public String toString() {
+	  return "Dog{" + "size=" + size + '}';
+     }
+
+     @Override
+     public int hashCode() {
+	  int hash = 3;
+	  return hash;
+     }
+
+     @Override
+     public boolean equals(Object obj) {
+	  return (obj instanceof Dog)?(this.getSize() == ((Dog)obj).getSize()):false;
+     }
+     
 }
