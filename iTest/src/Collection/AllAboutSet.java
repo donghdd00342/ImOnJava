@@ -89,3 +89,13 @@ class Cat implements Comparable<Cat>{
      
 
 }
+//compile-single:
+//run-single:
+//ADD's Time: HashSet = 16
+//ADD's Time: TreeSet = 47
+//ADD's Time: LinkedHashSet = 15
+//--------- kiểm tra tốc độ remove ------------------
+//ADD's Time: HashSet = 16
+//ADD's Time: TreeSet = 31
+//ADD's Time: LinkedHashSet = 16
+//BUILD SUCCESSFUL (total time: 1 second)
