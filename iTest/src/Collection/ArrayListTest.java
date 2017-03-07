@@ -86,35 +86,3 @@ class ArrayListDemo {
 	  System.out.println(".toString() = " + arrL);
      }
 }
-class Dog {
-     private int size;
-
-     public Dog(int size) {
-	  this.size = size;
-     }
-
-     public int getSize() {
-	  return size;
-     }
-
-     public void setSize(int size) {
-	  this.size = size;
-     }
-
-     @Override
-     public String toString() {
-	  return "Dog{" + "size=" + size + '}';
-     }
-
-     @Override
-     public int hashCode() {
-	  int hash = 3;
-	  return hash;
-     }
-
-     @Override
-     public boolean equals(Object obj) {
-	  return (obj instanceof Dog)?(this.getSize() == ((Dog)obj).getSize()):false;
-     }
-     
-}

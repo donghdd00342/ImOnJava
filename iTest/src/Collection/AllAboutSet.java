@@ -62,33 +62,6 @@ public class AllAboutSet {
      }
 }
 
-class Cat implements Comparable<Cat>{
-
-     long size;
-
-     public Cat(long foo) {
-	  size = foo;
-     }
-
-     @Override
-     public int hashCode() {
-	  int hash = 3;
-	  hash = 97 * hash + (int) (this.size ^ (this.size >>> 32));
-	  return hash;
-     }
-
-     @Override
-     public boolean equals(Object obj) {
-	  return (obj instanceof Cat) ? this.size == ((Cat)obj).size : false;
-     }
-
-     @Override
-     public int compareTo(Cat t) {
-	  return (int) (this.size - t.size);
-     }
-     
-
-}
 //compile-single:
 //run-single:
 //ADD's Time: HashSet = 16
