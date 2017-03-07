@@ -22,6 +22,7 @@ public class SortString {
 	  String[] strName = {"Dong", "Phuc", "Anh Thu", "Dong", "Thanh Dat"};
 	  // yêu cầu sắp xếp mảng chuỗi trên theo thứ tự tăng dần
 	  // Cách 1: dùng Set
+	  System.out.println("================= cách 1: dùng Set ===============");
 	  List<String> s = new ArrayList<String>();
 	  for (int i = 0; i < strName.length; i++) {
 	       s.add(strName[i]);
@@ -49,14 +50,11 @@ public class SortString {
 			 strName[i] = strName[j];
 			 strName[j] = temp;
 		    }
-
 	       }
 	  }
 	  // in ra
 	  for (int i = 0; i < strName.length; i++) {
 	       System.out.println(strName[i]);	       
 	  }
-
      }
-
 }
