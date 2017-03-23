@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -78,8 +79,7 @@ public class IOtextFile {
      public static String read(String fileName) throws FileNotFoundException, IOException {
 	  StringBuilder sb = new StringBuilder();
 	  String str;
-//	  BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fileName)), Charset.forName("UTF-8")));
-	  BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(fileName))));
+	  BufferedReader br = new BufferedReader(new FileReader(fileName));
 	  while ((str = br.readLine()) != null) {
 	       sb.append(str).append("\n");
 	  }
