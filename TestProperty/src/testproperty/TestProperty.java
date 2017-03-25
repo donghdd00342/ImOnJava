@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 // đối tượng quản lý Animal
-
 class AnimalManager<T> {
 
      private List<T> animals;
@@ -84,34 +83,44 @@ class Cat {
 
 }
 
-class TestAnimal{
-    public static void main(String... args){
-        AnimalManager<Dog> managerDog = new AnimalManager<Dog>();
+class TestAnimal {
+
+     public static void main(String... args) {
+	  AnimalManager<Dog> managerDog = new AnimalManager<Dog>();
 //	// ko gán ra biến
 //	managerDog.getAnimals().add(new Dog("Chó 1"));
 //        managerDog.getAnimals().add(new Dog("Chó 2"));
 //        managerDog.output();
-	
-	
-	List<Dog> listDog = new ArrayList<>();
-	
-	listDog = managerDog.getAnimals();
-        listDog.add(new Dog("Chó 1"));
-        listDog.add(new Dog("Chó 2"));
-        managerDog.output();
- 
-        System.out.println("/------------------------------------------------------/");
- 
-        AnimalManager<Cat> managerCat = new AnimalManager<Cat>();
+
+	  List<Dog> listDog = new ArrayList<>();
+
+	  listDog = managerDog.getAnimals();
+	  listDog.add(new Dog("Chó 1"));
+	  listDog.add(new Dog("Chó 2"));
+	  managerDog.output();
+
+	  System.out.println("/------------------------------------------------------/");
+
+	  AnimalManager<Cat> managerCat = new AnimalManager<Cat>();
 //	// ko gán ra biến	
 //        managerCat.getAnimals().add(new Cat("Mèo 1"));
 //        managerCat.getAnimals().add(new Cat("Mèo 2"));
 //        managerCat.output();
-	
-	List<Cat> listCat = new ArrayList<>();
-	listCat = managerCat.getAnimals();
-        listCat.add(new Cat("Mèo 1"));
-        listCat.add(new Cat("Mèo 2"));
-        managerCat.output();
-    }
+
+	  List<Cat> listCat = new ArrayList<>();
+	  listCat = managerCat.getAnimals();
+	  listCat.add(new Cat("Mèo 1"));
+	  listCat.add(new Cat("Mèo 2"));
+	  managerCat.output();
+
+	  System.out.println("/------------------------------------------------------/");
+
+	  StringBuilder sb = new StringBuilder();
+	  sb.append("Đông");
+	  StringBuilder sb1 = sb;
+	  StringBuilder sb2 = sb1;
+	  sb.append(" Hồ");
+	  System.out.println(sb1);
+	  System.out.println(sb2);
+     }
 }
