@@ -122,5 +122,9 @@ class TestAnimal {
 	  sb.append(" Hồ");
 	  System.out.println(sb1);
 	  System.out.println(sb2);
+	  System.out.println("------");
+	  sb2.append(" Đức");
+	  System.out.println(sb);
+	  System.out.println(sb1);
      }
 }
