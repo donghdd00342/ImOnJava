@@ -47,8 +47,8 @@ public class GenericSort {
         printArray(stringArray);
     }
     public static <T extends Comparable<T>> void Sort (ArrayList <T> arr){
-        for(int i = 0; i < arr.size() - 1; i ++)
-            for(int j = i+1; j < arr.size(); j++)
+        for(int i = 0; i < arr.size() - 1; i ++){
+	     for(int j = i+1; j < arr.size(); j++)
             {
                 if(arr.get(i) .compareTo(arr.get(j))< 0){
                     T tmp = arr.get(i);
@@ -56,8 +56,8 @@ public class GenericSort {
                     arr.set(j, tmp);
                 }
             }
- 
- 
+	}
+             
     }
     public static <T> void printArray(ArrayList <T> arr){
         for(int i = 0; i < arr.size(); i ++){
