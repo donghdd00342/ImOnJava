@@ -30,6 +30,7 @@ public class ClientSerializable {
 	       ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 	       Message message = (Message) ois.readObject();
 	       System.out.println("Response from Server: "+ message);
+	       System.out.println("Kết thúc./.");
 	  } catch (IOException | ClassNotFoundException ex) {
 	       System.err.println("Lỗi: " + ex);
 	  }

@@ -5,10 +5,7 @@
  */
 package Server;
 
-import entities.Message;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -23,18 +20,17 @@ public class ServerSerializable {
 	       System.out.println("Khởi tạo server!");
 	       ServerSocket ss = new ServerSocket(8888);
 	       System.out.println("Server sẵn sàng.........");
-	       Socket socket = ss.accept();
-	       // bắt đầu kết nối với client
-	       System.out.println("Kết nối thành công với [" + socket.getInetAddress() + "] ---------------");
-	       // đọc request từ client
-	       ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-	       Message message = (Message) ois.readObject();
-	       System.out.println("Request from Client: "+ message);
-	       // gửi trả lời client
-	       ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-	       oos.writeObject(new Message("Trả lời từ server", "Tôi khỏe, còn bạn?"));
-	       System.out.println("Tin nhắn đã gửi thành công!");
-	  } catch (IOException | ClassNotFoundException ex) {
+	       int count = 0;
+	       while (true) {
+		    Socket socket = ss.accept();
+		    // bắt đầu kết nối với client
+		    ++count;
+		    System.out.println(count + " - Kết nối thành công với [" + socket.getInetAddress() + "] ---------------");
+
+		    new ServerThread(socket).start();
+		    Thread.sleep(1000);
+	       }
+	  } catch (IOException | InterruptedException ex) {
 	       System.err.println("Lỗi: " + ex);
 	  }
 
