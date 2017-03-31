@@ -24,7 +24,7 @@ public class ClientSerializable {
 	       System.out.println("Kết nối tới server thành công!");
 	       // gửi request lên server
 	       ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-	       oos.writeObject(new Message("Chào hỏi", "Hôm nay bạn thế nào?"));
+	       oos.writeObject(new Message("Client", "Hôm nay bạn thế nào?"));
 	       System.out.println("Tin nhắn đã gửi thành công!");
 	       // chờ phản hổi từ server
 	       ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());

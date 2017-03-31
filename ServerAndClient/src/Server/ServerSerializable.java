@@ -25,9 +25,9 @@ public class ServerSerializable {
 		    Socket socket = ss.accept();
 		    // bắt đầu kết nối với client
 		    ++count;
-		    System.out.println(count + " - Kết nối thành công với [" + socket.getInetAddress() + "] ---------------");
+		    System.out.println(count + " - Kết nối thành công với [" + socket.getInetAddress() + "]");
 
-		    new ServerThread(socket).start();
+		    new ServerThreadSerializable(socket).start();
 		    Thread.sleep(1000);
 	       }
 	  } catch (IOException | InterruptedException ex) {

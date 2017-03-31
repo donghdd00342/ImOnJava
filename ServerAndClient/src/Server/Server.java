@@ -22,25 +22,28 @@ public class Server {
 	  try {
 	       System.out.println("Khởi tạo server!");
 	       ServerSocket ss = new ServerSocket(8888);
-	       System.out.println("Server sẵn sàng...");
+	       System.out.println("Server sẵn sàng......");
 	       Socket socket = ss.accept();
 	       // bắt đầu kết nối với client
-	       System.out.println("Kết nối thành công với [" + socket.getInetAddress() + "] ---------------");
+	       System.out.println("Kết nối thành công với [" + socket.getInetAddress() + "]");
 	       BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	       String request = br.readLine();
-	       if (request != null) {
+	       while (request != null) {
 		    System.out.println("Client say: " + request);
 		    // xử lý
-		    
+
 		    // gửi trả lời cho client biết
 		    PrintStream ps = new PrintStream(socket.getOutputStream());
-		    ps.println("You say: " + request);
+		    ps.println("You say: [" + request + "]");
+		    // đọc tiếp
+		    request = br.readLine();
 	       }
 	  } catch (IOException ex) {
 	       System.err.println("Lỗi: " + ex);
 	  }
 
      }
+
      public static void main(String[] args) {
 	  new Server().start();
      }
