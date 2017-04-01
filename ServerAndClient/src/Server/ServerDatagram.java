@@ -37,11 +37,12 @@ public class ServerDatagram {
 	       clientPort = socket.getPort();
 	       System.out.println("[" + count + "] Bắt đầu kết nối với [" + inetClientAddress + "] trên cổng [" + clientPort + "]");
 	       //----------------------------- Thông tin thêm ----------------//
+	       System.out.println("Thông tin thêm về Socket ----------------");
 	       System.out.println("socket.getChannel() = " + socket.getChannel());
 	       System.out.println("socket.getKeepAlive() = " + socket.getKeepAlive());
 	       System.out.println("socket.getLocalAddress() = " + socket.getLocalAddress());
 	       System.out.println("socket.getLocalPort() = " + socket.getLocalPort());
-	       System.out.println("socket.getLocalSocketAddress() = " + socket.getLocalSocketAddress());
+	       System.out.println("socket.getLocalSocketAddress() = " + socket.getLocalSocketAddress());	       
 	       //-------------------------------------------------------------//
 
 	  } catch (IOException ex) {
