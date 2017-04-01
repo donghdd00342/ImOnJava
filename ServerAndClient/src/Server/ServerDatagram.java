@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,8 @@ import java.util.logging.Logger;
 public class ServerDatagram {
 
      public void start() {
+	  InetAddress inetClientAddress = null;
+	  int clientPort = 0;
 	  try {
 	       System.out.println("Bắt đầu khởi tạo server");
 	       ServerSocket ss = new ServerSocket(8888);
@@ -30,8 +33,8 @@ public class ServerDatagram {
 	       // chờ kết nối
 	       Socket socket = ss.accept();
 	       ++count;
-	       InetAddress inetClientAddress = socket.getInetAddress();
-	       int clientPort = socket.getPort();
+	       inetClientAddress = socket.getInetAddress();
+	       clientPort = socket.getPort();
 	       System.out.println("[" + count + "] Bắt đầu kết nối với [" + inetClientAddress + "] trên cổng [" + clientPort + "]");
 	       //----------------------------- Thông tin thêm ----------------//
 	       System.out.println("socket.getChannel() = " + socket.getChannel());
@@ -40,18 +43,29 @@ public class ServerDatagram {
 	       System.out.println("socket.getLocalPort() = " + socket.getLocalPort());
 	       System.out.println("socket.getLocalSocketAddress() = " + socket.getLocalSocketAddress());
 	       //-------------------------------------------------------------//
-	       // tạo một packet
-	       System.out.println("Nhập tin gửi client: ");
-	       String ms = new Scanner(System.in).nextLine();
-	       byte[] msByte = ms.getBytes();
-	       DatagramPacket dgp = new DatagramPacket(msByte, msByte.length, inetClientAddress, clientPort);
-	       // gửi Packet đến cho client
-	       DatagramSocket dgs = new DatagramSocket();
-	       dgs.send(dgp);
-	       System.out.println("Đã gửi packet...");
 
 	  } catch (IOException ex) {
 	       Logger.getLogger(ServerDatagram.class.getName()).log(Level.SEVERE, null, ex);
+	  }
+	  // tạo một packet
+	  System.out.println("Nhập tin gửi client: ");
+	  String ms = new Scanner(System.in).nextLine();
+	  byte[] msByte = ms.getBytes();
+	  if ((inetClientAddress != null) && (clientPort != 0)) {
+	       DatagramPacket dgp = new DatagramPacket(msByte, msByte.length, inetClientAddress, clientPort);
+	       // gửi Packet đến cho client
+	       DatagramSocket dgs;
+	       try {
+		    dgs = new DatagramSocket();
+		    try {
+			 dgs.send(dgp);
+		    } catch (IOException ex) {
+			 Logger.getLogger(ServerDatagram.class.getName()).log(Level.SEVERE, null, ex);
+		    }
+	       } catch (SocketException ex) {
+		    Logger.getLogger(ServerDatagram.class.getName()).log(Level.SEVERE, null, ex);
+	       }
+	       System.out.println("Đã gửi packet...");
 	  }
      }
 

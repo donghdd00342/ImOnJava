@@ -31,10 +31,10 @@ public class ClientDatagram {
 	       //------------------------------------------------------------//
 	       // nhận packet
 	       DatagramSocket dgs = new DatagramSocket(socket.getLocalPort()); // nhận qua socket
-	       byte[] b = new byte[60000]; // nơi chứa dữ liệu
+	       byte[] b = new byte[1024]; // nơi chứa dữ liệu
 	       DatagramPacket inPacket = new DatagramPacket(b, b.length); // gói gữ liệu nhận
 	       dgs.receive(inPacket); // chờ nhận dữ liệu
-	       System.out.println(new String(inPacket.getData()));
+	       System.out.println(new String(inPacket.getData()).replaceAll("\0", ""));
 	  } catch (IOException ex) {
 	       Logger.getLogger(ClientDatagram.class.getName()).log(Level.SEVERE, null, ex);
 	  }
