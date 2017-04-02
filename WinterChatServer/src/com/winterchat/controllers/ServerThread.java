@@ -6,6 +6,7 @@
 package com.winterchat.controllers;
 
 import com.winterchat.entities.Client;
+import com.winterchat.entities.GoodbyeClient;
 import com.winterchat.entities.HelloClient;
 import com.winterchat.entities.WinterTransporter;
 import java.io.BufferedInputStream;
@@ -48,7 +49,7 @@ public class ServerThread extends Thread {
 		    // lưu Client vào Map
 		    clientsMap.put(request, new Client(socket.getInetAddress(), socket.getPort()));
 		    // chờ 1s
-		    Thread.sleep(1000);
+		    Thread.sleep(100);
 		    // gửi Danh sách và thông báo đến các thành viên
 		    Untilities.sendTo(new WinterTransporter(1, new HelloClient(request, Untilities.toArray(clientsMap.keySet()))), clientsMap);
 		    // chờ UDP phía Server
@@ -69,11 +70,18 @@ public class ServerThread extends Thread {
 			 is.close();
 			 ///////////////////////////////////////////////////////
 			 // xử lý WinterTransporter
+			 if (o.getTypeOfMessage() == 2) {
+			      // gửi thông báo WinterTransporter đến mọi người
+			      Untilities.sendTo(o, clientsMap);
+			 }
 			 if (o.getTypeOfMessage() == 4) {
+			      // cập nhật lại danh sách
+			      GoodbyeClient goodbyeClient = (GoodbyeClient) o.getMessageObject();
+			      clientsMap.remove(goodbyeClient.getNickName());
 			      // gửi thông báo WinterTransporter đến mọi người
 			      Untilities.sendTo(o, clientsMap);
 			      System.out.println("Client gửi ms kiểu: " + o.getTypeOfMessage());
-			      break;
+			      //break; // cần test lại trên mạng thật...
 			 }
 			 ///////////////////////////////////////////////////////
 		    }

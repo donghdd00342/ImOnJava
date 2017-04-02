@@ -6,7 +6,11 @@
 package com.winterchat.views;
 
 import com.winterchat.entities.ClientSession;
+import com.winterchat.entities.CommonMessage;
+import com.winterchat.entities.GoodbyeClient;
+import com.winterchat.entities.HelloClient;
 import com.winterchat.entities.WinterTransporter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -17,6 +21,9 @@ import java.io.PrintStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,6 +67,12 @@ public class LoginUI extends javax.swing.JFrame {
           txtHostName.setText("localhost");
 
           jLabel2.setText("Nick Name");
+
+          txtNickName.addKeyListener(new java.awt.event.KeyAdapter() {
+               public void keyPressed(java.awt.event.KeyEvent evt) {
+                    txtNickNameKeyPressed(evt);
+               }
+          });
 
           jButton1.setText("Đăng nhập");
           jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +165,16 @@ public class LoginUI extends javax.swing.JFrame {
 
      }//GEN-LAST:event_jButton1ActionPerformed
 
+     private void txtNickNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNickNameKeyPressed
+	  // TODO add your handling code here:
+	  if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+	       if (validates()) {
+		    connectToServer(txtHostName.getText(), Integer.valueOf(txtPort.getText()));
+	       }
+	  }
+
+     }//GEN-LAST:event_txtNickNameKeyPressed
+
      /**
       *********************************************************************
       * Các hàm của Đông ở đây
@@ -194,6 +217,7 @@ public class LoginUI extends javax.swing.JFrame {
       * @param portServer
       */
      public void connectToServer(String hostName, int portServer) {
+
 	  try {
 	       Socket socket = new Socket(hostName, portServer);
 	       DatagramSocket dgs = new DatagramSocket(socket.getLocalPort());
@@ -218,7 +242,8 @@ public class LoginUI extends javax.swing.JFrame {
 			 // ẩn Login UI
 			 this.setVisible(false);
 			 // hiện ChatUI
-			 new ClientChatUI(clientSession).setVisible(true);
+			 ClientChatUI clientChatUI = new ClientChatUI(clientSession);
+			 clientChatUI.setVisible(true);
 
 			 /////////////////////////////////////////////////////////////
 			 // chờ ngầm
@@ -232,6 +257,10 @@ public class LoginUI extends javax.swing.JFrame {
 					ObjectInputStream is;
 					WinterTransporter o;
 
+					DefaultTableModel model = (DefaultTableModel) clientChatUI.getTblListUser().getModel();
+					HelloClient helloClient;
+					GoodbyeClient goodbyeClient;
+
 					while (true) {
 					     System.out.println("Client chờ UDP ở đây...");
 					     dgs.receive(packet); // chờ nhận packet
@@ -240,7 +269,62 @@ public class LoginUI extends javax.swing.JFrame {
 					     o = (WinterTransporter) is.readObject();
 					     is.close();
 					     // xử lý WinterTransporter
-					     System.out.println("Server gửi ms kiểu: " + o.getTypeOfMessage());
+					     /////////////////////////////////////////////////////////////////
+					     switch (o.getTypeOfMessage()) {
+						  case 1:
+						       helloClient = (HelloClient) o.getMessageObject();
+						       // thông báo
+						       clientChatUI.getTxtAreaChat().append("[" + helloClient.getNickName() + " đã tham chiến cùng anh em.]\n");
+						       // cập nhật danh sách
+						       model.setRowCount(0);
+						       // tạo mới danh sách User
+						       clientSession.setListUser(new ArrayList(Arrays.asList(helloClient.getListName())));
+						       for (Object object : clientSession.getListUser()) {
+							    model.addRow(new String[]{object.toString()});
+						       }
+						       break;
+						  case 2:
+						       CommonMessage commonMessage = (CommonMessage) o.getMessageObject();
+						       // thông báo
+						       clientChatUI.getTxtAreaChat().append(((clientSession.getNickName().equals(commonMessage.getNickName())) ? "Tôi" : commonMessage.getNickName()) + " : " + commonMessage.getMessage() + "\n");
+						       break;
+						  case 4:
+						       goodbyeClient = (GoodbyeClient) o.getMessageObject();
+						       // thông báo
+						       clientChatUI.getTxtAreaChat().append("[" + goodbyeClient.getNickName() + " đã rời phòng.]\n");
+						       // cập nhật lại danh sách
+						       clientSession.getListUser().remove(goodbyeClient.getNickName());
+						       model.setRowCount(0);
+						       for (Object object : clientSession.getListUser()) {
+							    model.addRow(new String[]{object.toString()});
+						       }
+						       break;
+					     }
+//					     if (o.getTypeOfMessage() == 1) {
+//						  helloClient = (HelloClient) o.getMessageObject();
+//						  // thông báo
+//						  clientChatUI.getTxtAreaChat().append(helloClient.getNickName() + " đã tham chiến cùng anh em...\n");
+//						  // cập nhật danh sách
+////						  model = (DefaultTableModel) clientChatUI.getTblListUser().getModel();
+//						  model.setRowCount(0);
+//						  // tạo mới danh sách User
+//						  clientSession.setListUser(new ArrayList(Arrays.asList(helloClient.getListName())));
+//						  for (Object object : clientSession.getListUser()) {
+//						       model.addRow(new String[]{object.toString()});
+//						  }
+//					     }
+//					     if (o.getTypeOfMessage() == 4) {
+//						  goodbyeClient = (GoodbyeClient) o.getMessageObject();
+//						  // thông báo
+//						  clientChatUI.getTxtAreaChat().append(goodbyeClient.getNickName() + " đã rời phòng.\n");
+//						  // cập nhật lại danh sách
+//						  clientSession.getListUser().remove(goodbyeClient.getNickName());
+//						  model.setRowCount(0);
+//						  for (Object object : clientSession.getListUser()) {
+//						       model.addRow(new String[]{object.toString()});
+//						  }
+//					     }
+					     /////////////////////////////////////////////////////////////////
 					}
 				   } catch (IOException | ClassNotFoundException e) {
 					System.err.println("Lỗi: " + e);

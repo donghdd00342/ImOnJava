@@ -59,9 +59,8 @@ public class Untilities {
 	  int i = 0;
 	  while (itr.hasNext()) {
 	       myString[i] = itr.next().toString();
-	       System.out.println("IN KIỂM TRA myString[i]: " + myString[i]);
 	       ++i;
 	  }
-	  return null;
+	  return myString;
      }
 }

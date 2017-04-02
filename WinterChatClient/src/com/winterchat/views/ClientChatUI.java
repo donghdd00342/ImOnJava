@@ -7,12 +7,17 @@ package com.winterchat.views;
 
 import com.winterchat.controllers.Untilities;
 import com.winterchat.entities.ClientSession;
+import com.winterchat.entities.CommonMessage;
 import com.winterchat.entities.GoodbyeClient;
 import com.winterchat.entities.WinterTransporter;
 import java.awt.event.KeyEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -33,6 +38,7 @@ public class ClientChatUI extends javax.swing.JFrame {
 	  setLocationRelativeTo(null);
 	  txtAreaChat.setEditable(false);
 	  setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	  this.setTitle("Phòng chát của " + clientSessiton.getNickName());
      }
 
      /**
@@ -200,11 +206,30 @@ public class ClientChatUI extends javax.swing.JFrame {
      /**
       * Hàm thao tác trên JFrame
       *
+      * @return 
       * @Author DongHo
       */
+     public JTable getTblListUser() {
+	  return tblListUser;
+     }
+
+     public JTextArea getTxtAreaChat() {
+	  return txtAreaChat;
+     }
+
      public void pressSend() {
 	  if (!txtMessage.getText().trim().equals("")) {
-	       txtAreaChat.append(txtMessage.getText().trim() + "\n");
+	       try {
+		    // gửi CommonMessage tới server
+		    //txtAreaChat.append("Tôi: "+ txtMessage.getText().trim() + "\n");
+		    Untilities.sendTo(
+			    new WinterTransporter(2, new CommonMessage(clientSessiton.getNickName(), txtMessage.getText().trim())),
+			    InetAddress.getByName(clientSessiton.getHostName()),
+			    clientSessiton.getPortServer()
+		    );
+	       } catch (UnknownHostException ex) {
+		    System.err.println("Lỗi tạo Inet: " + ex);
+	       }
 	       txtMessage.setText("");
 	  } else {
 	       txtMessage.setText("");
@@ -232,7 +257,7 @@ public class ClientChatUI extends javax.swing.JFrame {
 	  }
 	  //</editor-fold>
 	  //</editor-fold>
-	  
+
 	  //</editor-fold>
 	  //</editor-fold>
 

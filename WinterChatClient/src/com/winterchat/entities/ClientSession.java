@@ -6,6 +6,7 @@
 package com.winterchat.entities;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,7 @@ public class ClientSession {
      private int portServer;
      private InetAddress clientInetAddress;
      private int portClient;
+     private ArrayList listUser;
 
      public ClientSession(String nickName, String hostName, int portServer, InetAddress clientInetAddress, int portClient) {
 	  this.nickName = nickName;
@@ -24,6 +26,14 @@ public class ClientSession {
 	  this.portServer = portServer;
 	  this.clientInetAddress = clientInetAddress;
 	  this.portClient = portClient;
+     }
+
+     public ArrayList getListUser() {
+	  return listUser;
+     }
+
+     public void setListUser(ArrayList listUser) {
+	  this.listUser = listUser;
      }
 
      public String getNickName() {
