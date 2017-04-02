@@ -47,4 +47,8 @@ public class PrivateMessage implements Serializable {
 	  this.message = message;
      }
 
+     @Override
+     public String toString() {
+	  return "PrivateMessage{" + "from=" + from + ", to=" + to + ", message=" + message + '}';
+     }
 }

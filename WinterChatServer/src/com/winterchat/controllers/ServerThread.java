@@ -6,6 +6,7 @@
 package com.winterchat.controllers;
 
 import com.winterchat.entities.Client;
+import com.winterchat.entities.CommonMessage;
 import com.winterchat.entities.GoodbyeClient;
 import com.winterchat.entities.HelloClient;
 import com.winterchat.entities.PrivateMessage;
@@ -50,11 +51,12 @@ public class ServerThread extends Thread {
 		    // lưu Client vào Map
 		    clientsMap.put(request, new Client(socket.getInetAddress(), socket.getPort()));
 		    // chờ 1s
+		    this.setName(request);
 		    Thread.sleep(100);
 		    // gửi Danh sách và thông báo đến các thành viên
 		    Untilities.sendTo(new WinterTransporter(1, new HelloClient(request, Untilities.toArray(clientsMap.keySet()))), clientsMap);
+		    System.out.println(request + " đã tham gia phòng chát.");
 		    // chờ UDP phía Server
-		    System.out.println("chờ UDP...");
 		    /////////////////////////////////////////////////////////////
 		    byte[] recvBuf = new byte[5000];
 		    DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
@@ -63,7 +65,7 @@ public class ServerThread extends Thread {
 		    ObjectInputStream is;
 		    WinterTransporter o;
 		    while (true) {
-			 System.out.println("Server bắt đầu chờ UDP tại đây!....");
+			 System.out.println("chờ UDP...............................");
 			 dgs.receive(packet); // chờ nhận packet
 			 byteStream = new ByteArrayInputStream(recvBuf);
 			 is = new ObjectInputStream(new BufferedInputStream(byteStream));
@@ -73,17 +75,34 @@ public class ServerThread extends Thread {
 			 // xử lý WinterTransporter
 			 switch (o.getTypeOfMessage()) {
 			      case 2:
-				   // gửi thông báo WinterTransporter đến mọi người
-				   Untilities.sendTo(o, clientsMap);
+				   CommonMessage commonMessage = (CommonMessage) o.getMessageObject();
+				   if (commonMessage.getMessage().startsWith("/kick")) {
+					String kickPerson = "";
+					String reason;
+					try {
+					     kickPerson = commonMessage.getMessage().split("<password>")[1];
+					     reason = commonMessage.getMessage().split("<password>")[2];
+					} catch (Exception e) {
+					     System.err.println("Lỗi sai cú pháp câu lệnh /kick");
+					}
+					if (clientsMap.containsKey(kickPerson)) {
+					     // gửi thông báo đến mọi người
+					}
+				   } else {
+					// gửi thông báo WinterTransporter đến mọi người
+					Untilities.sendTo(o, clientsMap);
+					System.out.println(commonMessage);
+				   }
 				   break;
 			      case 3:
 				   PrivateMessage privateMessage = (PrivateMessage) o.getMessageObject();
 				   // gửi tin nhắn cho người nhận
 				   Untilities.sendTo(
-					   o, 
-					   clientsMap.get(privateMessage.getTo()).getInetAddressClient(), 
+					   o,
+					   clientsMap.get(privateMessage.getTo()).getInetAddressClient(),
 					   clientsMap.get(privateMessage.getTo()).getPortClient()
 				   );
+				   System.out.println(o.getMessageObject());
 				   break;
 			      case 4:
 				   // cập nhật lại danh sách
@@ -91,8 +110,8 @@ public class ServerThread extends Thread {
 				   clientsMap.remove(goodbyeClient.getNickName());
 				   // gửi thông báo WinterTransporter đến mọi người
 				   Untilities.sendTo(o, clientsMap);
-				   System.out.println("Client gửi ms kiểu: " + o.getTypeOfMessage());
 				   //break; // cần test lại trên mạng thật...
+				   System.out.println(goodbyeClient.getNickName() + " đã rời phòng.");
 				   break;
 			 }
 			 ///////////////////////////////////////////////////////

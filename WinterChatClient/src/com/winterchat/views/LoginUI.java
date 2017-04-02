@@ -270,7 +270,7 @@ public class LoginUI extends javax.swing.JFrame {
 					PrivateChatUI privateChatUI;
 
 					while (true) {
-					     System.out.println("Client chờ UDP ở đây...");
+					     System.out.println(".................................................");
 					     dgs.receive(packet); // chờ nhận packet
 					     byteStream = new ByteArrayInputStream(recvBuf);
 					     is = new ObjectInputStream(new BufferedInputStream(byteStream));
@@ -370,7 +370,7 @@ public class LoginUI extends javax.swing.JFrame {
 	       errHostName.setForeground(new java.awt.Color(255, 0, 0));
 	       errHostName.setText(ex + "");
 	  }
-	  System.out.println("kết thúc phiên nhấn Button");
+	  System.out.println("kết thúc phiên.");
      }
 
      /**

@@ -35,5 +35,9 @@ public class CommonMessage implements Serializable {
      public void setMessage(String message) {
 	  this.message = message;
      }
-     
+
+     @Override
+     public String toString() {
+	  return "CommonMessage{" + "nickName=" + nickName + ", message=" + message + '}';
+     }     
 }
