@@ -37,7 +37,7 @@ public class ClientChatUI extends javax.swing.JFrame {
 	  setLocationRelativeTo(null);
 	  txtAreaChat.setEditable(false);
 	  setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	  this.setTitle("Phòng chát của " + clientSession.getNickName());
+	  this.setTitle("Phòng chát của [" + clientSession.getNickName() + "] và đồng bọn.");
      }
 
      /**
@@ -90,7 +90,7 @@ public class ClientChatUI extends javax.swing.JFrame {
 
                },
                new String [] {
-                    "Danh sách thành viên"
+                    "      Thành viên Online"
                }
           ) {
                boolean[] canEdit = new boolean [] {
@@ -150,18 +150,23 @@ public class ClientChatUI extends javax.swing.JFrame {
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(40, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                          .addComponent(jScrollPane3))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                         .addComponent(jLabel1)
-                         .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jButton1)
-                         .addComponent(btnPrivateChat)
-                         .addComponent(jButton2))
-                    .addGap(48, 48, 48))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(layout.createSequentialGroup()
+                              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                   .addComponent(btnPrivateChat)
+                                   .addComponent(jButton2))
+                              .addGap(60, 60, 60))
+                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                   .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addGap(24, 24, 24))))
           );
 
           pack();

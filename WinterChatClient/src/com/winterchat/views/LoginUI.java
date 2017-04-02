@@ -284,7 +284,7 @@ public class LoginUI extends javax.swing.JFrame {
 						       // thông báo
 						       clientChatUI
 							       .getTxtAreaChat()
-							       .append("[" + helloClient.getNickName() + " đã tham chiến cùng anh em.]\n");
+							       .append(" [Thông báo: " + helloClient.getNickName() + " đã tham chiến cùng anh em.]\n");
 						       // cập nhật danh sách
 						       model.setRowCount(0);
 						       // tạo mới danh sách User
@@ -300,7 +300,10 @@ public class LoginUI extends javax.swing.JFrame {
 						       // thông báo
 						       clientChatUI
 							       .getTxtAreaChat()
-							       .append(((clientSession.getNickName().equals(nickName2)) ? "Tôi" : nickName2) + " : " + message2 + "\n");
+							       .append(((clientSession
+								       .getNickName()
+								       .equals(nickName2)) ? " [" + nickName2 + " (Tôi)" : " [" + nickName2) + "] " + message2 + "\n"
+							       );
 						       break;
 						  case 3:
 						       privateMessage = (PrivateMessage) o.getMessageObject();
@@ -316,15 +319,15 @@ public class LoginUI extends javax.swing.JFrame {
 									 .put(from3, new PrivateChatUI(to3, from3, clientSession));
 								 // gửi tin nhắn riêng
 								 privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
-								 privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+								 privateChatUI.getTxtAreaPrivateChat().append(" [" + from3 + "] " + message3 + "\n");
 							    } else {
 								 // gửi tin nhắn riêng
 								 privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
 								 if (!privateChatUI.isDisplayable()) {
 								      privateChatUI.setVisible(true);
-								      privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+								      privateChatUI.getTxtAreaPrivateChat().append(" [" + from3 + "] " + message3 + "\n");
 								 } else {
-								      privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+								      privateChatUI.getTxtAreaPrivateChat().append(" [" + from3 + "] " + message3 + "\n");
 								 }
 							    }
 						       }
@@ -333,12 +336,12 @@ public class LoginUI extends javax.swing.JFrame {
 						       goodbyeClient = (GoodbyeClient) o.getMessageObject();
 						       String nickName4 = goodbyeClient.getNickName();
 						       // thông báo
-						       clientChatUI.getTxtAreaChat().append("[" + nickName4 + " đã rời phòng.]\n");
+						       clientChatUI.getTxtAreaChat().append(" [Thông báo: " + nickName4 + " đã rời phòng.]\n");
 						       // thông báo đến danh sách chát riêng
 						       if (clientSession.getListPrivateChatPerson().containsKey(nickName4)) {
 							    // thông báo người chat đã thoát
 							    privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(nickName4);
-							    privateChatUI.getTxtAreaPrivateChat().append("[" + nickName4 + " đã thoát!]");
+							    privateChatUI.getTxtAreaPrivateChat().append(" [Thông báo: " + nickName4 + " đã thoát!]\n");
 							    // loại khỏi danh sách chat
 							    clientSession.getListPrivateChatPerson().remove(nickName4);
 						       }

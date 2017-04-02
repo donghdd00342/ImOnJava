@@ -23,23 +23,24 @@ public class PrivateChatUI extends javax.swing.JFrame {
 
      private final String toPerson;
      ClientSession clientSession;
-     
+
      /**
       * Creates new form PrivateChatUI
+      *
       * @param me
       * @param withPerson
       * @param clientSession
       */
      public PrivateChatUI(String me, String withPerson, ClientSession clientSession) {
 	  initComponents();
-	  
+
 	  this.toPerson = withPerson;
 	  this.clientSession = clientSession;
-	  
+
 	  setLocationRelativeTo(null);
 	  txtAreaPrivateChat.setEditable(false);
 	  setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	  this.setTitle(withPerson);
+	  this.setTitle("Chát riêng với [" + withPerson + "]");
 	  this.setVisible(true);
      }
 
@@ -125,7 +126,7 @@ public class PrivateChatUI extends javax.swing.JFrame {
      private void pressSend() {
 	  String message = txtMessagePrivate.getText().trim();
 	  if (!message.equals("")) {
-	       txtAreaPrivateChat.append("Tôi : "+ message + "\n");
+	       txtAreaPrivateChat.append(" [" + clientSession.getNickName() + "(Bạn)] " + message + "\n");
 	       txtMessagePrivate.setText("");
 	       try {
 		    // gửi PrivateMessage tới server
@@ -176,7 +177,7 @@ public class PrivateChatUI extends javax.swing.JFrame {
 	  /* Create and display the form */
 	  java.awt.EventQueue.invokeLater(new Runnable() {
 	       public void run() {
-		    new PrivateChatUI("Đông", "Phúc", null).setVisible(true);
+		    new PrivateChatUI("Tôi", "Phúc", null).setVisible(true);
 	       }
 	  });
      }
