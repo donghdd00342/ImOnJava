@@ -5,12 +5,16 @@
  */
 package com.winterchat.views;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 /**
  *
@@ -173,9 +177,14 @@ public class LoginUI extends javax.swing.JFrame {
      public void connectToServer(String hostName, int portServer) {
 	  try {
 	       Socket socket = new Socket(hostName, portServer);
+//	       int clientPort = socket.getLocalPort();
+//	       DatagramSocket dgs = new DatagramSocket(clientPort); // nhận qua socket
+	       DatagramSocket dgs = new DatagramSocket(socket.getLocalPort());
+	       
 	       errHostName.setForeground(new java.awt.Color(0, 153, 51));
 	       errHostName.setText("Kết nối thành công tới Server");
 	       PrintStream ps = new PrintStream(socket.getOutputStream());
+	       
 	       // gửi dữ liệu lên server
 	       String ms = txtNickName.getText();
 	       ps.println(ms);
@@ -188,14 +197,29 @@ public class LoginUI extends javax.swing.JFrame {
 		    } else {
 			 errNickName.setText("");
 			 // ẩn Login UI
-			 this.setVisible(false);
+//			 this.setVisible(false);
 			 // hiện ChatUI
 			 new ClientChatUI().setVisible(true);
 			 // chờ UDP phía Client ở đây
 			 System.out.println("Client chờ UDP ở đây...");
+			 /////////////////////////////////////////////////////////////
+			 byte[] recvBuf = new byte[5000];
+			 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+			 ByteArrayInputStream byteStream;
+			 ObjectInputStream is;
+			 Object o;
+			 
+			 dgs.receive(packet); // chờ nhận packet
+			 byteStream = new ByteArrayInputStream(recvBuf);
+			 is = new ObjectInputStream(new BufferedInputStream(byteStream));
+			 o = is.readObject();			 
+			 // xử lý Object
+			 is.close();
+			 
+			 /////////////////////////////////////////////////////////////
 		    }
 	       }
-	  } catch (IOException ex) {
+	  } catch (IOException | ClassNotFoundException ex) {
 	       errHostName.setForeground(new java.awt.Color(255, 0, 0));
 	       errHostName.setText(ex + "");
 	  }

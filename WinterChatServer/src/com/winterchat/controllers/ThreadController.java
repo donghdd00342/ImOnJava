@@ -46,25 +46,61 @@ public class ThreadController extends Thread {
 		    // lưu Client vào Map
 		    clientsMap.put(request, new Client(socket.getInetAddress(), socket.getPort()));
 		    // chờ UDP phía Server
-		    System.out.println("Server chờ UDP...");
+		    System.out.println("chờ UDP...");
 		    /////////////////////////////////////////////////////////////
-		    try {
-			 byte[] recvBuf = new byte[5120]; // 5 x 1024
-			 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-			 DatagramSocket dgs = new DatagramSocket(socket.getLocalPort()); // nhận qua socket
-			 dgs.receive(packet);
+//		    byte[] recvBuf = new byte[5120]; // 5 x 1024
+//		    DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+//		    DatagramSocket dgs = new DatagramSocket(socket.getPort());
+//		    ByteArrayInputStream byteStream = new ByteArrayInputStream(recvBuf);
+//		    ObjectInputStream is;
+//		    //while
+//		    while (true) {
+//			 is = new ObjectInputStream(new BufferedInputStream(byteStream));
+//			 System.out.println("server bắt đầu chờ UDP...");
+//			 dgs.receive(packet); // chờ nhận UDP
+//			 try {
+//			      Object o = is.readObject();
+//			      // xử lý Object
+//			      System.out.println("Xử lý Object ...........");
+//			      // nếu keepConect = false (thoát) -> break;
+//			 } catch (IOException | ClassNotFoundException e) {
+//			      System.err.println("Lỗi: " + e);
+//			      break;
+//			 } finally {
+//			      is.close();
+//			 }
+//		    }
 
-			 ByteArrayInputStream byteStream = new ByteArrayInputStream(recvBuf);
-			 ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
-			 Object o = is.readObject();
-			 is.close();
-		    } catch (IOException | ClassNotFoundException e) {
-			 System.err.println("Lỗi:  " + e);
-		    }
+//		    while (true) {
+//			      byte[] recvBuf = new byte[1024];
+//			      DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+//			      DatagramSocket dgs = new DatagramSocket(socket.getPort()); // nhận qua socket
+//			      System.out.println("server bắt đầu chờ UDP...");
+//			      dgs.receive(packet);
+//
+//			      ByteArrayInputStream byteStream = new ByteArrayInputStream(recvBuf);
+//			      ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
+//			      Object o = is.readObject();
+//			      is.close();
+		    byte[] recvBuf = new byte[5000];
+		    DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+		    DatagramSocket dgs = new DatagramSocket(socket.getLocalPort());
+		    ByteArrayInputStream byteStream;
+		    ObjectInputStream is;
+		    Object o;
+
+		    System.out.println("Server bắt đầu chờ UDP tại đây!....");
+		    dgs.receive(packet); // chờ nhận packet
+		    byteStream = new ByteArrayInputStream(recvBuf);
+		    is = new ObjectInputStream(new BufferedInputStream(byteStream));
+		    o = is.readObject();
+		    // xử lý Object
+		    is.close();
+//		    }
 		    /////////////////////////////////////////////////////////////
 	       }
-	  } catch (IOException e) {
-	       System.err.println("Lỗi: " + e);
+	  } catch (IOException | ClassNotFoundException e) {
+	       System.err.println("Lỗi: Ở ĐÂY????  " + e);
 	  }
 	  System.out.println("Kết thúc Thread: " + socket.getInetAddress());
      }
