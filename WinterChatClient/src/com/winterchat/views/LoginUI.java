@@ -265,8 +265,8 @@ public class LoginUI extends javax.swing.JFrame {
 					HelloClient helloClient;
 					GoodbyeClient goodbyeClient;
 					CommonMessage commonMessage;
-					PrivateMessage privateMessage;					
-					
+					PrivateMessage privateMessage;
+
 					PrivateChatUI privateChatUI;
 
 					while (true) {
@@ -307,17 +307,26 @@ public class LoginUI extends javax.swing.JFrame {
 						       String from3 = privateMessage.getFrom();
 						       String to3 = privateMessage.getTo();
 						       String message3 = privateMessage.getMessage();
-						       
-						       // thêm người gửi vào danh sách chat
-						       if (!clientSession.getListPrivateChatPerson().containsKey(from3)) {
-							    clientSession.getListPrivateChatPerson().put(from3, new PrivateChatUI(from3));
-							    // gửi tin nhắn riêng
-							    privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
-							    privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
-						       } else {
-							    // gửi tin nhắn riêng
-							    privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
-							    privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+
+						       if (!clientSession.getNickName().equals(from3)) {
+							    // thêm người gửi vào danh sách chat
+							    if (!clientSession.getListPrivateChatPerson().containsKey(from3)) {
+								 clientSession
+									 .getListPrivateChatPerson()
+									 .put(from3, new PrivateChatUI(to3, from3, clientSession));
+								 // gửi tin nhắn riêng
+								 privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
+								 privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+							    } else {
+								 // gửi tin nhắn riêng
+								 privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
+								 if (!privateChatUI.isDisplayable()) {
+								      privateChatUI.setVisible(true);
+								      privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+								 } else {
+								      privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+								 }
+							    }
 						       }
 						       break;
 						  case 4:

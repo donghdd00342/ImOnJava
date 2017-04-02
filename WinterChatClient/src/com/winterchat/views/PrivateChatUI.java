@@ -5,6 +5,7 @@
  */
 package com.winterchat.views;
 
+import com.winterchat.entities.ClientSession;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -15,15 +16,19 @@ import javax.swing.JTextArea;
  */
 public class PrivateChatUI extends javax.swing.JFrame {
 
+     private final String toPerson;
+     
      /**
       * Creates new form PrivateChatUI
       */
-     public PrivateChatUI(String withPerson) {
+     public PrivateChatUI(String me, String withPerson, ClientSession clientSession) {
 	  initComponents();
+	  this.toPerson = withPerson;
 	  setLocationRelativeTo(null);
 	  txtAreaPrivateChat.setEditable(false);
 	  setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	  this.setTitle(withPerson);
+	  this.setVisible(true);
      }
 
      /**
@@ -98,7 +103,7 @@ public class PrivateChatUI extends javax.swing.JFrame {
      private void txtMessagePrivateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMessagePrivateKeyPressed
 	  // TODO add your handling code here:
 	  if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-	       System.out.println("Vừa enter");
+	       pressSend();
 	  }
      }//GEN-LAST:event_txtMessagePrivateKeyPressed
 
@@ -118,7 +123,7 @@ public class PrivateChatUI extends javax.swing.JFrame {
 //	       } catch (UnknownHostException ex) {
 //		    System.err.println("Lỗi tạo Inet: " + ex);
 //	       }
-	       txtAreaPrivateChat.append(txtMessagePrivate.getText().trim() + "\n");
+	       txtAreaPrivateChat.append("Tôi : "+ txtMessagePrivate.getText().trim() + "\n");
 	       txtMessagePrivate.setText("");
 	  } else {
 	       txtMessagePrivate.setText("");
@@ -159,7 +164,7 @@ public class PrivateChatUI extends javax.swing.JFrame {
 	  /* Create and display the form */
 	  java.awt.EventQueue.invokeLater(new Runnable() {
 	       public void run() {
-		    new PrivateChatUI("Đông").setVisible(true);
+		    new PrivateChatUI("Đông", "Phúc", null).setVisible(true);
 	       }
 	  });
      }
