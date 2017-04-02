@@ -24,20 +24,20 @@ import javax.swing.JTextArea;
  */
 public class ClientChatUI extends javax.swing.JFrame {
 
-     private final ClientSession clientSessiton;
+     private final ClientSession clientSession;
 
      /**
       * Creates new form ClientUI
       *
-      * @param clientSessiton
+      * @param clientSession
       */
-     public ClientChatUI(ClientSession clientSessiton) {
-	  this.clientSessiton = clientSessiton;
+     public ClientChatUI(ClientSession clientSession) {
+	  this.clientSession = clientSession;
 	  initComponents();
 	  setLocationRelativeTo(null);
 	  txtAreaChat.setEditable(false);
 	  setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-	  this.setTitle("Phòng chát của " + clientSessiton.getNickName());
+	  this.setTitle("Phòng chát của " + clientSession.getNickName());
      }
 
      /**
@@ -172,9 +172,31 @@ public class ClientChatUI extends javax.swing.JFrame {
 	  int row = tblListUser.getSelectedRow();
 	  if (row != -1) {
 	       // bắt đầu chat
-
+	       String withPerson = tblListUser.getModel().getValueAt(row, 0).toString();
+	       if (withPerson.equals(clientSession.getNickName())) {
+		    Untilities.alert(this, "Hiện tại thì bạn không thể chát với chính mình!");
+	       } else {
+		    // thêm withPerson vào danh sách chát
+		    if (!clientSession.getListPrivateChatPerson().containsKey(withPerson)) {
+			 clientSession
+				 .getListPrivateChatPerson()
+				 .put(withPerson, new PrivateChatUI(clientSession.getNickName(), withPerson, clientSession));
+			 // gửi tin nhắn riêng
+//			 privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
+//			 privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+		    } else {
+			 // gửi tin nhắn riêng
+			 PrivateChatUI privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(withPerson);
+			 if (!privateChatUI.isDisplayable()) {
+			      privateChatUI.setVisible(true);
+			      privateChatUI.setFocusable(true);
+			 } else {
+			      privateChatUI.setFocusable(true);
+			 }
+		    }
+	       }
 	  } else {
-	       JOptionPane.showMessageDialog(this, "Hãy chọn thành viên để chát");
+	       Untilities.alert(this, "Hãy chọn thành viên để chát");
 	  }
      }//GEN-LAST:event_btnPrivateChatActionPerformed
 
@@ -203,7 +225,11 @@ public class ClientChatUI extends javax.swing.JFrame {
 	  if (JOptionPane.showConfirmDialog(this, "Bạn có chắc là muốn thoát?") == 0) {
 	       try {
 		    // gửi thông báo đến server
-		    Untilities.sendTo(new WinterTransporter(4, new GoodbyeClient(clientSessiton.getNickName())), InetAddress.getByName(clientSessiton.getHostName()), clientSessiton.getPortServer());
+		    Untilities.sendTo(
+			    new WinterTransporter(4, new GoodbyeClient(clientSession.getNickName())),
+			    InetAddress.getByName(clientSession.getHostName()),
+			    clientSession.getPortServer()
+		    );
 	       } catch (UnknownHostException ex) {
 		    System.err.println("Lỗi tạo Inet: " + ex);
 	       }
@@ -231,9 +257,9 @@ public class ClientChatUI extends javax.swing.JFrame {
 		    // gửi CommonMessage tới server
 		    //txtAreaChat.append("Tôi: "+ txtMessage.getText().trim() + "\n");
 		    Untilities.sendTo(
-			    new WinterTransporter(2, new CommonMessage(clientSessiton.getNickName(), txtMessage.getText().trim())),
-			    InetAddress.getByName(clientSessiton.getHostName()),
-			    clientSessiton.getPortServer()
+			    new WinterTransporter(2, new CommonMessage(clientSession.getNickName(), txtMessage.getText().trim())),
+			    InetAddress.getByName(clientSession.getHostName()),
+			    clientSession.getPortServer()
 		    );
 	       } catch (UnknownHostException ex) {
 		    System.err.println("Lỗi tạo Inet: " + ex);
