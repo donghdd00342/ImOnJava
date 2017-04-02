@@ -52,7 +52,11 @@ public class ServerThread extends Thread {
 		    // gửi Danh sách và thông báo đến các thành viên
 		    // to-do....
 		    clientsMap.forEach((t, u) -> {
-			 Untilities.sendTo(new WinterTransporter(1, new HelloClient(t, Untilities.toArray(clientsMap.keySet()))), u.getInetAddressClient(), u.getPortClient());
+			 Untilities.sendTo(
+				 new WinterTransporter(1, new HelloClient(t, Untilities.toArray(clientsMap.keySet()))),
+				 u.getInetAddressClient(),
+				 u.getPortClient()
+			 );
 		    });
 		    // chờ UDP phía Server
 		    System.out.println("chờ UDP...");
@@ -70,11 +74,18 @@ public class ServerThread extends Thread {
 			 is = new ObjectInputStream(new BufferedInputStream(byteStream));
 			 o = (WinterTransporter) is.readObject();
 			 is.close();
+			 ///////////////////////////////////////////////////////
 			 // xử lý WinterTransporter
 			 if (o.getTypeOfMessage() == 4) {
+			      // gửi thông báo WinterTransporter đến mọi người
+			      for (Map.Entry<String, Client> entry : clientsMap.entrySet()) {
+				   Client value = entry.getValue();
+				   Untilities.sendTo(o, value.getInetAddressClient(), value.getPortClient());
+			      }
 			      System.out.println("Client gửi ms kiểu: " + o.getTypeOfMessage());
 			      break;
 			 }
+			 ///////////////////////////////////////////////////////
 		    }
 		    /////////////////////////////////////////////////////////////
 	       }
