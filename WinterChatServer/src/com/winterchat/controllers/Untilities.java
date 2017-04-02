@@ -5,6 +5,7 @@
  */
 package com.winterchat.controllers;
 
+import com.winterchat.entities.Client;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,7 +45,23 @@ public class Untilities {
 	       System.err.println("Lỗi:  " + e);
 	  }
      }
+
+     public static void sendTo(Object o, Map<String, Client> clientsMap) {
+	  for (Map.Entry<String, Client> entry : clientsMap.entrySet()) {
+	       Client value = entry.getValue();
+	       Untilities.sendTo(o, value.getInetAddressClient(), value.getPortClient());
+	  }
+     }
+
      public static String[] toArray(Set set) {
+	  String[] myString = new String[set.size()];
+	  Iterator itr = set.iterator();
+	  int i = 0;
+	  while (itr.hasNext()) {
+	       myString[i] = itr.next().toString();
+	       System.out.println("IN KIỂM TRA myString[i]: " + myString[i]);
+	       ++i;
+	  }
 	  return null;
      }
 }
