@@ -9,6 +9,7 @@ import com.winterchat.entities.ClientSession;
 import com.winterchat.entities.CommonMessage;
 import com.winterchat.entities.GoodbyeClient;
 import com.winterchat.entities.HelloClient;
+import com.winterchat.entities.PrivateMessage;
 import com.winterchat.entities.WinterTransporter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedInputStream;
@@ -23,6 +24,7 @@ import java.net.DatagramSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -237,11 +239,13 @@ public class LoginUI extends javax.swing.JFrame {
 			 errNickName.setText(response);
 		    } else {
 			 errNickName.setText("");
-			 // tạo một Session Client
+			 // tạo Session Client
 			 ClientSession clientSession = new ClientSession(ms, hostName, portServer, socket.getInetAddress(), socket.getLocalPort());
+			 // tạo danh sách chat rỗng
+			 clientSession.setListPrivateChatPerson(new HashMap());
 			 // ẩn Login UI
 			 this.setVisible(false);
-			 // hiện ChatUI
+			 // hiện ClientChatUI
 			 ClientChatUI clientChatUI = new ClientChatUI(clientSession);
 			 clientChatUI.setVisible(true);
 
@@ -260,6 +264,10 @@ public class LoginUI extends javax.swing.JFrame {
 					DefaultTableModel model = (DefaultTableModel) clientChatUI.getTblListUser().getModel();
 					HelloClient helloClient;
 					GoodbyeClient goodbyeClient;
+					CommonMessage commonMessage;
+					PrivateMessage privateMessage;					
+					
+					PrivateChatUI privateChatUI;
 
 					while (true) {
 					     System.out.println("Client chờ UDP ở đây...");
@@ -274,7 +282,9 @@ public class LoginUI extends javax.swing.JFrame {
 						  case 1:
 						       helloClient = (HelloClient) o.getMessageObject();
 						       // thông báo
-						       clientChatUI.getTxtAreaChat().append("[" + helloClient.getNickName() + " đã tham chiến cùng anh em.]\n");
+						       clientChatUI
+							       .getTxtAreaChat()
+							       .append("[" + helloClient.getNickName() + " đã tham chiến cùng anh em.]\n");
 						       // cập nhật danh sách
 						       model.setRowCount(0);
 						       // tạo mới danh sách User
@@ -284,46 +294,53 @@ public class LoginUI extends javax.swing.JFrame {
 						       }
 						       break;
 						  case 2:
-						       CommonMessage commonMessage = (CommonMessage) o.getMessageObject();
+						       commonMessage = (CommonMessage) o.getMessageObject();
+						       String nickName2 = commonMessage.getNickName();
+						       String message2 = commonMessage.getMessage();
 						       // thông báo
-						       clientChatUI.getTxtAreaChat().append(((clientSession.getNickName().equals(commonMessage.getNickName())) ? "Tôi" : commonMessage.getNickName()) + " : " + commonMessage.getMessage() + "\n");
+						       clientChatUI
+							       .getTxtAreaChat()
+							       .append(((clientSession.getNickName().equals(nickName2)) ? "Tôi" : nickName2) + " : " + message2 + "\n");
+						       break;
+						  case 3:
+						       privateMessage = (PrivateMessage) o.getMessageObject();
+						       String from3 = privateMessage.getFrom();
+						       String to3 = privateMessage.getTo();
+						       String message3 = privateMessage.getMessage();
+						       
+						       // thêm người gửi vào danh sách chat
+						       if (!clientSession.getListPrivateChatPerson().containsKey(from3)) {
+							    clientSession.getListPrivateChatPerson().put(from3, new PrivateChatUI(from3));
+							    // gửi tin nhắn riêng
+							    privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
+							    privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+						       } else {
+							    // gửi tin nhắn riêng
+							    privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(from3);
+							    privateChatUI.getTxtAreaPrivateChat().append(from3 + " : " + message3 + "\n");
+						       }
 						       break;
 						  case 4:
 						       goodbyeClient = (GoodbyeClient) o.getMessageObject();
+						       String nickName4 = goodbyeClient.getNickName();
 						       // thông báo
-						       clientChatUI.getTxtAreaChat().append("[" + goodbyeClient.getNickName() + " đã rời phòng.]\n");
-						       // cập nhật lại danh sách
-						       clientSession.getListUser().remove(goodbyeClient.getNickName());
+						       clientChatUI.getTxtAreaChat().append("[" + nickName4 + " đã rời phòng.]\n");
+						       // thông báo đến danh sách chát riêng
+						       if (clientSession.getListPrivateChatPerson().containsKey(nickName4)) {
+							    // thông báo người chat đã thoát
+							    privateChatUI = (PrivateChatUI) clientSession.getListPrivateChatPerson().get(nickName4);
+							    privateChatUI.getTxtAreaPrivateChat().append("[" + nickName4 + " đã thoát!]");
+							    // loại khỏi danh sách chat
+							    clientSession.getListPrivateChatPerson().remove(nickName4);
+						       }
+						       // cập nhật lại danh sách user
+						       clientSession.getListUser().remove(nickName4);
 						       model.setRowCount(0);
 						       for (Object object : clientSession.getListUser()) {
 							    model.addRow(new String[]{object.toString()});
 						       }
 						       break;
 					     }
-//					     if (o.getTypeOfMessage() == 1) {
-//						  helloClient = (HelloClient) o.getMessageObject();
-//						  // thông báo
-//						  clientChatUI.getTxtAreaChat().append(helloClient.getNickName() + " đã tham chiến cùng anh em...\n");
-//						  // cập nhật danh sách
-////						  model = (DefaultTableModel) clientChatUI.getTblListUser().getModel();
-//						  model.setRowCount(0);
-//						  // tạo mới danh sách User
-//						  clientSession.setListUser(new ArrayList(Arrays.asList(helloClient.getListName())));
-//						  for (Object object : clientSession.getListUser()) {
-//						       model.addRow(new String[]{object.toString()});
-//						  }
-//					     }
-//					     if (o.getTypeOfMessage() == 4) {
-//						  goodbyeClient = (GoodbyeClient) o.getMessageObject();
-//						  // thông báo
-//						  clientChatUI.getTxtAreaChat().append(goodbyeClient.getNickName() + " đã rời phòng.\n");
-//						  // cập nhật lại danh sách
-//						  clientSession.getListUser().remove(goodbyeClient.getNickName());
-//						  model.setRowCount(0);
-//						  for (Object object : clientSession.getListUser()) {
-//						       model.addRow(new String[]{object.toString()});
-//						  }
-//					     }
 					     /////////////////////////////////////////////////////////////////
 					}
 				   } catch (IOException | ClassNotFoundException e) {

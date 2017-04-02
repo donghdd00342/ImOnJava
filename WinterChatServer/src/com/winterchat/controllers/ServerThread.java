@@ -8,6 +8,7 @@ package com.winterchat.controllers;
 import com.winterchat.entities.Client;
 import com.winterchat.entities.GoodbyeClient;
 import com.winterchat.entities.HelloClient;
+import com.winterchat.entities.PrivateMessage;
 import com.winterchat.entities.WinterTransporter;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -70,18 +71,29 @@ public class ServerThread extends Thread {
 			 is.close();
 			 ///////////////////////////////////////////////////////
 			 // xử lý WinterTransporter
-			 if (o.getTypeOfMessage() == 2) {
-			      // gửi thông báo WinterTransporter đến mọi người
-			      Untilities.sendTo(o, clientsMap);
-			 }
-			 if (o.getTypeOfMessage() == 4) {
-			      // cập nhật lại danh sách
-			      GoodbyeClient goodbyeClient = (GoodbyeClient) o.getMessageObject();
-			      clientsMap.remove(goodbyeClient.getNickName());
-			      // gửi thông báo WinterTransporter đến mọi người
-			      Untilities.sendTo(o, clientsMap);
-			      System.out.println("Client gửi ms kiểu: " + o.getTypeOfMessage());
-			      //break; // cần test lại trên mạng thật...
+			 switch (o.getTypeOfMessage()) {
+			      case 2:
+				   // gửi thông báo WinterTransporter đến mọi người
+				   Untilities.sendTo(o, clientsMap);
+				   break;
+			      case 3:
+				   PrivateMessage privateMessage = (PrivateMessage) o.getMessageObject();
+				   // gửi tin nhắn cho người nhận
+				   Untilities.sendTo(
+					   o, 
+					   clientsMap.get(privateMessage.getTo()).getInetAddressClient(), 
+					   clientsMap.get(privateMessage.getTo()).getPortClient()
+				   );
+				   break;
+			      case 4:
+				   // cập nhật lại danh sách
+				   GoodbyeClient goodbyeClient = (GoodbyeClient) o.getMessageObject();
+				   clientsMap.remove(goodbyeClient.getNickName());
+				   // gửi thông báo WinterTransporter đến mọi người
+				   Untilities.sendTo(o, clientsMap);
+				   System.out.println("Client gửi ms kiểu: " + o.getTypeOfMessage());
+				   //break; // cần test lại trên mạng thật...
+				   break;
 			 }
 			 ///////////////////////////////////////////////////////
 		    }

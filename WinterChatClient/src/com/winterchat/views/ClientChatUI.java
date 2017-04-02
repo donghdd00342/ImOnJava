@@ -13,9 +13,8 @@ import com.winterchat.entities.WinterTransporter;
 import java.awt.event.KeyEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 
@@ -170,6 +169,13 @@ public class ClientChatUI extends javax.swing.JFrame {
 
      private void btnPrivateChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrivateChatActionPerformed
 	  // TODO add your handling code here:
+	  int row = tblListUser.getSelectedRow();
+	  if (row != -1) {
+	       // bắt đầu chat
+
+	  } else {
+	       JOptionPane.showMessageDialog(this, "Hãy chọn thành viên để chát");
+	  }
      }//GEN-LAST:event_btnPrivateChatActionPerformed
 
      private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -194,19 +200,21 @@ public class ClientChatUI extends javax.swing.JFrame {
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 	  // TODO add your handling code here:
-	  try {
-	       // gửi thông báo đến server
-	       Untilities.sendTo(new WinterTransporter(4, new GoodbyeClient(clientSessiton.getNickName())), InetAddress.getByName(clientSessiton.getHostName()), clientSessiton.getPortServer());
-	  } catch (UnknownHostException ex) {
-	       System.err.println("Lỗi tạo Inet: " + ex);
+	  if (JOptionPane.showConfirmDialog(this, "Bạn có chắc là muốn thoát?") == 0) {
+	       try {
+		    // gửi thông báo đến server
+		    Untilities.sendTo(new WinterTransporter(4, new GoodbyeClient(clientSessiton.getNickName())), InetAddress.getByName(clientSessiton.getHostName()), clientSessiton.getPortServer());
+	       } catch (UnknownHostException ex) {
+		    System.err.println("Lỗi tạo Inet: " + ex);
+	       }
+	       System.exit(0);
 	  }
-	  System.exit(0);
      }//GEN-LAST:event_jButton2ActionPerformed
 
      /**
       * Hàm thao tác trên JFrame
       *
-      * @return 
+      * @return
       * @Author DongHo
       */
      public JTable getTblListUser() {
@@ -239,33 +247,33 @@ public class ClientChatUI extends javax.swing.JFrame {
      /**
       * @param args the command line arguments
       */
-     public static void main(String args[]) {
-	  /* Set the Nimbus look and feel */
-	  //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-	  /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-	   */
-	  try {
-	       for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-		    if ("Windows".equals(info.getName())) {
-			 javax.swing.UIManager.setLookAndFeel(info.getClassName());
-			 break;
-		    }
-	       }
-	  } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-	       java.util.logging.Logger.getLogger(ClientChatUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	  }
-	  //</editor-fold>
-	  //</editor-fold>
-
-	  //</editor-fold>
-	  //</editor-fold>
-
-	  /* Create and display the form */
-	  java.awt.EventQueue.invokeLater(() -> {
-	       new ClientChatUI(null).setVisible(true);
-	  });
-     }
+//     public static void main(String args[]) {
+//	  /* Set the Nimbus look and feel */
+//	  //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//	  /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//	   */
+//	  try {
+//	       for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//		    if ("Windows".equals(info.getName())) {
+//			 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//			 break;
+//		    }
+//	       }
+//	  } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+//	       java.util.logging.Logger.getLogger(ClientChatUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//	  }
+//	  //</editor-fold>
+//	  //</editor-fold>
+//
+//	  //</editor-fold>
+//	  //</editor-fold>
+//
+//	  /* Create and display the form */
+//	  java.awt.EventQueue.invokeLater(() -> {
+//	       new ClientChatUI(null).setVisible(true);
+//	  });
+//     }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JButton btnPrivateChat;
