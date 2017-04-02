@@ -5,11 +5,14 @@
  */
 package com.winterchat.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DongHo
  */
-public class WinterTransporter {
+public class WinterTransporter implements Serializable {
+
      private int typeOfMessage;
      private Object MessageObject;
 
@@ -32,6 +35,6 @@ public class WinterTransporter {
 
      public void setMessageObject(Object MessageObject) {
 	  this.MessageObject = MessageObject;
-     }
-     
+     }   
+
 }

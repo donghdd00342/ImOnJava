@@ -5,7 +5,13 @@
  */
 package com.winterchat.views;
 
+import com.winterchat.controllers.Untilities;
+import com.winterchat.entities.ClientSession;
+import com.winterchat.entities.GoodbyeClient;
+import com.winterchat.entities.WinterTransporter;
 import java.awt.event.KeyEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import javax.swing.JFrame;
 
 /**
@@ -14,10 +20,15 @@ import javax.swing.JFrame;
  */
 public class ClientChatUI extends javax.swing.JFrame {
 
+     private final ClientSession clientSessiton;
+
      /**
       * Creates new form ClientUI
+      *
+      * @param clientSessiton
       */
-     public ClientChatUI() {
+     public ClientChatUI(ClientSession clientSessiton) {
+	  this.clientSessiton = clientSessiton;
 	  initComponents();
 	  setLocationRelativeTo(null);
 	  txtAreaChat.setEditable(false);
@@ -176,12 +187,19 @@ public class ClientChatUI extends javax.swing.JFrame {
      }//GEN-LAST:event_txtMessageKeyPressed
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-          // TODO add your handling code here:
+	  // TODO add your handling code here:
+	  try {
+	       // gửi thông báo đến server
+	       Untilities.sendTo(new WinterTransporter(4, new GoodbyeClient(clientSessiton.getNickName())), InetAddress.getByName(clientSessiton.getHostName()), clientSessiton.getPortServer());
+	  } catch (UnknownHostException ex) {
+	       System.err.println("Lỗi tạo Inet: " + ex);
+	  }
 	  System.exit(0);
      }//GEN-LAST:event_jButton2ActionPerformed
 
      /**
       * Hàm thao tác trên JFrame
+      *
       * @Author DongHo
       */
      public void pressSend() {
@@ -190,9 +208,9 @@ public class ClientChatUI extends javax.swing.JFrame {
 	       txtMessage.setText("");
 	  } else {
 	       txtMessage.setText("");
-	       return;
 	  }
      }
+
      /**
       * @param args the command line arguments
       */
@@ -209,23 +227,18 @@ public class ClientChatUI extends javax.swing.JFrame {
 			 break;
 		    }
 	       }
-	  } catch (ClassNotFoundException ex) {
-	       java.util.logging.Logger.getLogger(ClientChatUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	  } catch (InstantiationException ex) {
-	       java.util.logging.Logger.getLogger(ClientChatUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	  } catch (IllegalAccessException ex) {
-	       java.util.logging.Logger.getLogger(ClientChatUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-	  } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+	  } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
 	       java.util.logging.Logger.getLogger(ClientChatUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	  }
 	  //</editor-fold>
 	  //</editor-fold>
+	  
+	  //</editor-fold>
+	  //</editor-fold>
 
 	  /* Create and display the form */
-	  java.awt.EventQueue.invokeLater(new Runnable() {
-	       public void run() {
-		    new ClientChatUI().setVisible(true);
-	       }
+	  java.awt.EventQueue.invokeLater(() -> {
+	       new ClientChatUI(null).setVisible(true);
 	  });
      }
 

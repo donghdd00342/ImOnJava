@@ -5,6 +5,8 @@
  */
 package com.winterchat.views;
 
+import com.winterchat.entities.ClientSession;
+import com.winterchat.entities.WinterTransporter;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -153,7 +155,7 @@ public class LoginUI extends javax.swing.JFrame {
      /**
       *********************************************************************
       * Các hàm của Đông ở đây
-      *********************************************************************
+      * ********************************************************************
       */
      /**
       * Validate trước khi gửi thông tin đăng nhập
@@ -211,10 +213,12 @@ public class LoginUI extends javax.swing.JFrame {
 			 errNickName.setText(response);
 		    } else {
 			 errNickName.setText("");
+			 // tạo một Session Client
+			 ClientSession clientSession = new ClientSession(ms, hostName, portServer, socket.getInetAddress(), socket.getLocalPort());
 			 // ẩn Login UI
 			 this.setVisible(false);
 			 // hiện ChatUI
-			 new ClientChatUI().setVisible(true);
+			 new ClientChatUI(clientSession).setVisible(true);
 
 			 /////////////////////////////////////////////////////////////
 			 // chờ ngầm
@@ -226,17 +230,17 @@ public class LoginUI extends javax.swing.JFrame {
 					DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 					ByteArrayInputStream byteStream;
 					ObjectInputStream is;
-					Object o;
+					WinterTransporter o;
 
-					System.out.println("Client chờ UDP ở đây...");
-
-					while (rootPaneCheckingEnabled) {
+					while (true) {
+					     System.out.println("Client chờ UDP ở đây...");
 					     dgs.receive(packet); // chờ nhận packet
 					     byteStream = new ByteArrayInputStream(recvBuf);
 					     is = new ObjectInputStream(new BufferedInputStream(byteStream));
-					     o = is.readObject();
-					     // xử lý Object
+					     o = (WinterTransporter) is.readObject();
 					     is.close();
+					     // xử lý WinterTransporter
+					     System.out.println("Server gửi ms kiểu: " + o.getTypeOfMessage());
 					}
 				   } catch (IOException | ClassNotFoundException e) {
 					System.err.println("Lỗi: " + e);
@@ -248,7 +252,7 @@ public class LoginUI extends javax.swing.JFrame {
 			 /////////////////////////////////////////////////////////////
 		    }
 	       }
-	  //} catch (IOException | ClassNotFoundException ex) {
+	       //} catch (IOException | ClassNotFoundException ex) {
 	  } catch (IOException ex) {
 	       errHostName.setForeground(new java.awt.Color(255, 0, 0));
 	       errHostName.setText(ex + "");

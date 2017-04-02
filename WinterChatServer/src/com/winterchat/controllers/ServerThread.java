@@ -6,6 +6,8 @@
 package com.winterchat.controllers;
 
 import com.winterchat.entities.Client;
+import com.winterchat.entities.HelloClient;
+import com.winterchat.entities.WinterTransporter;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -45,6 +47,13 @@ public class ServerThread extends Thread {
 		    ps.println("ok");
 		    // lưu Client vào Map
 		    clientsMap.put(request, new Client(socket.getInetAddress(), socket.getPort()));
+		    // chờ 1s
+		    Thread.sleep(1000);
+		    // gửi Danh sách và thông báo đến các thành viên
+		    // to-do....
+		    clientsMap.forEach((t, u) -> {
+			 Untilities.sendTo(new WinterTransporter(1, new HelloClient(t, Untilities.toArray(clientsMap.keySet()))), u.getInetAddressClient(), u.getPortClient());
+		    });
 		    // chờ UDP phía Server
 		    System.out.println("chờ UDP...");
 		    /////////////////////////////////////////////////////////////
@@ -53,19 +62,23 @@ public class ServerThread extends Thread {
 		    DatagramSocket dgs = new DatagramSocket(socket.getLocalPort());
 		    ByteArrayInputStream byteStream;
 		    ObjectInputStream is;
-		    Object o;
-		    System.out.println("Server bắt đầu chờ UDP tại đây!....");
+		    WinterTransporter o;
 		    while (true) {
+			 System.out.println("Server bắt đầu chờ UDP tại đây!....");
 			 dgs.receive(packet); // chờ nhận packet
 			 byteStream = new ByteArrayInputStream(recvBuf);
 			 is = new ObjectInputStream(new BufferedInputStream(byteStream));
-			 o = is.readObject();
-			 // xử lý Object
+			 o = (WinterTransporter) is.readObject();
 			 is.close();
+			 // xử lý WinterTransporter
+			 if (o.getTypeOfMessage() == 4) {
+			      System.out.println("Client gửi ms kiểu: " + o.getTypeOfMessage());
+			      break;
+			 }
 		    }
 		    /////////////////////////////////////////////////////////////
 	       }
-	  } catch (IOException | ClassNotFoundException e) {
+	  } catch (IOException | ClassNotFoundException | InterruptedException e) {
 	       System.err.println("Lỗi: " + e);
 	  }
 	  System.out.println("Kết thúc Thread: " + socket.getInetAddress());
