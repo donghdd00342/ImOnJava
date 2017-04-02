@@ -5,8 +5,13 @@
  */
 package com.winterchat.views;
 
+import com.winterchat.controllers.Untilities;
 import com.winterchat.entities.ClientSession;
+import com.winterchat.entities.PrivateMessage;
+import com.winterchat.entities.WinterTransporter;
 import java.awt.event.KeyEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
@@ -17,13 +22,20 @@ import javax.swing.JTextArea;
 public class PrivateChatUI extends javax.swing.JFrame {
 
      private final String toPerson;
+     ClientSession clientSession;
      
      /**
       * Creates new form PrivateChatUI
+      * @param me
+      * @param withPerson
+      * @param clientSession
       */
      public PrivateChatUI(String me, String withPerson, ClientSession clientSession) {
 	  initComponents();
+	  
 	  this.toPerson = withPerson;
+	  this.clientSession = clientSession;
+	  
 	  setLocationRelativeTo(null);
 	  txtAreaPrivateChat.setEditable(false);
 	  setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -111,20 +123,20 @@ public class PrivateChatUI extends javax.swing.JFrame {
       * Hàm của ĐÔNG ở đây.
       */
      private void pressSend() {
-	  if (!txtMessagePrivate.getText().trim().equals("")) {
-//	       try {
-//		    // gửi CommonMessage tới server
-//		    //txtAreaChat.append("Tôi: "+ txtMessage.getText().trim() + "\n");
-//		    Untilities.sendTo(
-//			    new WinterTransporter(2, new CommonMessage(clientSessiton.getNickName(), txtMessage.getText().trim())),
-//			    InetAddress.getByName(clientSessiton.getHostName()),
-//			    clientSessiton.getPortServer()
-//		    );
-//	       } catch (UnknownHostException ex) {
-//		    System.err.println("Lỗi tạo Inet: " + ex);
-//	       }
-	       txtAreaPrivateChat.append("Tôi : "+ txtMessagePrivate.getText().trim() + "\n");
+	  String message = txtMessagePrivate.getText().trim();
+	  if (!message.equals("")) {
+	       txtAreaPrivateChat.append("Tôi : "+ message + "\n");
 	       txtMessagePrivate.setText("");
+	       try {
+		    // gửi PrivateMessage tới server
+		    Untilities.sendTo(
+			    new WinterTransporter(3, new PrivateMessage(clientSession.getNickName(), toPerson, message)),
+			    InetAddress.getByName(clientSession.getHostName()),
+			    clientSession.getPortServer()
+		    );
+	       } catch (UnknownHostException ex) {
+		    System.err.println("Lỗi tạo Inet: " + ex);
+	       }
 	  } else {
 	       txtMessagePrivate.setText("");
 	  }
