@@ -179,7 +179,7 @@ public class ClientChatUI extends javax.swing.JFrame {
 	       // bắt đầu chat
 	       String withPerson = tblListUser.getModel().getValueAt(row, 0).toString();
 	       if (withPerson.equals(clientSession.getNickName())) {
-		    Untilities.alert(this, "Hiện tại thì bạn không thể chát với chính mình!");
+		    Untilities.alert(this, "Bạn không thể chát với chính mình!");
 	       } else {
 		    // thêm withPerson vào danh sách chát
 		    if (!clientSession.getListPrivateChatPerson().containsKey(withPerson)) {
