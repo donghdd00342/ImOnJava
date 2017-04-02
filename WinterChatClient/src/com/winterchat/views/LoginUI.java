@@ -139,52 +139,67 @@ public class LoginUI extends javax.swing.JFrame {
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 	  // nút reset
-	  txtHostName.setText("localhost"); // 10.22.52.2
-	  txtNickName.setText("");
-	  txtPort.setText("8888");
+	  resetLogin();
      }//GEN-LAST:event_jButton2ActionPerformed
 
      private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 	  // nút Đăng nhập
+	  if (validates()) {
+	       connectToServer(txtHostName.getText(), Integer.valueOf(txtPort.getText()));
+	  }
+
+     }//GEN-LAST:event_jButton1ActionPerformed
+
+     /**
+      *********************************************************************
+      * Các hàm của Đông ở đây
+      *********************************************************************
+      */
+     /**
+      * Validate trước khi gửi thông tin đăng nhập
+      *
+      * @return
+      */
+     private boolean validates() {
 	  if (txtHostName.getText().trim().equals("") || txtPort.getText().trim().equals("")) {
 	       errHostName.setForeground(new java.awt.Color(255, 0, 0));
 	       errHostName.setText("Không để trống HostName và Port");
-	       return;
+	       return false;
 	  } else {
 	       errHostName.setText("");
 	  }
 	  if (txtNickName.getText().trim().length() < 5) {
 	       errNickName.setText("NickName phải lớn hơn hoặc bằng 5 ký tự!");
-	       return;
+	       return false;
 	  } else {
 	       errNickName.setText("");
 	  }
-	  connectToServer(txtHostName.getText(), Integer.valueOf(txtPort.getText()));
-
-     }//GEN-LAST:event_jButton1ActionPerformed
+	  return true;
+     }
 
      /**
-      * ********************************************************************
-      * Các hàm của Đông
-      * ********************************************************************
-      *
-      * /
-      *
-      **
+      * Hàm reset Login
+      */
+     private void resetLogin() {
+	  // nút reset
+	  txtHostName.setText("localhost"); // 10.22.52.2
+	  txtNickName.setText("");
+	  txtPort.setText("8888");
+     }
+
+     /**
       * @param hostName
       * @param portServer
       */
      public void connectToServer(String hostName, int portServer) {
 	  try {
 	       Socket socket = new Socket(hostName, portServer);
-//	       int clientPort = socket.getLocalPort();
-//	       DatagramSocket dgs = new DatagramSocket(clientPort); // nhận qua socket
 	       DatagramSocket dgs = new DatagramSocket(socket.getLocalPort());
-	       
+
 	       errHostName.setForeground(new java.awt.Color(0, 153, 51));
 	       errHostName.setText("Kết nối thành công tới Server");
 	       PrintStream ps = new PrintStream(socket.getOutputStream());
-	       
+
 	       // gửi dữ liệu lên server
 	       String ms = txtNickName.getText();
 	       ps.println(ms);
@@ -197,29 +212,44 @@ public class LoginUI extends javax.swing.JFrame {
 		    } else {
 			 errNickName.setText("");
 			 // ẩn Login UI
-//			 this.setVisible(false);
+			 this.setVisible(false);
 			 // hiện ChatUI
 			 new ClientChatUI().setVisible(true);
-			 // chờ UDP phía Client ở đây
-			 System.out.println("Client chờ UDP ở đây...");
+
 			 /////////////////////////////////////////////////////////////
-			 byte[] recvBuf = new byte[5000];
-			 DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-			 ByteArrayInputStream byteStream;
-			 ObjectInputStream is;
-			 Object o;
-			 
-			 dgs.receive(packet); // chờ nhận packet
-			 byteStream = new ByteArrayInputStream(recvBuf);
-			 is = new ObjectInputStream(new BufferedInputStream(byteStream));
-			 o = is.readObject();			 
-			 // xử lý Object
-			 is.close();
-			 
+			 // chờ ngầm
+			 Thread thread = new Thread() {
+			      @Override
+			      public void run() {
+				   try {
+					byte[] recvBuf = new byte[5000];
+					DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+					ByteArrayInputStream byteStream;
+					ObjectInputStream is;
+					Object o;
+
+					System.out.println("Client chờ UDP ở đây...");
+
+					while (rootPaneCheckingEnabled) {
+					     dgs.receive(packet); // chờ nhận packet
+					     byteStream = new ByteArrayInputStream(recvBuf);
+					     is = new ObjectInputStream(new BufferedInputStream(byteStream));
+					     o = is.readObject();
+					     // xử lý Object
+					     is.close();
+					}
+				   } catch (IOException | ClassNotFoundException e) {
+					System.err.println("Lỗi: " + e);
+				   }
+			      }
+
+			 };
+			 thread.start();
 			 /////////////////////////////////////////////////////////////
 		    }
 	       }
-	  } catch (IOException | ClassNotFoundException ex) {
+	  //} catch (IOException | ClassNotFoundException ex) {
+	  } catch (IOException ex) {
 	       errHostName.setForeground(new java.awt.Color(255, 0, 0));
 	       errHostName.setText(ex + "");
 	  }
