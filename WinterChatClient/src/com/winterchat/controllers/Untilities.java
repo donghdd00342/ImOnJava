@@ -33,7 +33,7 @@ public class Untilities {
 		    os.writeObject(o);
 		    os.flush();
 		    byte[] sendByte = byteStream.toByteArray();
-		    DatagramPacket packet = new DatagramPacket(sendByte, sendByte.length, inetAddress, desPort);
+		    DatagramPacket packet = new DatagramPacket(sendByte, sendByte.length, inetAddress, 8888);
 		    // gửi Packet
 		    DatagramSocket dgs = new DatagramSocket();
 		    dgs.send(packet);
