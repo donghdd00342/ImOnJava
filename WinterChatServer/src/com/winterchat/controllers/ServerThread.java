@@ -78,7 +78,7 @@ public class ServerThread extends Thread {
 				   CommonMessage commonMessage = (CommonMessage) o.getMessageObject();
 				   if (commonMessage.getMessage().startsWith("/kick")) {
 					String kickPerson = "";
-					String reason;
+					String reason = "";
 					try {
 					     kickPerson = commonMessage.getMessage().split("<password>")[1];
 					     reason = commonMessage.getMessage().split("<password>")[2];
@@ -86,7 +86,28 @@ public class ServerThread extends Thread {
 					     System.err.println("Lỗi sai cú pháp câu lệnh /kick");
 					}
 					if (clientsMap.containsKey(kickPerson)) {
-					     // gửi thông báo đến mọi người
+					     // Xử lý kick...
+					     for (Thread t : Thread.getAllStackTraces().keySet()) {
+						  System.out.println(t.getName());
+						  if (t.getName().equals(kickPerson)) {
+						       t.interrupt();
+						       System.out.println("Đã ngắt kết nối với " + t.getName());
+						       // gửi thông báo
+						       String message = "Thành viên [" + kickPerson + "] bị kick vì \"" + reason + "\".";
+						       Untilities.sendTo(new WinterTransporter(2, new CommonMessage("HỆ THỐNG", message)), clientsMap);
+						  }
+					     }
+					}
+				   } else if (commonMessage.getMessage().startsWith("/adminSay")) {
+					String message = "";
+					try {
+					     message = commonMessage.getMessage().split("<password>")[1];
+					} catch (Exception e) {
+					     System.err.println("Lỗi sai cú pháp câu lệnh /adminSay");
+					}
+					if (!"".equals(message.trim())) {
+					     // gửi thông báo chung
+					     Untilities.sendTo(new WinterTransporter(2, new CommonMessage("HỆ THỐNG", message)), clientsMap);
 					}
 				   } else {
 					// gửi thông báo WinterTransporter đến mọi người
@@ -125,3 +146,8 @@ public class ServerThread extends Thread {
      }
 
 }
+/**
+ * Hướng dẫn sử dụng: coppy câu lệnh cho nhanh <password>
+ * Kick thành viên: /kick<password>TÊN_THANH_VIÊN<password>Lý_DO_KICK
+ * Gửi nhân danh HỆ THỐNG: /adminSay<password> ... nội dung ở đây ...
+ */
