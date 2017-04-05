@@ -66,7 +66,7 @@ public class LoginUI extends javax.swing.JFrame {
 
           jLabel1.setText("Host Address");
 
-          txtHostName.setText("localhost");
+          txtHostName.setText("10.22.52.151");
 
           jLabel2.setText("Nick Name");
 

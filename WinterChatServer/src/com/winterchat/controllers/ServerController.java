@@ -21,6 +21,7 @@ public class ServerController {
      public static void start() {
 	  // tạo HashMap lưu thông tin các kết nối
 	  Map<String, Client> clientsMap = new HashMap<>();
+	  Map<String, Thread> threadsMap = new HashMap<>();
 	  // khởi tạo server
 	  try {
 	       System.out.println("Khởi tạo server!");
@@ -34,7 +35,7 @@ public class ServerController {
 		    ++count;
 		    System.out.println("[" + count + "]. Kết nối thành công với [" + socket.getInetAddress() + "]");
 		    // đẩy sang Thread xử lý
-		    new ServerThread(socket, clientsMap).start();
+		    new ServerThread(socket, clientsMap, threadsMap).start();
 	       }
 	  } catch (IOException ex) {
 	       System.err.println("Lỗi: " + ex);

@@ -30,11 +30,13 @@ import java.util.Map;
 public class ServerThread extends Thread {
 
      private final Map<String, Client> clientsMap;
+     private final Map<String, Thread> threadsMap;
      private final Socket socket;
 
-     public ServerThread(Socket socket, Map<String, Client> clientsMap) {
+     public ServerThread(Socket socket, Map<String, Client> clientsMap, Map<String, Thread> threadsMap) {
 	  this.socket = socket;
 	  this.clientsMap = clientsMap;
+	  this.threadsMap = threadsMap;
      }
 
      @Override
@@ -50,8 +52,10 @@ public class ServerThread extends Thread {
 		    ps.println("ok");
 		    // lưu Client vào Map
 		    clientsMap.put(request, new Client(socket.getInetAddress(), socket.getPort()));
+		    // lưu Thread
+		    threadsMap.put(request, this);
 		    // chờ 1s
-		    this.setName(request);
+//		    this.setName(request);
 		    Thread.sleep(100);
 		    // gửi Danh sách và thông báo đến các thành viên
 		    Untilities.sendTo(new WinterTransporter(1, new HelloClient(request, Untilities.toArray(clientsMap.keySet()))), clientsMap);
@@ -85,18 +89,14 @@ public class ServerThread extends Thread {
 					} catch (Exception e) {
 					     System.err.println("Lỗi sai cú pháp câu lệnh /kick");
 					}
-					if (clientsMap.containsKey(kickPerson)) {
-					     // Xử lý kick...
-					     for (Thread t : Thread.getAllStackTraces().keySet()) {
-						  System.out.println(t.getName());
-						  if (t.getName().equals(kickPerson)) {
-						       t.interrupt();
-						       System.out.println("Đã ngắt kết nối với " + t.getName());
-						       // gửi thông báo
-						       String message = "Thành viên [" + kickPerson + "] bị kick vì \"" + reason + "\".";
-						       Untilities.sendTo(new WinterTransporter(2, new CommonMessage("HỆ THỐNG", message)), clientsMap);
-						  }
-					     }
+					if (threadsMap.containsKey(kickPerson)) {
+					     threadsMap.get(kickPerson).interrupt();
+					     System.out.println("Đã ngắt kết nối với [" + kickPerson + "]");
+					     // gửi thông báo chung kèm lý do
+					     String message = "Thành viên [" + kickPerson + "] bị kick vì \"" + reason + "\".";
+					     Untilities.sendTo(new WinterTransporter(2, new CommonMessage("HỆ THỐNG", message)), clientsMap);
+					     // thông báo thoát
+					     Untilities.sendTo(new WinterTransporter(4, new GoodbyeClient(kickPerson)), clientsMap);
 					}
 				   } else if (commonMessage.getMessage().startsWith("/adminSay")) {
 					String message = "";
@@ -148,6 +148,6 @@ public class ServerThread extends Thread {
 }
 /**
  * Hướng dẫn sử dụng: coppy câu lệnh cho nhanh <password>
- * Kick thành viên: /kick<password>TÊN_THANH_VIÊN<password>Lý_DO_KICK
- * Gửi nhân danh HỆ THỐNG: /adminSay<password> ... nội dung ở đây ...
+ * Kick thành viên: /kick<password>TÊN_THANH_VIÊN<password>Lý_DO_KICK Gửi nhân
+ * danh HỆ THỐNG: /adminSay<password> ... nội dung ở đây ...
  */
