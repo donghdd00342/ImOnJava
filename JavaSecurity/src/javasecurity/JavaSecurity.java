@@ -11,7 +11,10 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- *
+ * 1. Down "Binaries" http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * 2. Add vào libarary
+ * 3. Tham khảo: https://docs.oracle.com/javase/7/docs/api/javax/crypto/Cipher.html
+ * 
  * @author DongHo
  */
 public class JavaSecurity {
